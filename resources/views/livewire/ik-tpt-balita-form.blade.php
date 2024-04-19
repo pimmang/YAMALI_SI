@@ -1,7 +1,7 @@
 <div class="h-fit w-full  pb-20">
     <div class="w-full rounded-xl h-fit bg-white shadow-lg mb-6 p-4 grid grid-cols-2">
         <div class="w-full pe-4">
-            <p class="text-sm font-bold mb-2">Cari data dari investigasi kontak Rumah Tangga</p>
+            <p class="text-sm font-bold mb-2">Cari data dari investigasi kontak TPT</p>
             <form action="" class="flex flex-col gap-2 p-5">
                 <div class="text-xs">
                     <label for="tahun&semester" class="block mb-2 text-xs font-medium text-gray-900 dark:text-white">Tahun
@@ -52,7 +52,7 @@
             </form>
         </div>
         <div class="w-full ps-4 border-l border-orange-500">
-            <p class="text-sm font-bold mb-2">List Data Investigasi Kontak Rumah Tangga</p>
+            <p class="text-sm font-bold mb-2">List Data Investigasi Kontak TPT</p>
             <div class="w-full h-5/6 flex justify-center items-center flex-col">
                 <i class="ph ph-database text-3xl"></i>
                 Data akan muncul di sini
@@ -109,11 +109,11 @@
             </div> --}}
 
             <div>
-                <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                <label for="namaIndex" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Index
                 </label>
-                <input type="text" id="nama"
+                <input type="text" id="namaIndex"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                    placeholder="Nama Pasien" required />
+                    placeholder="Nama Index" required />
             </div>
 
             <div>
@@ -122,6 +122,14 @@
                 <input type="text" id="last_name"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="No. Register TBC.03/06 Indeks" required />
+            </div>
+
+            <div>
+                <label for="namaKontak" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Kontak
+                </label>
+                <input type="text" id="namaKontak"
+                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                    placeholder="Nama Kontak" required />
             </div>
             {{-- <div>
                 <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
@@ -142,7 +150,7 @@
 
             <div>
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
-                    Kelamin</label>
+                    Kelamin Kontak</label>
                 <select id="countries"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
@@ -152,9 +160,10 @@
             </div>
 
             <div>
-                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Umur</label>
+                <label for="umur" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Umur
+                    Kontak</label>
                 <div class="relative flex overflow-hidden rounded-lg">
-                    <input type="url" id="website"
+                    <input type="url" id="umur"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                         placeholder="Umur" required />
                     <div
@@ -166,59 +175,39 @@
 
 
 
-
-
-
-
-            {{-- <div>
-                <label for="kecamatan"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
-                <select id="kecamatan"
-                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    <option selected>Pilih</option>
-                    @if ($kecamatan)
-                        @foreach ($kecamatan as $kec)
-                            <option value={{ ucwords(strtolower($kec->name)) }}>{{ ucwords(strtolower($kec->name)) }}
-                            </option>
-                        @endforeach
-                    @endif
-                </select>
-            </div> --}}
-
             <div class="col-span-2">
-                <label for="message"
+                <label for="alamat"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                <textarea id="message" rows="4"
+                <textarea id="alamat" rows="4"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border !border-orange-200 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="Alamat"></textarea>
             </div>
+
             <div>
-                <label for="lokasi-penyuluhan"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lokasi
-                    Penyuluhan</label>
-                <select id="lokasi-penyuluhan"
+                <label for="kontakSerumah" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kontak
+                    Serumah
+                </label>
+                <input type="text" id="kontakSerumah"
+                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                    placeholder="Kontak Serumah" required />
+            </div>
+
+            <div>
+                <label for="jenis-ik" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
+                    IK</label>
+                <select id="jenis-ik"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
-                    <option value="Balai Desa/warga">Balai Desa/Warga</option>
-                    <option value="Pertemuan RT/RW/Kel/Kec">Pertemuan RT/RW/Kel/Kec</option>
-                    <option value="Lingkungan Sekitar Tempat Tinggal">Lingkungan Sekitar Tempat Tinggal </option>
-                    <option value="Pertemuan PKK/Posyandu/Arisan">Pertemuan PKK/Posyandu/Arisan </option>
-                    <option value="Lingkungan Kupat-kumis">Lingkungan Kupat-kumis</option>
-                    <option value="Pengungsian">Pengungsian</option>
-                    <option value="Bantaran Kali">Bantaran Kali</option>
-                    <option value="Sekolah (SD/SMP/SMA)">Sekolah (SD/SMP/SMA)</option>
-                    <option value="Perguruan Tinggi">Perguruan Tinggi</option>
-                    <option value="Tempat Kerja(Perkantoran/pabrik/dll)">Tempat Kerja(Perkantoran/pabrik/dll)</option>
-                    <option value="Rutan/Lapas">Rutan/Lapas</option>
-                    <option value="Pondok Pesantren">Pondok Pesantren</option>
-                    <option value="Panti Asuhan">Panti Asuhan</option>
-                    <option value="Panti Jompo">Panti Jompo</option>
+                    <option value="pagi">Rumah Tangga</option>
+                    <option value="siang">Non Rumah Tangga</option>
+                    <option value="siang">TPT</option>
                 </select>
             </div>
+
             <div>
-                <label for="tanggal-penyuluhan"
+                <label for="tanggal-mulai-tpt"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
-                    Penyuluhan</label>
+                    Mulai TPT</label>
                 <div class="relative w-full " id="date-filter">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -231,30 +220,6 @@
                         class="bg-white border border-white text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:!border-orange-500 block w-full ps-10 p-2.5 "
                         placeholder="Select date">
                 </div>
-            </div>
-
-            <div>
-                <label for="waktu-penyuluhan"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu
-                    Penyuluhan</label>
-                <select id="waktu-penyuluhan"
-                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    <option selected>Pilih</option>
-                    <option value="pagi">Pagi</option>
-                    <option value="siang">Siang</option>
-                    <option value="malam">Malam</option>
-                </select>
-            </div>
-            <div>
-                <label for="jenis-penyuluhan"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
-                    Penyuluhan</label>
-                <select id="jenis-penyuluhan"
-                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    <option selected>Pilih</option>
-                    <option value="pagi">Budget</option>
-                    <option value="siang">Non-Budget</option>
-                </select>
             </div>
             <div>
                 <label for="provinsi"
@@ -273,6 +238,20 @@
                         <option value={{ $kab->id }}>{{ ucwords(strtolower($kab->name)) }}
                         </option>
                     @endforeach
+                </select>
+            </div>
+            <div>
+                <label for="kecamatan"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
+                <select id="kecamatan"
+                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                    <option selected>Pilih</option>
+                    @if ($kecamatan)
+                        @foreach ($kecamatan as $kec)
+                            <option value={{ ucwords(strtolower($kec->name)) }}>{{ ucwords(strtolower($kec->name)) }}
+                            </option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
             <div>
@@ -305,13 +284,6 @@
                     placeholder="Pilih Fasyankes" required />
             </div>
 
-            {{-- <div>
-                <label for="kader"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kader</label>
-                <input type="text" id="kader"
-                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                    placeholder="NIK Index" required />
-            </div> --}}
 
         </div>
 

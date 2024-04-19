@@ -20,11 +20,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // investigasi kasus
-    Route::get('/rumah-tangga', [IrtController::class, 'index']);
+    
     Route::get('/', [HomeController::class, 'index']);
+    Route::get('/rumah-tangga', function () {
+        return view('IK.ik-rumah-tangga',[
+            'status' => 'rumah-tangga',
+        ]);
+    });
     Route::get('/non-rumah-tangga', function () {
-        return view('IKNRT.ik-non-rumah-tangga',[
+        return view('IK.ik-non-rumah-tangga',[
             'status' => 'non-rumah-tangga',
+        ]);
+    });
+    Route::get('/tpt-balita', function () {
+        return view('IK.ik-tpt-balita',[
+            'status' => 'tpt-balita',
         ]);
     });
     // Route::get('/tpt-balita', [IrtController::class, 'tptBalita']);
