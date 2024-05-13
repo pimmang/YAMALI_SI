@@ -3,6 +3,7 @@
         <div class="w-full pe-4">
             <p class="text-sm font-bold mb-2">Cari data dari investigasi kontak TPT</p>
             <form action="" class="flex flex-col gap-2 p-5">
+                @csrf
                 <div class="text-xs">
                     <label for="tahun&semester" class="block mb-2 text-xs font-medium text-gray-900 dark:text-white">Tahun
                         dan Semester</label>

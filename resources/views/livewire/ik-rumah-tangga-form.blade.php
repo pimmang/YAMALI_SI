@@ -1,10 +1,11 @@
 <div class="h-fit w-full  pb-20">
-    <form>
+    <form action="/ik-rumah-tangga" method="POST">
+        @csrf
         <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div>
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sumber
+                <label for="sumberData" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sumber
                     Data</label>
-                <select id="countries"
+                <select id="sumberData" name="sumberData" required
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
                     <option value="pmdt">PMDT</option>
@@ -14,9 +15,9 @@
             </div>
 
             <div>
-                <label for="countries"
+                <label for="fasyankes"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fasyankes</label>
-                <select id="countries"
+                <select id="fasyankes" name="fasyankes" required
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
                     <option value="puskesmas">Puskesmas</option>
@@ -26,22 +27,22 @@
             </div>
 
             <div>
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tahun
+                <label for="tahunIndex" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tahun
                     Index</label>
-                <select id="countries"
+                <select id="tahunIndex" name="tahunIndex" required
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
-                    <option value="US">2021</option>
-                    <option value="CA">2022</option>
-                    <option value="FR">2023</option>
-                    <option value="DE">2024</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
                 </select>
             </div>
 
             <div>
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">semester
+                <label for="semesterIndex" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">semester
                     Index</label>
-                <select id="countries"
+                <select id="semesterIndex" required name="semesterIndex"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
                     <option value="1">1</option>
@@ -49,56 +50,56 @@
                 </select>
             </div>
             <div>
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kegiatan
+                <label for="kegiatanIk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kegiatan
                     IK</label>
-                <select id="countries"
+                <select id="kegiatanIk" name="kegiatanIk"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
                     <option value="re-visit">Re-visit</option>
                     <option value="re-ik">Re-IK (IK Ulang)</option>
                 </select>
             </div>
-
             <div>
-                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID
+                <label for="idPasien" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID
                     Pasien</label>
-                <input type="text" id="disabled-input" placeholder="ID Pasien"
+                <input type="text" id="idPasien" placeholder="ID Pasien"
                     class="bg-gray-100 border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 cursor-not-allowed"
                     value="" disabled>
             </div>
             <div>
-                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Register
+                <label for="nomorRegister" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.
+                    Register
                     TBC.03/06 Indeks</label>
-                <input type="text" id="last_name"
+                <input type="text" id="nomorRegister" name="nomorRegister"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                    placeholder="No. Register TBC.03/06 Indeks" required />
+                    placeholder="No. Register TBC.03/06 Indeks" disabled />
             </div>
             <div>
-                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                <label for="namaPasien" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                     Pasien</label>
-                <input type="text" id="company"
+                <input type="text" id="namaPasien" name="namaPasien"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="Nama Pasien" required />
             </div>
             <div>
-                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
+                <label for="nomorTerduga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
                     Terduga</label>
-                <input type="tel" id="phone"
+                <input type="tel" id="nomorTerduga" name="nomorTerduga"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                    placeholder="Nomor Terduga" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                    placeholder="Nomor Terduga" required />
             </div>
             <div>
-                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK
+                <label for="nikIndex" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK
                     Index</label>
-                <input type="text" id="website"
+                <input type="text" id="nikIndex" name="nikIndex"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="NIK Index" required />
             </div>
 
             <div>
-                <label for="tanggal-lahir" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                <label for="tanggalLahir" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
                     Lahir</label>
-                <div class="relative w-full " id="date-filter">
+                {{-- <div class="relative w-full " id="date-filter">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -106,16 +107,19 @@
                                 d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                         </svg>
                     </div>
-                    <input datepicker datepicker-autohide type="text" id="tanggal-lahir"
+                    <input datepicker datepicker-autohide type="text" id="tanggalLahir" name="tanggalLahir"
+                        wire:model.live='tglLahir'
                         class="bg-white border border-white text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:!border-orange-500 block w-full ps-10 p-2.5 "
                         placeholder="Select date">
-                </div>
+                </div> --}}
+                <input type="date" name="tanggalLahir" id="tanggalLahir" wire:model.live='tglLahir'
+                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
             </div>
 
             <div>
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
+                <label for="jenisKelamin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
                     Kelamin</label>
-                <select id="countries"
+                <select id="jenisKelamin" name="jenisKelamin"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
                     <option value="re-visit">Laki-laki</option>
@@ -124,11 +128,11 @@
             </div>
 
             <div>
-                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Umur</label>
+                <label for="umur" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Umur</label>
                 <div class="relative flex overflow-hidden rounded-lg">
-                    <input type="url" id="website"
+                    <input type="number" id="umur" name="umur" value="{{ $umur }}"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                        placeholder="Umur" required />
+                        placeholder="Umur" required disabled />
                     <div
                         class="absolute right-0 flex items-center justify-center h-full w-1/5 px-4 bg-orange-300 text-gray-500">
                         <label class=" text-sm font-medium w-fit text-white">Tahun</label>
@@ -136,12 +140,10 @@
                 </div>
             </div>
 
-            
-
             <div>
                 <label for="provinsi"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
-                <select id="provinsi"
+                <select id="provinsi" name="provinsi"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option value = 'sulawesi selatan'>Sulawesi Selatan</option>
                 </select>
@@ -150,7 +152,7 @@
             <div>
                 <label for="kabupaten"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota/kabupaten</label>
-                <select id="kabupaten" wire:model.change="kabupaten_id"
+                <select id="kabupaten" wire:model.change="kabupaten_id" name="kabupaten"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     @foreach ($kabupaten as $kab)
                         <option value={{ $kab->id }}>{{ ucwords(strtolower($kab->name)) }}
@@ -162,7 +164,7 @@
             <div>
                 <label for="kecamatan"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
-                <select id="kecamatan"
+                <select id="kecamatan" name="kecamatan"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
                     @if ($kecamatan)
@@ -175,24 +177,24 @@
             </div>
 
             <div class="col-span-2">
-                <label for="message"
+                <label for="alamat"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                <textarea id="message" rows="4"
+                <textarea id="alamat" rows="4" name="alamat"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border !border-orange-200 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="Alamat"></textarea>
             </div>
 
             <div>
-                <label for="Sr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
-                <select id="Sr"
+                <label for="sr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
+                <select id="sr" name="sr"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option value="sulawesi selatan">Sulawesi Selatan</option>
                 </select>
             </div>
 
             <div>
-                <label for="Ssr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
-                <select id="Ssr"
+                <label for="ssr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
+                <select id="ssr" name="ssr"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option value="Bulukumba">Bulukumba</option>
                 </select>
@@ -201,7 +203,7 @@
             <div>
                 <label for="fasyankes"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fasyankes</label>
-                <input type="text" id="fasyankes"
+                <input type="text" id="fasyankes" name="fasyankes"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="NIK Index" required />
             </div>
@@ -209,7 +211,7 @@
             <div>
                 <label for="kader"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kader</label>
-                <input type="text" id="kader"
+                <input type="text" id="kader" name="kader"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="NIK Index" required />
             </div>

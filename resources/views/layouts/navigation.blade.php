@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class=" z-50 bg-white border-b border-gray-100 shadow-md">
+<nav x-data="{ open: false }" class=" z-30 relative bg-white border-b border-gray-100 shadow-md">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -35,7 +35,6 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
                             <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                                 this.closest('form').submit();">
