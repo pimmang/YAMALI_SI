@@ -6,13 +6,17 @@ use App\Http\Controllers\IkController;
 use App\Http\Controllers\InvestigasiKasusController;
 use App\Http\Controllers\IrtController;
 use App\Http\Controllers\KaderController;
+use App\Http\Controllers\Kontak;
+use App\Http\Controllers\KontakController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard',[
+        'status' => 'dashboard'
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 // Route::post('/logout', [ProfileController::class, 'edit'])->name('profile.edit');
 
@@ -27,7 +31,7 @@ Route::middleware('auth')->group(function () {
     // investigasi kasus
     
     Route::get('/', [HomeController::class, 'index']);
-    Route::post('/ik-rumah-tangga', [IkController::class, 'ikRumahTanggaCreate']);
+    Route::post('/ik-rumah-tangga', [IrtController::class, 'store']);
     Route::get('/rumah-tangga', function () {
         return view('IK.ik-rumah-tangga',[
             'status' => 'rumah-tangga',
@@ -112,7 +116,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/fasyankes', [FasyankesController::class, 'index']);
     Route::post('/tambah-fasyankes', [FasyankesController::class, 'store']);
     
-    // Route::get('/tpt-balita', [IrtController::class, 'tptBalita']);
+    Route::post('/edit-ik-rumah-tangga/{id}', [IrtController::class, 'update']);
+    Route::post('/edit-kader/{id}', [KaderController::class, 'update']);
+    Route::post('/edit-fasyankes/{id}', [FasyankesController::class, 'update']);
+    
+    Route::post('/tambah-kontak/{id}', [KontakController::class, 'store']);
+    
 });
 
 require __DIR__.'/auth.php';

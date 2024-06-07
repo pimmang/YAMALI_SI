@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\IkNonRumahTangga;
 
 use Livewire\Component;
 
@@ -17,6 +17,6 @@ class IkNonRumahTangga extends Component
     }
     public function render()
     {
-        return view('livewire.ik-non-rumah-tangga');
+        return view('livewire.ik-non-rumah-tangga.ik-non-rumah-tangga');
     }
 }

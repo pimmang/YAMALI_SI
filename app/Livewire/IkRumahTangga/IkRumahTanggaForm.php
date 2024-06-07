@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\IkRumahTangga;
 
 use App\Models\District;
+use App\Models\Fasyankes;
+use App\Models\Kader;
 use App\Models\Province;
 use App\Models\Regency;
+use App\Models\Ssr;
 use Carbon\Carbon;
 use Livewire\Component;
 
@@ -17,6 +20,9 @@ class IkRumahTanggaForm extends Component
     public $kecamatan;
     public $tglLahir;
     public $umur;
+    public $ssrPilihan;
+    public $kaders;
+    public $fasyankes;
 
 
     
@@ -31,6 +37,17 @@ class IkRumahTanggaForm extends Component
         }
         $this->provinsi = Province::find(27);
         $this->kabupaten = Regency::where('province_id',73)->get();
-        return view('livewire.ik-rumah-tangga-form');
+        $ssrs = Ssr::get();
+
+        if($this->ssrPilihan){
+            $this->fasyankes = Fasyankes::where('ssr_id', $this->ssrPilihan)->get();
+        }
+        
+        if($this->ssrPilihan){
+            $this->kaders = Kader::where('ssr_id',$this->ssrPilihan)->where('status', 'Aktif')->get();
+         }
+        return view('livewire.ik-rumah-tangga.ik-rumah-tangga-form',[
+            'ssrs' => $ssrs,
+        ]);
     }
 }

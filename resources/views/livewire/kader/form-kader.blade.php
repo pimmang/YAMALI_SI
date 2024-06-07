@@ -1,7 +1,6 @@
 <div class="h-fit w-full  pb-20">
-    
-    <form action="/tambah-kader" method="POST">
 
+    <form action="/tambah-kader" method="POST">
         @csrf
         <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div>
@@ -47,7 +46,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
                 <select id="provinsi" name="provinsi"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    <option value = 'Sulawesi Selatan'>Sulawesi Selatan</option>
+                    <option value = '73'>Sulawesi Selatan</option>
                 </select>
             </div>
 
@@ -89,18 +88,13 @@
 
             <div>
                 <label for="ssr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
-                <select id="ssr" name="ssr"
+                <select id="ssr" name="ssr" required
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    <option selected>Pilih</option>
-                    <option value="Makassar">Makassar</option>
-                    <option value="Gowa">Gowa</option>
-                    <option value="Wajo">Wajo</option>
-                    <option value="Pinrang">Pinrang</option>
-                    <option value="Bulukumba">Bulukumba</option>
-                    <option value="Jeneponto">Jeneponto</option>
-                    <option value="Maros">Maros</option>
-                    <option value="Bone">Bone</option>
-                    <option value="Sidrap">Sidrap</option>
+                    <option value='' selected>Pilih</option>
+
+                    @foreach ($ssrs as $ssr)
+                        <option value="{{ $ssr->id }}">{{ $ssr->nama }}</option>
+                    @endforeach
                 </select>
             </div>
 

@@ -16,11 +16,11 @@
 </head>
 
 <body class="overflow-hidden h-screen w-screen relative">
-    <div class="w-full h-14 bg-yellow-400 absolute top-0">
+    <div class="w-full bg-yellow-400 absolute top-0">
         @include('layouts.navigation')
     </div>
     <div class="w-screen h-full flex overflow-hidden">
-        <div class="sidebar pt-16 h-screen shadow-xl text-xs text-nowrap ">
+        <div class="sidebar pt-12 h-screen shadow-xl text-xs text-nowrap ">
             <div class="h-full w-full overflow-y-scroll p-3">
                 <a href="/"
                     class="{{ $status == 'dashboard' ? 'bg-orange-100' : '' }} flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md"
@@ -182,7 +182,7 @@
 
             </div>
         </div>
-        <div class="right w-full !h-full bg-gray-100 pt-16 overflow-y-scroll overflow-x-hidden !pb-16 p-6">
+        <div class="right w-full !h-full bg-gray-100 mt-12 overflow-y-scroll overflow-x-hidden !pb-16 p-6 !pt-2 ">
             @yield('main')
         </div>
     </div>

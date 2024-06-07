@@ -34,19 +34,17 @@ class FasyankesController extends Controller
     public function store(Request $request)
     {
     
-        $kabupaten = Regency::where('id',$request->kabupaten)->first();
-        $kecamatan = District::where('id', $request->kecamatan)->first();
         $fasyankes = new Fasyankes();
         $fasyankes->kode_fasyankes = $request->kodeFasyankes;
         $fasyankes->nama_fasyankes = $request->namaFasyankes;
         $fasyankes->jenis = $request->jenis;
         $fasyankes->pmdt = $request->pmdt;
-        $fasyankes->provinsi = $request->provinsi;
-        $fasyankes->kota_kabupaten = Str::title($kabupaten->name);
-        $fasyankes->kecamatan = Str::title($kecamatan->name);
+        $fasyankes->province_id = $request->provinsi;
+        $fasyankes->regency_id = $request->kabupaten;
+        $fasyankes->district_id = $request->kecamatan ;
         $fasyankes->alamat = $request->alamat;
         $fasyankes->sr = $request->sr;
-        $fasyankes->ssr = $request->ssr;
+        $fasyankes->ssr_id = $request->ssr;
         $fasyankes->save();
         session()->flash('fasyankes', 'Data fasyankes berhasil ditambahkan');
         return redirect('/fasyankes');
@@ -74,7 +72,20 @@ class FasyankesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $fasyankes = Fasyankes::find($id);
+        $fasyankes->kode_fasyankes = $request->kodeFasyankes;
+        $fasyankes->nama_fasyankes = $request->namaFasyankes;
+        $fasyankes->jenis = $request->jenis;
+        $fasyankes->pmdt = $request->pmdt;
+        $fasyankes->province_id = $request->provinsi;
+        $fasyankes->regency_id = $request->kabupaten;
+        $fasyankes->district_id = $request->kecamatan ;
+        $fasyankes->alamat = $request->alamat;
+        $fasyankes->sr = $request->sr;
+        $fasyankes->ssr_id = $request->ssr;
+        $fasyankes->update();
+        session()->flash('fasyankes', 'Data fasyankes berhasil diperbarui');
+        return redirect('/fasyankes');
     }
 
     /**

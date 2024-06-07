@@ -8,9 +8,9 @@
                 <select id="sumberData" name="sumberData" required
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
-                    <option value="pmdt">PMDT</option>
-                    <option value="fasyankes">Fasyankes</option>
-                    <option value="dppm">DPPM</option>
+                    <option value="PMDT">PMDT</option>
+                    <option value="Fasyankes">Fasyankes</option>
+                    <option value="DPPM">DPPM</option>
                 </select>
             </div>
 
@@ -20,9 +20,9 @@
                 <select id="fasyankes" name="fasyankes" required
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
-                    <option value="puskesmas">Puskesmas</option>
-                    <option value="klinik">Klinik</option>
-                    <option value="rumah sakit">Rumah Sakit</option>
+                    <option value="Puskesmas">Puskesmas</option>
+                    <option value="Klinik">Klinik</option>
+                    <option value="Rumah Sakit">Rumah Sakit</option>
                 </select>
             </div>
 
@@ -54,7 +54,7 @@
                     IK</label>
                 <select id="kegiatanIk" name="kegiatanIk"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    <option selected>Pilih</option>
+                    <option value="" selected>Pilih</option>
                     <option value="re-visit">Re-visit</option>
                     <option value="re-ik">Re-IK (IK Ulang)</option>
                 </select>
@@ -99,31 +99,18 @@
             <div>
                 <label for="tanggalLahir" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
                     Lahir</label>
-                {{-- <div class="relative w-full " id="date-filter">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                        </svg>
-                    </div>
-                    <input datepicker datepicker-autohide type="text" id="tanggalLahir" name="tanggalLahir"
-                        wire:model.live='tglLahir'
-                        class="bg-white border border-white text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:!border-orange-500 block w-full ps-10 p-2.5 "
-                        placeholder="Select date">
-                </div> --}}
-                <input type="date" name="tanggalLahir" id="tanggalLahir" wire:model.live='tglLahir'
+                <input type="date" name="tanggalLahir" id="tanggalLahir" wire:model.live='tglLahir' required
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
             </div>
 
             <div>
                 <label for="jenisKelamin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
                     Kelamin</label>
-                <select id="jenisKelamin" name="jenisKelamin"
+                <select id="jenisKelamin" name="jenisKelamin" required
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     <option selected>Pilih</option>
-                    <option value="re-visit">Laki-laki</option>
-                    <option value="re-ik">Perempuan</option>
+                    <option value="laki-laki">Laki-laki</option>
+                    <option value="perempuan">Perempuan</option>
                 </select>
             </div>
 
@@ -132,7 +119,7 @@
                 <div class="relative flex overflow-hidden rounded-lg">
                     <input type="number" id="umur" name="umur" value="{{ $umur }}"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                        placeholder="Umur" required disabled />
+                        placeholder="Umur" disabled />
                     <div
                         class="absolute right-0 flex items-center justify-center h-full w-1/5 px-4 bg-orange-300 text-gray-500">
                         <label class=" text-sm font-medium w-fit text-white">Tahun</label>
@@ -145,7 +132,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
                 <select id="provinsi" name="provinsi"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    <option value = 'sulawesi selatan'>Sulawesi Selatan</option>
+                    <option value ='73'>Sulawesi Selatan</option>
                 </select>
             </div>
 
@@ -166,10 +153,9 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
                 <select id="kecamatan" name="kecamatan"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    <option selected>Pilih</option>
                     @if ($kecamatan)
                         @foreach ($kecamatan as $kec)
-                            <option value={{ ucwords(strtolower($kec->name)) }}>{{ ucwords(strtolower($kec->name)) }}
+                            <option value='{{ $kec->id }}'>{{ ucwords(strtolower($kec->name)) }}
                             </option>
                         @endforeach
                     @endif
@@ -194,26 +180,41 @@
 
             <div>
                 <label for="ssr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
-                <select id="ssr" name="ssr"
+                <select id="ssr" name="ssr" wire:model.live='ssrPilihan'
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    <option value="Bulukumba">Bulukumba</option>
+                    <option value='' selected>Pilih</option>
+                    @foreach ($ssrs as $ssr)
+                        <option value="{{ $ssr->id }}">{{ $ssr->nama }}</option>
+                    @endforeach
                 </select>
             </div>
-
             <div>
-                <label for="fasyankes"
+                <label for="namaFasyankes"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fasyankes</label>
-                <input type="text" id="fasyankes" name="fasyankes"
-                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                    placeholder="NIK Index" required />
+                <select id="namaFasyankes" name="namaFasyankes"
+                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                    <option value='' selected>Pilih</option>
+                    @if ($fasyankes)
+                        @foreach ($fasyankes as $fasyan)
+                            <option value="{{ $fasyan->id }}">
+                                {{ $fasyan->nama_fasyankes . '(' . $fasyan->kode_fasyankes . ')' }}</option>
+                        @endforeach
+                    @endif
+                </select>
             </div>
 
             <div>
                 <label for="kader"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kader</label>
-                <input type="text" id="kader" name="kader"
-                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                    placeholder="NIK Index" required />
+                <select id="kader" name="kader"
+                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                    <option value='' selected>Pilih</option>
+                    @if ($kaders)
+                        @foreach ($kaders as $kader)
+                            <option value="{{ $kader->id }}">{{ $kader->nama . '(' . $kader->nik . ')' }}</option>
+                        @endforeach
+                    @endif
+                </select>
             </div>
 
         </div>

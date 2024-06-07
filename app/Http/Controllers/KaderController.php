@@ -32,27 +32,27 @@ class KaderController extends Controller
      */
     public function store(Request $request)
     {
-        $kabupaten = Regency::where('id',$request->kabupaten)->first();
-        $kecamatan = District::where('id', $request->kecamatan)->first();
+
+        // dd($request);
+        // $kabupaten = Regency::where('id',$request->kabupaten)->first();
+        // $kecamatan = District::where('id', $request->kecamatan)->first();
         $kader = new Kader();
         $kader->nama = $request->namaKader;
         $kader->nik = $request->nikKader;
         $kader->nomor_telepon = $request->nomorTelepon;
         $kader->umur = $request->umur;
         $kader->jenis_kelamin = $request->jenisKelamin;
-        $kader->provinsi = $request->provinsi;
-        $kader->kota_kabupaten = Str::title($kabupaten->name);
-        $kader->kecamatan = Str::title($kecamatan->name);
+        $kader->province_id = $request->provinsi;
+        $kader->regency_id = $request->kabupaten;
+        $kader->district_id = $request->kecamatan;
         $kader->sr = $request->sr;
-        $kader->ssr = $request->ssr;
+        $kader->ssr_id = $request->ssr;
         $kader->jenis = $request->jenis;
         $kader->status = $request->status;
         $kader->save();
 
         session()->flash('kader', 'Data kader berhasil ditambahkan');
-        return view('kader.kader',[
-            'status' =>'kader',
-        ]);
+        return redirect('/kader');
     }
 
     /**
@@ -74,9 +74,24 @@ class KaderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
-        //
+        $kader = Kader::find($id);
+        $kader->nama = $request->namaKader;
+        $kader->nik = $request->nikKader;
+        $kader->nomor_telepon = $request->nomorTelepon;
+        $kader->umur = $request->umur;
+        $kader->jenis_kelamin = $request->jenisKelamin;
+        $kader->province_id = $request->provinsi;
+        $kader->regency_id = $request->kabupaten;
+        $kader->district_id = $request->kecamatan;
+        $kader->sr = $request->sr;
+        $kader->ssr_id = $request->ssr;
+        $kader->jenis = $request->jenis;
+        $kader->status = $request->status;
+        $kader->update();
+        session()->flash('kader', 'Data kader berhasil diperbarui');
+        return redirect('/kader');
     }
 
     /**

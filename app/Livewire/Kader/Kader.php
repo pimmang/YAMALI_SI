@@ -1,24 +1,33 @@
 <?php
 
 namespace App\Livewire\Kader;
+
+use App\Models\District;
 use Livewire\Attributes\On;
 use App\Models\Kader as ModelsKader;
+use App\Models\Province;
+use App\Models\Regency;
+use App\Models\Ssr;
 use Livewire\Component;
 
 class Kader extends Component
 {
-
+    
+    
+    // filter variabel
     public $status = 'list';
     public $show;
     public $nama ='';
     public $nik ='';
-    public $ssr ='';
-    public $kecamatan ='';
+    public $ssrs;
+    public $kecamatanFilter ='';
     public $jenis ='';
     public $kategoriCari = 'nama';
     public $sr = 'sulawesi selatan';
     public $statusPage = 'kader';
 
+
+    // detail variabel
     public $detailNama;
     public $detailNik;
     public $detailTelepon;
@@ -32,32 +41,55 @@ class Kader extends Component
     public $detailJenis;
     public $detailStatus;
 
-    public $details = false;
+    // state
+    public $state ;
 
+    // // edit variabel
+    public $provinsi;
+    public $kabupaten;
+    public $kabupaten_id;
+    public $kecamatan;
+    public $kaderEdit;
+    public function edit($id){
+        $this->state = 'edit';
+        $this->kaderEdit = ModelsKader::where('id', $id)->first();
+        $this->kabupaten_id = $this->kaderEdit->regency_id;
+    }
+
+    public $hapusId;
+    public function hapus($id){
+    // dd($id);
+       $this->hapusId = $id;
+    }
+
+    #[On('hapus')] 
+    public function HapusData()
+    {
+        $kader = ModelsKader::find($this->hapusId);
+        $kader->delete();
+        session()->flash('kader', 'Data kader berhasil dihapus');
+        $this->hapusId = null;
+        return redirect('/kader');
+    }
 
     public function mount(){
         $this->show = 10;
+        $this->ssrs = Ssr::get();
     }
 
-    // #[On('termuat')]
-    // public function refreshJs()
-    // {
-    //     $this->dispatch('kader');
-    // }
-
     public function detail($id){
-        $this->details = !$this->details;
+        $this->state = 'details';
         $kader = ModelsKader::where('id', $id)->first();
         $this->detailNama = $kader->nama;
         $this->detailNik = $kader->nik;
         $this->detailTelepon = $kader->nomor_telepon;
         $this->detailUmur = $kader->umur;
         $this->detailKelamin = $kader->jenis_kelamin;
-        $this->detailProvinsi = $kader->provinsi;
-        $this->detailKabupaten = $kader->kota_kabupaten;
-        $this->detailKecamatan = $kader->kecamatan;
+        $this->detailProvinsi = $kader->province->name;
+        $this->detailKabupaten = $kader->regency->name;
+        $this->detailKecamatan = $kader->district->name;
         $this->detailSr = $kader->sr;
-        $this->detailSsr = $kader->ssr;
+        $this->detailSsr = $kader->ssr->nama;
         $this->detailJenis = $kader->jenis;
         $this->detailStatus = $kader->status;
     }
@@ -67,7 +99,7 @@ class Kader extends Component
     }
     
     public function close(){
-        $this->details = !$this->details;
+        $this->state = null;
     }
 
     public function list(){
@@ -76,13 +108,10 @@ class Kader extends Component
     public function form(){
         $this->status = 'form';
     }
-    public function mounted()
-    {
-       
-    }
+    
     public function render()
     {
-       
+    //    filter
         if(is_numeric($this->show) && $this->kategoriCari == 'nama'){
             $kaders = ModelsKader::where('nama', 'like', '%' . $this->nama . '%')->paginate($this->show);
         }elseif(is_string($this->show) && $this->kategoriCari == 'nama'){
@@ -106,9 +135,18 @@ class Kader extends Component
         }
 
     
-        
+        $ssr = Ssr::get();
+        if($this->kabupaten_id){
+            $this->kecamatan = District::where('regency_id', $this->kabupaten_id)->get();
+        }
+        $this->provinsi = Province::find(27);
+        $this->kabupaten = Regency::where('province_id',73)->get();
         return view('livewire.kader.kader',[
             'kaders' => $kaders,
+            'ssrs' => 'ssr',
+            
+            // 'kabupaten' => $this->kabupatenEdit,
+            // 'provinsi' => $this->provinsiEdit,
         ]);
     }
 }

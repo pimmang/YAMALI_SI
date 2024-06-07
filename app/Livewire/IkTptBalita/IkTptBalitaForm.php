@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\IkTptBalita;
 
 use App\Models\District;
 use App\Models\Province;
@@ -26,6 +26,6 @@ class IkTptBalitaForm extends Component
         }
         $this->provinsi = Province::find(27);
         $this->kabupaten = Regency::where('province_id',73)->get();
-        return view('livewire.ik-tpt-balita-form');
+        return view('livewire.ik-tpt-balita.ik-tpt-balita-form');
     }
 }

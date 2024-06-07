@@ -11,6 +11,7 @@ namespace App\Models;
 
 use AzisHapidin\IndoRegion\Traits\RegencyTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Regency Model.
@@ -53,5 +54,19 @@ class Regency extends Model
     public function districts()
     {
         return $this->hasMany(District::class);
+    }
+
+    public function kaders(): HasMany
+    {
+        return $this->hasMany(Kader::class);
+    }
+    public function fasyankes(): HasMany
+    {
+        return $this->hasMany(fasyankes::class);
+    }
+
+    public function ikrumahtangga(): HasMany
+    {
+        return $this->hasMany(IKRumahTangga::class);
     }
 }

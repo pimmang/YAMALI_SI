@@ -18,11 +18,14 @@ return new class extends Migration
             $table->string('nomor_telepon');
             $table->string('umur');
             $table->string('jenis_kelamin');
-            $table->string('provinsi');
-            $table->string('kota_kabupaten');
-            $table->string('kecamatan');
+            $table->char('province_id', 36);
+            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('restrict')->onUpdate('cascade');
+            $table->char('regency_id', 36);
+            $table->foreign('regency_id')->references('id')->on('regencies')->onDelete('restrict')->onUpdate('cascade');
+            $table->char('district_id', 36);
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('restrict')->onUpdate('cascade');
             $table->string('sr');
-            $table->string('ssr');
+            $table->foreignId('ssr_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->string('jenis');
             $table->string('status');
             $table->timestamps();

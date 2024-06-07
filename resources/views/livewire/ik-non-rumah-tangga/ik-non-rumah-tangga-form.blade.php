@@ -65,8 +65,6 @@
     </div>
     <form>
         <div class="grid gap-6 mb-6 md:grid-cols-2 mt-10">
-
-
             {{-- <div>
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tahun
                     Index</label>

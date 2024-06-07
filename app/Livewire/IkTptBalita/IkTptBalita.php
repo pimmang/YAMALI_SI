@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\IkTptBalita;
 
 use Livewire\Component;
 
@@ -16,6 +16,6 @@ class IkTptBalita extends Component
     }
     public function render()
     {
-        return view('livewire.ik-tpt-balita');
+        return view('livewire.ik-tpt-balita.ik-tpt-balita');
     }
 }

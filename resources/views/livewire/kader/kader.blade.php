@@ -1,5 +1,7 @@
 <div class="w-full h-full  flex flex-col items-start justify-start gap-6 text-slate-900 mt-8">
-    <x-toast-component :status="$statusPage" />
+
+    <x-toast-component :status="$statusPage" class="z-50" />
+    <livewire:component.toast-hapus />
 
     <div class="w-full flex items-start justify-between mb-10">
         <div class="flex flex-col gap-2">
@@ -138,49 +140,60 @@
                     <p>SSR</p>
                     <p>Aksi</p>
                 </div>
-                @php
-                    $i = 0;
-                @endphp
                 @foreach ($kaders as $kader)
-                    @php
-                        $i += 1;
-                    @endphp
                     <div
                         class=" rounded-lg shadow-md bg-white w-full text-xs text-center grid grid-cols-5 gap-2 px-3 py-4">
                         <p>{{ $kader->nik }}</p>
                         <p>{{ $kader->nama }}</p>
-                        <p>{{ $kader->kecamatan }}</p>
-                        <p>{{ $kader->ssr }}</p>
+                        <p>{{ ucwords(strtolower($kader->district->name)) }}</p>
+                        <p>{{ $kader->ssr->nama }}</p>
                         <div class="flex items-center justify-around text-lg ">
                             <div
-                            class="relative z-0 before:absolute before:content-['Detail'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+                                class="relative z-0 before:absolute before:content-['Detail'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
                                 <i class=" text-xl hover:text-lg ph-bold ph-eye p-0 text-blue-500 cursor-pointer  transition-all"
                                     wire:click="detail({{ $kader->id }})"></i>
                             </div>
-                            <div
-                            class="relative before:absolute before:content-['Edit'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+                            <div wire:click="edit({{ $kader->id }})"
+                                class="relative before:absolute before:content-['Edit'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
 
                                 <i
                                     class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
                             </div>
-                            <div
+                            <div wire:click="hapus({{ $kader->id }})"
                                 class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
-                               
-                                <i
-                                    class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"></i>
+
+                                <i class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"
+                                    onclick="tampilHapus()"></i>
                             </div>
                         </div>
                     </div>
                 @endforeach
 
-                @if ($details)
-                    <div class=" w-full h-full absolute top-0 left-0 flex items-center justify-center px-40 py-20 ">
+                @if ($state == 'details')
+                    <div
+                        class="w-full h-full absolute z-50 top-0 left-0 flex items-center justify-center px-40 py-20 ">
                         <div class="bg-black bg-opacity-55 w-full absolute z-10 h-full" wire:click='close'>
 
                         </div>
                         <div class="bg-white w-full h-full rounded-xl p-8 z-20">
                             <div class="bg-white w-full h-full overflow-y-scroll">
-                                <h1 class="font-bold text-black text-xl mb-8">Detail</h1>
+                                <div class="flex justify-between items-top">
+                                    <h1 class="font-bold text-black text-xl mb-8">Detail</h1>
+                                    <div class="flex items-top gap-5 pe-10">
+                                        <div
+                                            class="relative before:absolute before:z-50 before:content-['Edit'] before:shadow-md before:bg-white before:bottom-0 before:scale-0 before:transition-all hover:before:-bottom-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+
+                                            <i
+                                                class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
+                                        </div>
+                                        <div
+                                            class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:bottom-0 before:scale-0 before:transition-all hover:before:-bottom-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+
+                                            <i
+                                                class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"></i>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="grid grid-cols-2 gap-4  ">
                                     <div>
                                         <label for="namaKader"
@@ -286,6 +299,185 @@
                     </div>
                 @endif
 
+                @if ($state == 'edit')
+                    <div
+                        class="w-full h-full absolute z-50 top-0 left-0 flex items-center justify-center px-40 py-20 ">
+                        <div class="bg-black bg-opacity-55 w-full absolute z-10 h-full" wire:click='close'>
+
+                        </div>
+                        <div class="bg-white w-full h-full rounded-xl p-8 z-20">
+                            <div class="bg-white w-full h-full overflow-y-scroll">
+                                <div class="flex justify-between items-top">
+                                    <h1 class="font-bold text-black text-xl mb-8">Edit</h1>
+                                    {{-- <div class="flex items-top gap-5 pe-10">
+                                        <div
+                                            class="relative before:absolute before:z-50 before:content-['Edit'] before:shadow-md before:bg-white before:bottom-0 before:scale-0 before:transition-all hover:before:-bottom-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+
+                                            <i
+                                                class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
+                                        </div>
+                                        <div
+                                            class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:bottom-0 before:scale-0 before:transition-all hover:before:-bottom-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+
+                                            <i
+                                                class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"></i>
+                                        </div>
+                                    </div> --}}
+                                </div>
+                                <div>
+                                    <form action="/edit-kader/{{ $kaderEdit->id }}" method="POST">
+                                        @csrf
+                                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                                            <div>
+                                                <label for="namaKader"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                                </label>
+                                                <input type="text" id="namaKader" name="namaKader"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                                    placeholder="Nama kader" required
+                                                    value="{{ $kaderEdit->nama }}" />
+                                            </div>
+                                            <div>
+                                                <label for="nikKader"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK
+                                                </label>
+                                                <input type="text" id="nikKader" name="nikKader"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                                    placeholder="Nik Kader" required value="{{ $kaderEdit->nik }}" />
+                                            </div>
+                                            <div>
+                                                <label for="nomorTelepon"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
+                                                    Telepon</label>
+                                                <input type="text" id="nomorTelepon" name="nomorTelepon"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                                    placeholder="Nomor Telepon" required
+                                                    value="{{ $kaderEdit->nomor_telepon }}" />
+                                            </div>
+                                            <div>
+                                                <label for="umur"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Umur</label>
+                                                <input type="text" id="umur" name="umur"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                                    placeholder="Umur Kader" required
+                                                    value="{{ $kaderEdit->umur }}" />
+                                            </div>
+                                            <div>
+                                                <label for="jenisKelamin"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
+                                                    Kelamin</label>
+                                                <select id="jenisKelamin" name="jenisKelamin" required
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                                    <option selected>{{ $kaderEdit->jenis_kelamin }}</option>
+                                                    <option value="laki-laki">Laki-laki</option>
+                                                    <option value="perempuan">Perempuan</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="provinsi"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
+                                                <select id="provinsi" name="provinsi"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                                    <option value = '73'>Sulawesi Selatan</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label for="kabupaten"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota/kabupaten</label>
+                                                <select id="kabupaten" wire:model.change="kabupaten_id"
+                                                    name="kabupaten"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                                    <option value ="{{ $kaderEdit->regency->id }}" selected>
+                                                        {{ ucwords(strtolower($kaderEdit->regency->name)) }}</option>
+                                                    @foreach ($kabupaten as $kab)
+                                                        <option value={{ $kab->id }}>
+                                                            {{ ucwords(strtolower($kab->name)) }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="kecamatan"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
+                                                <select id="kecamatan" name="kecamatan"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                                    <option value ="{{ $kaderEdit->district->id }}" selected>
+                                                        {{ ucwords(strtolower($kaderEdit->district->name)) }}</option>
+                                                    @if ($kecamatan)
+                                                        @foreach ($kecamatan as $kec)
+                                                            <option value={{ $kec->id }}>
+                                                                {{ ucwords(strtolower($kec->name)) }}
+                                                            </option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="sr"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
+                                                <select id="sr" name="sr"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                                    <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="ssr"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
+                                                <select id="ssr" name="ssr"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                                    <option value="{{ $kaderEdit->ssr->id }}" selected>
+                                                        {{ $kaderEdit->ssr->nama }}</option>
+                                                    @foreach ($ssrs as $ssr)
+                                                        <option value="{{ $ssr->id }}">{{ $ssr->nama }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="jenis"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis</label>
+                                                <select id="jenis" name="jenis"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                                    <option value="{{ $kaderEdit->jenis }}" selected>
+                                                        {{ $kaderEdit->jenis }}</option>
+                                                    <option value="kader">Kader</option>
+                                                    <option value="Patient Suporter">Patient Suporter</option>
+                                                    <option value="Kader + PS">Kader + PS</option>
+                                                    <option value="TB Army">TB Army</option>
+                                                    <option value="TB Army + PS">TB Army + PS</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="status"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                                                <select id="status" name="status"
+                                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                                    <option value="{{ $kaderEdit->status }}" selected>
+                                                        {{ $kaderEdit->status }}</option>
+                                                    <option value="Aktif">Aktif</option>
+                                                    <option value="Tidak Aktif">Tidak Aktif</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit"
+                                            class="text-white !bg-orange-600 !hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+
+
+
                 <div class="w-full py-5 mb-10">
                     @if (is_numeric($show))
                         {{ $kaders->links() }}
@@ -297,99 +489,11 @@
             </div>
         </div>
     @elseif($status == 'form')
-        @livewire('fasyankes.fasyankes-form')
+        @livewire('kader.form-kader')
     @endif
 
 
-    {{-- <script>
-        Livewire.hook('component.init', () => {
-            alert('ini saya');
-        })
-    </script> --}}
-
-{{-- 
-    <script>
-        function updateKader() {
-            const detail = document.querySelectorAll('.detail');
-            const detailSimbol = document.querySelectorAll('.detail-simbol');
-            for (let i = 0; i < detail.length; i++) {
-                detailSimbol[i].addEventListener('mouseenter', (function(index) {
-                    return function() {
-                        detail[index].classList.toggle('opacity-0');
-                        detail[index].classList.add('!-top-7');
-                        detail[index].classList.remove('scale-0');
-                    };
-                })(i));
-                detailSimbol[i].addEventListener('mouseleave', (function(index) {
-                    return function() {
-                        detail[index].classList.toggle('opacity-0');
-                        detail[index].classList.remove('!-top-7');
-                        detail[index].classList.add('scale-0');
-                    };
-                })(i));
-            }
-
-            const edit = document.querySelectorAll('.edit');
-            const editSimbol = document.querySelectorAll('.edit-simbol');
-            for (let i = 0; i < editSimbol.length; i++) {
-                editSimbol[i].addEventListener('mouseenter', (function(index) {
-                    return function() {
-                        edit[index].classList.toggle('opacity-0');
-                        edit[index].classList.add('!-top-7');
-                        edit[index].classList.remove('scale-0');
-                        console.log(index)
-                    };
-                })(i));
-                editSimbol[i].addEventListener('mouseleave', (function(index) {
-                    return function() {
-                        edit[index].classList.toggle('opacity-0');
-                        edit[index].classList.remove('!-top-7');
-                        edit[index].classList.add('scale-0');
-                    };
-                })(i));
-            }
-
-            const hapus = document.querySelectorAll('.hapus');
-            const hapusSimbol = document.querySelectorAll('.hapus-simbol');
-            for (let i = 0; i < hapusSimbol.length; i++) {
-                hapusSimbol[i].addEventListener('mouseenter', (function(index) {
-                    return function() {
-                        hapus[index].classList.toggle('opacity-0');
-                        hapus[index].classList.add('!-top-7');
-                        hapus[index].classList.remove('scale-0');
-                        console.log(index)
-                    };
-                })(i));
-                hapusSimbol[i].addEventListener('mouseleave', (function(index) {
-                    return function() {
-                        hapus[index].classList.toggle('opacity-0');
-                        hapus[index].classList.remove('!-top-7');
-                        hapus[index].classList.add('scale-0');
-                    };
-                })(i));
-            }
-
-        }
-        let observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                updateKader();
-            });
-        });
-
-        // Tentukan target node yang akan diamati oleh MutationObserver
-        let targetNode = document.body;
-
-        // Konfigurasi untuk MutationObserver
-        let config = {
-            childList: true,
-            subtree: true
-        };
-
-        // Memulai observasi pada target node dengan konfigurasi yang ditentukan
-        observer.observe(targetNode, config);
-    </script> --}}
-
-
+   
 
 
 </div>

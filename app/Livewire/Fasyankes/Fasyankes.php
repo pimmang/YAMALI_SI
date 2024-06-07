@@ -4,6 +4,7 @@ namespace App\Livewire\Fasyankes;
 
 use App\Models\Fasyankes as ModelsFasyankes;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class Fasyankes extends Component
 {
@@ -17,8 +18,13 @@ class Fasyankes extends Component
     public $kategoriCari = 'nama';
     public $sr = 'sulawesi selatan';
     public $statusPage = 'fasyankes';
+    public $state;
+    public $edits;
+    public $details;
 
 
+    
+    
     public function list(){
         $this->status = 'list';
     }
@@ -26,8 +32,40 @@ class Fasyankes extends Component
         $this->status = 'form';
     }
 
+    public function edit($id){
+        $this->edits = ModelsFasyankes::find($id);
+        $this->state = 'edit';
+    }
+    public $detailId;
+    public function detail($id){
+        $this->details = ModelsFasyankes::find($id);  
+        $this->state = 'details';
+    }
+
+    #[On('close')]
+    public function close(){
+        $this->state = null;
+    }
+
+    public $hapusId;
+    public function hapus($id){
+    // dd($id);
+       $this->hapusId = $id;
+    }
+
+    #[On('hapus')] 
+    public function HapusData()
+    {
+        $kader = ModelsFasyankes::find($this->hapusId);
+        $kader->delete();
+        session()->flash('fasyankes', 'Data fasyankes berhasil dihapus');
+        $this->hapusId = null;
+        return redirect('/fasyankes');
+    }
     public function render()
     {
+      
+
         if(is_numeric($this->show) && $this->kategoriCari == 'nama'){
             $fasyankes = ModelsFasyankes::where('nama_fasyankes', 'like', '%' . $this->nama . '%')->paginate($this->show);
         }elseif(is_string($this->show) && $this->kategoriCari == 'nama'){
@@ -51,6 +89,7 @@ class Fasyankes extends Component
         }
         return view('livewire.fasyankes.fasyankes',[
                 'fasyankess' => $fasyankes,
+               
         ]);
     }
 }
