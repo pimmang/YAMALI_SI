@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class IKRumahTangga extends Model
 {
@@ -33,5 +34,9 @@ class IKRumahTangga extends Model
     public function ssr()
     {
         return $this->belongsTo(Ssr::class);
+    }
+    public function kontak(): HasMany
+    {
+        return $this->hasMany(Kontak::class);
     }
 }

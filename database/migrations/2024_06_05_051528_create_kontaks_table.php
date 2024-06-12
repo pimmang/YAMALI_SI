@@ -40,6 +40,8 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->foreignId('i_k_rumah_tangga_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->foreignId('i_k_n_rumah_tangga_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('cascade');
+            $table->boolean('rujukan')->nullable();
+            $table->boolean('kunjungan')->nullable();
             $table->timestamps();
         });
     }

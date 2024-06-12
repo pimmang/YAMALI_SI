@@ -70,4 +70,8 @@ class District extends Model
     {
         return $this->hasMany(fasyankes::class);
     }
+    public function kontak(): HasMany
+    {
+        return $this->hasMany(Kontak::class);
+    }
 }

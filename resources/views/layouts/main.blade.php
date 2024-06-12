@@ -31,6 +31,15 @@
                     </div>
                 </a>
 
+                <a href="/profil"
+                class="{{ $status == 'profil' ? 'bg-orange-100' : '' }} flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md"
+                id="profil">
+                <div class="flex items-center justify-start  gap-2 ">
+                    <i class="ph ph-shield-plus text-lg"></i>
+                    <p>Profil</p>
+                </div>
+            </a>
+
 
                 {{-- menu investigasi kontak --}}
                 <div class=" text-gray-700 w-full {{ $status == 'rumah-tangga' || $status == 'non-rumah-tangga' || $status == 'tpt-balita' ? 'h-40' : 'h-10' }} overflow-hidden transition-all"

@@ -33,7 +33,7 @@ class IkRumahTanggaEdit extends Component
         $this->tglLahir = $data->tanggal_lahir;
     }
     public function close(){
-        $this->dispatch('close')->to(IkRumahTangga::class);
+        $this->dispatch('close')->to(IkRumahTanggaList::class);
     }
     public function render()
     {

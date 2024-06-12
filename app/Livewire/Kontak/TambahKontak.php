@@ -21,6 +21,10 @@ class TambahKontak extends Component
         $this->idIndex = $id;
         $this->fasyankesIndex = IKRumahTangga::find($id)->fasyankes_id;
     }
+    public function close(){
+        $this->dispatch('close')->to(Kontak::class);
+    }
+
     public function render()
     {
         $this->ssrs = Ssr::get();

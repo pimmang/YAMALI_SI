@@ -1,5 +1,5 @@
 <div id="toastHapus"
-    class="absolute translate-x-full right-0  z-50 top-16 overflow-hidden gap-4 trans flex items-center transition-all shadow-md justify-end w-fit bg-white border-solid rounded-md border-l-2  border-yellow-500 px-5 py-4">
+    class="absolute translate-x-full right-0  z-50 top-16 overflow-hidden gap-4 trans flex items-center transition-all shadow justify-end w-fit bg-white border-solid rounded-md border-l-2  border-yellow-500 px-5 py-4">
     <i class="ph ph-check-circle text-2xl text-yellow-600"></i>
     {{-- <i class="ph-bold ph-x absolute right-3 top-3 text-xs cursor-pointer " id="closeToast"></i> --}}
     <div>

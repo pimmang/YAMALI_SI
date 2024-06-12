@@ -30,4 +30,8 @@ class Fasyankes extends Model
     {
         return $this->hasMany(IKRumahTangga::class);
     }
+    public function kontak(): HasMany
+    {
+        return $this->hasMany(Kontak::class);
+    }
 }

@@ -159,8 +159,8 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
                     <select id="provinsi" name="provinsi" disabled
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                        <option selected{{ ucwords(strtolower($details->province->name)) }} </option>
-                    </select>>
+                        <option selected>{{ ucwords(strtolower($details->province->name)) }} </option>
+                    </select>
                 </div>
 
                 <div>

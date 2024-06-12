@@ -1,50 +1,121 @@
-<div class="w-full flex flex-col gap-2 bg-white p-2 rounded-lg shadow-md">
-    <div class=" bg-white flex-grow text-xs text-center flex flex-col gap-2">
+<div class="w-full flex flex-col gap-2 bg-white p-2  shadow-md pb-4 mt-2">
+    <div class=" bg-white flex-grow text-md text-center flex flex-col gap-2 mb-4">
         <div class="rounded-md overflow-hidden border border-solid ">
-            <div class="text-xs grid grid-cols-9 gap-2 w-full  font-bold text-white bg-orange-300 py-2">
-                <p>No</p>
-                <p>Tanggal</p>
+            {{-- <div class="text-sm grid grid-cols-9 gap-2 w-full text-start font-bold text-white bg-orange-500 py-3">
+                <p class="text-center">No</p>
+                <p class="bg-red-400">Tanggal</p>
                 <p>Nama</p>
                 <p>Tgl Lahir</p>
                 <p>Kelamin</p>
                 <p>Alamat</p>
                 <p>Rujukan</p>
                 <p>Kunjungan</p>
-                <p>Aksi</p>
+                <p class="text-center">Aksi</p>
             </div>
             @php
                 $i = 1;
             @endphp
-            <div class="text-xs grid grid-cols-9 gap-2 w-full py-2 ">
+            <div class="text-sm grid grid-cols-9 gap-2 w-full py-2 items-center text-start">
                 @if ($kontaks->isEmpty())
                     <p class="col-span-9 text-black">data kontak belum ada</p>
                 @else
                     @foreach ($kontaks as $kontak)
-                        <p>{{ $i }}</p>
-                        <p>{{ $kontak->tgl_kegiatan }}</p>
-                        <p>{{ $kontak->nama }}</p>
-                        <p>{{ $kontak->tgl_lahir }}</p>
-                        <p>{{ $kontak->jenis_kelamin }}</p>
-                        <p>{{ $kontak->alamat }}</p>
-                        <p>dirujuk</p>
-                        <p>dikunjungi</p>
-                        <p>aksi</p>
+                        <p class="text-center">{{ $i }}</p>
+                        <livewire:kontak.list-kontak :kontak="$kontak" />
+                        @php
+                            $i++;
+                        @endphp
                     @endforeach
+                @endif
+            </div> --}}
+
+
+
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                @if (!$kontaks->isEmpty())
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+                        <thead class="text-xs text-gray-700  bg-orange-100 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="text-center py-3 ">
+                                    Aksi
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Tanggal
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nama
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Tgl Lahir
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Kelamin
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Alamat
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Rujukan
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Kunjungan
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($kontaks as $kontak)
+                                <livewire:kontak.list-kontak key="{{ now() }}" :kontak="$kontak" />
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p class="w-full text-center p-6 text-sm text-gray-700 font-medium">Belum ada kontak untuk Index ini
+                    </p>
                 @endif
 
             </div>
 
+
         </div>
     </div>
     <div class="flex flex-grow justify-end">
+
+
         <button wire:click='tambah'
-            class=" text-xs bg-white border-solid border active:scale-75 border-lime-500 rounded-md px-3 py-1 transition-all flex gap-1 items-center justify-center text-lime-500"><i
+            class=" bg-yellow-300 text-xs border-solid border active:scale-75 border-yellow-300 rounded-md px-3 font-semibold py-2 transition-all flex gap-1 items-center justify-center text-yellow-850"><i
                 class="ph-bold ph-plus"></i>
-            <p>Tambah</p>
+            <p>Tambah kontak {{ $idKontak }}</p>
         </button>
     </div>
 
     @if ($state == 'tambah')
         <livewire:kontak.tambah-kontak :id="$idIndex" />
     @endif
+    @if ($state == 'edit')
+        <livewire:kontak.edit-kontak :id="$editId" />
+    @endif
+
+
+
+    @script
+        <script>
+            $wire.on('gagal', ({
+                message
+            }) => {
+                tampilGagal(message);
+            });
+            $wire.on('tampilHapus', ({
+                message
+            }) => {
+                tampilHapus();
+            });
+            $wire.on('sukses', ({
+                message
+            }) => {
+                tampilSukses(message)
+            });
+        </script>
+    @endscript
 </div>

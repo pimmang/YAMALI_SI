@@ -1,6 +1,8 @@
 <div class="w-full flex flex-col items-start justify-start gap-6 text-slate-900 mt-8">
     <h1 class="font-bold text-gray-900 text-2xl">Rumah Tangga</h1>
     <x-toast-component :status="$statusPage" class="z-50" />
+    <livewire:component.toast-gagal />
+    <livewire:component.toast-sukses />
     <livewire:component.toast-hapus />
     <div class="flex items-center text-xs gap-1 font-semibold text-gray-500 ">
         <i class="ph-fill ph-house-line"></i>
@@ -77,24 +79,21 @@
             </div>
             <div class="flex flex-col gap-3 mb-10">
                 <div
-                    class="rounded-lg text-xs shadow-md font-bold text-center text-white bg-orange-400 w-full grid grid-cols-5 gap-2 px-3 py-4">
+                    class="rounded-lg text-xs text-start shadow-md font-bold uppercase text-white bg-orange-500 w-full grid grid-cols-6 gap-2 px-3 py-4">
                     <p>Nama</p>
+                    <p>Nik</p>
                     <p>Tanggal Lahir</p>
-                    <p>Umur</p>
+                    <p>Fasyankes</p>
                     <p>SSR</p>
-                    <p>Aksi</p>
+                    <p class="text-center">Aksi</p>
                 </div>
+
                 @foreach ($datas as $data)
-                    
+                    <livewire:ik-rumah-tangga.ik-rumah-tangga-list key="{{ now() }}" :data="$data">
                 @endforeach
-
-                @if ($state == 'details')
-                    <livewire:ik-rumah-tangga.ik-rumah-tangga-details :data="$details" />
-                @endif
-
-                @if ($state == 'edit')
-                    <livewire:ik-rumah-tangga.ik-rumah-tangga-edit :data="$edits" />
-                @endif
+                <div class="container my-6">
+                    {{ $datas->links() }}
+                </div>
 
             </div>
         </div>
@@ -102,6 +101,15 @@
         @livewire('ik-rumah-tangga.ik-rumah-tangga-form')
     @endif
 
+    @script
+        <script>
+            $wire.on('sukses', ({
+                message
+            }) => {
+                tampilSukses(message)
+            });
+        </script>
+    @endscript
     <style>
         .bg-blue-700 {
             background-color: rgb(255 90 31 / var(--tw-bg-opacity)) !important

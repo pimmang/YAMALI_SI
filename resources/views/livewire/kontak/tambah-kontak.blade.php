@@ -29,7 +29,7 @@
                             <label for="tanggalKegiatan"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
                                 Kegiatan</label>
-                            <input type="date" name="tanggalKegiatan" id="tanggalKegiatan" wire:model.live='tglLahir'
+                            <input type="date" name="tanggalKegiatan" id="tanggalKegiatan" 
                                 required
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                         </div>
@@ -39,7 +39,7 @@
                             </label>
                             <input type="text" id="nikKontak" name="nikKontak"
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                                placeholder="Nik Kader" required />
+                                placeholder="Nik Kontak" required />
                         </div>
                         <div>
                             <label for="namaKontak"
@@ -482,7 +482,7 @@
                     </div>
 
                     <button type="submit"
-                        class="text-white !bg-orange-600 !hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">tambah</button>
+                        class="text-white !bg-orange-500 !hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">tambah</button>
                 </form>
             </div>
         </div>
