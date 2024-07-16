@@ -82,19 +82,18 @@
     </div>
     <div class="flex flex-grow justify-end">
 
-
         <button wire:click='tambah'
             class=" bg-yellow-300 text-xs border-solid border active:scale-75 border-yellow-300 rounded-md px-3 font-semibold py-2 transition-all flex gap-1 items-center justify-center text-yellow-850"><i
                 class="ph-bold ph-plus"></i>
-            <p>Tambah kontak {{ $idKontak }}</p>
+            <p>Tambah kontak {{ $status }}</p>
         </button>
     </div>
 
     @if ($state == 'tambah')
-        <livewire:kontak.tambah-kontak :id="$idIndex" />
+        <livewire:kontak.tambah-kontak :id="$idIndex" :status="$status" />
     @endif
     @if ($state == 'edit')
-        <livewire:kontak.edit-kontak :id="$editId" />
+        <livewire:kontak.edit-kontak :id="$editId" :status="$status" />
     @endif
 
 

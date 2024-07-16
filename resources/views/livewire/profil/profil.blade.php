@@ -108,7 +108,7 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6 uppercase">
         <table class="w-full text-sm text-left  rtl:text-right text-gray-500 dark:text-gray-400">
 
-            <thead class="text-xs text-gray-700  bg-orange-100 dark:bg-gray-700 dark:text-gray-400 whitespace-nowrap">
+            <thead class="text-xs text-white  bg-orange-500 dark:bg-gray-700 dark:text-gray-400 whitespace-nowrap">
                 <tr>
                     {{-- <th scope="col" class="text-center py-3 ">
                         Aksi
@@ -135,34 +135,14 @@
                         Ssr
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nama Index
+                        Nama Index | NIK
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($kontaks as $kontak)
                     <tr class="odd:bg-white  even:bg-orange-50 border-b">
-                        {{-- <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900  whitespace-nowrap dark:text-white">
-                            <div class="flex items-center gap-3 justify-center !w-full">
-                                <div wire:click="edit({{ $kontak->id }})"
-                                    class="relative before:absolute before:content-['Edit'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
 
-                                    <i
-                                        class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
-                                </div>
-                                <div wire:click="hapus({{ $kontak->id }})"
-                                    class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
-
-                                    <i class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"
-                                        onclick="tampilHapus()"></i>
-                                </div>
-                            </div>
-                        </th> --}}
-                        {{-- <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $kontak->tgl_kegiatan }}
-                        </th> --}}
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $kontak->nama }}
@@ -189,9 +169,14 @@
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="/rumah-tangga#{{ $kontak->iKRumahTangga->id }}">
-                                {{ $kontak->iKRumahTangga->nama_pasien .' | '. $kontak->iKRumahTangga->nik_index}}
-                            </a>
+                            <p>
+                                @if ($kontak->iKRumahTangga)
+                                {{ $kontak->iKRumahTangga->nama_pasien . ' | ' . $kontak->iKRumahTangga->nik_index }}
+                                @else
+                                {{ $kontak->iKNRumahTangga->iKRumahTangga->nama_pasien . ' | ' . $kontak->iKNRumahTangga->iKRumahTangga->nik_index }} 
+                                @endif
+                               
+                            </p>
                         </th>
 
                     </tr>

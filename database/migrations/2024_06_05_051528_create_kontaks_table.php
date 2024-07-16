@@ -42,6 +42,7 @@ return new class extends Migration
             $table->foreignId('i_k_n_rumah_tangga_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->boolean('rujukan')->nullable();
             $table->boolean('kunjungan')->nullable();
+            $table->boolean('terduga');
             $table->timestamps();
         });
     }

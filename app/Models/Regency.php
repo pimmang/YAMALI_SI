@@ -65,9 +65,13 @@ class Regency extends Model
         return $this->hasMany(fasyankes::class);
     }
 
-    public function ikrumahtangga(): HasMany
+    public function IKRumahTangga(): HasMany
     {
         return $this->hasMany(IKRumahTangga::class);
+    }
+    public function IKNRumahTangga(): HasMany
+    {
+        return $this->hasMany(IKNRumahTangga::class);
     }
     public function kontak(): HasMany
     {

@@ -5,7 +5,7 @@
     <div class="bg-white w-full h-full rounded-xl p-8 z-20">
         <div class="bg-white w-full h-full overflow-y-scroll">
             <div class="flex justify-between items-top">
-                <h1 class="font-bold text-black text-xl mb-8">Tambah Kontak</h1>
+                <h1 class="font-bold text-black text-xl mb-8">Tambah Kontak {{ $status }}</h1>
                 {{-- <div class="flex items-top gap-5 pe-10">
                 <div
                     class="relative before:absolute before:z-50 before:content-['Edit'] before:shadow-md before:bg-white before:bottom-0 before:scale-0 before:transition-all hover:before:-bottom-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
@@ -24,13 +24,13 @@
             <div>
                 <form action="/tambah-kontak/{{ $idIndex }}" method="POST">
                     @csrf
+                    <input type="hidden" name="typeIk" id="status" value={{ $status }}>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
                             <label for="tanggalKegiatan"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
                                 Kegiatan</label>
-                            <input type="date" name="tanggalKegiatan" id="tanggalKegiatan" 
-                                required
+                            <input type="date" name="tanggalKegiatan" id="tanggalKegiatan" required
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                         </div>
                         <div>
@@ -72,7 +72,7 @@
                             <label for="umur"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Umur</label>
                             <div class="relative flex overflow-hidden rounded-lg">
-                                <input type="number" id="umur" name="umur" value="{{ $umur }}"
+                                <input type="number" id="umur" name="umur" value="{{ $umur }}" required
                                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                     placeholder="Umur" readonly />
                                 <div
@@ -85,7 +85,7 @@
                             <label for="nomorTelepon"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
                                 Telepon</label>
-                            <input type="text" id="nomorTelepon" name="nomorTelepon"
+                            <input type="text" id="nomorTelepon" name="nomorTelepon" required
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                 placeholder="Nomor Telepon" required />
                         </div>
@@ -99,7 +99,7 @@
                                 <li
                                     class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="jenisIk" type="radio" value="tatap muka" name="jenisIk"
+                                        <input id="jenisIk" type="radio" value="tatap muka" name="jenisIk" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="jenisIk"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tatap
@@ -111,7 +111,7 @@
                         <div class="col-span-2">
                             <label for="alamat"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                            <textarea id="alamat" rows="4" name="alamat"
+                            <textarea id="alamat" rows="4" name="alamat" required
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border !border-orange-200 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                 placeholder="Alamat"></textarea>
                         </div>
@@ -120,7 +120,7 @@
                         <div>
                             <label for="sr"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
-                            <select id="sr" name="sr"
+                            <select id="sr" name="sr" required
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                                 <option value="Sulawesi Selatan">Sulawesi Selatan</option>
                             </select>
@@ -129,7 +129,7 @@
                         <div>
                             <label for="ssr"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
-                            <select id="ssr" name="ssr" wire:model.live='ssrPilihan'
+                            <select id="ssr" name="ssr" wire:model.live='ssrPilihan' required
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                                 <option value='' selected>Pilih</option>
                                 @foreach ($ssrs as $ssr)
@@ -145,7 +145,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="kontakSerumah1" type="radio" value="1"
+                                        <input id="kontakSerumah1" type="radio" value="1" required
                                             name="kontakSerumah"
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="kontakSerumah1"
@@ -155,7 +155,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="kontakSerumah2" type="radio" value="0"
+                                        <input id="kontakSerumah2" type="radio" value="0" required
                                             name="kontakSerumah"
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="kontakSerumah2"
@@ -177,7 +177,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="batuk1" type="radio" value="1" name="batuk"
+                                        <input id="batuk1" type="radio" value="1" name="batuk" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="batuk1"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ya
@@ -186,7 +186,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="batuk2" type="radio" value="0" name="batuk"
+                                        <input id="batuk2" type="radio" value="0" name="batuk" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="batuk2"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak</label>
@@ -202,7 +202,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="sesakNapas1" type="radio" value="1" name="sesakNapas"
+                                        <input id="sesakNapas1" type="radio" value="1" name="sesakNapas" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="sesakNapas1"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ya
@@ -211,7 +211,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="SesakNapas2" type="radio" value="0" name="sesakNapas"
+                                        <input id="SesakNapas2" type="radio" value="0" name="sesakNapas" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="SesakNapas2"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak</label>
@@ -227,7 +227,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="berkeringat1" type="radio" value="1" name="berkeringat"
+                                        <input id="berkeringat1" type="radio" value="1" name="berkeringat" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="berkeringat1"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ya
@@ -236,7 +236,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="berkeringat2" type="radio" value="0" name="berkeringat"
+                                        <input id="berkeringat2" type="radio" value="0" name="berkeringat" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="berkeringat2"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak</label>
@@ -252,7 +252,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="demam1" type="radio" value="1" name="demam"
+                                        <input id="demam1" type="radio" value="1" name="demam" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="demam1"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ya
@@ -261,7 +261,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="demam2" type="radio" value="0" name="demam"
+                                        <input id="demam2" type="radio" value="0" name="demam" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="demam2"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak</label>
@@ -286,7 +286,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="diabetesMelitus1" type="radio" value="1"
+                                        <input id="diabetesMelitus1" type="radio" value="1" required
                                             name="diabetesMelitus"
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="diabetesMelitus1"
@@ -296,7 +296,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="diabetesMelitus2" type="radio" value="0"
+                                        <input id="diabetesMelitus2" type="radio" value="0" required
                                             name="diabetesMelitus"
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="diabetesMelitus2"
@@ -313,7 +313,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="lansia1" type="radio" value="1" name="lansia"
+                                        <input id="lansia1" type="radio" value="1" name="lansia" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="lansia1"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ya
@@ -322,7 +322,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="lansia2" type="radio" value="0" name="lansia"
+                                        <input id="lansia2" type="radio" value="0" name="lansia" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="lansia2"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak</label>
@@ -338,7 +338,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="ibuHamil1" type="radio" value="1" name="ibuHamil"
+                                        <input id="ibuHamil1" type="radio" value="1" name="ibuHamil" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="ibuHamil1"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ya
@@ -347,7 +347,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="ibuHamil2" type="radio" value="0" name="ibuHamil"
+                                        <input id="ibuHamil2" type="radio" value="0" name="ibuHamil" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="ibuHamil2"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak</label>
@@ -363,7 +363,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="perokok1" type="radio" value="1" name="perokok"
+                                        <input id="perokok1" type="radio" value="1" name="perokok" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="perokok1"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ya
@@ -372,7 +372,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="perokok2" type="radio" value="0" name="perokok"
+                                        <input id="perokok2" type="radio" value="0" name="perokok" required
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="perokok2"
                                             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak</label>
@@ -388,7 +388,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="pernahBerobat1" type="radio" value="1"
+                                        <input id="pernahBerobat1" type="radio" value="1" required
                                             name="pernahBerobat"
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="pernahBerobat1"
@@ -398,7 +398,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="pernahBerobat2" type="radio" value="0"
+                                        <input id="pernahBerobat2" type="radio" value="0" required
                                             name="pernahBerobat"
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="pernahBerobat2"
@@ -414,12 +414,14 @@
                         <div>
                             <label for="fasyankes"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fasyankes</label>
-                            <select id="fasyankes" name="fasyankes"
+                            <select id="fasyankes" name="fasyankes" required
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                                 <option value='' selected>Pilih</option>
                                 @if ($fasyankes)
                                     @foreach ($fasyankes as $fasyan)
-                                        <option value="{{ $fasyan->id }}">{{ $fasyan->nama_fasyankes }}</option>
+                                        <option value="{{ $fasyan->id }}"
+                                            {{ $fasyan->id == $fasyankesIndex ? 'selected' : '' }}>
+                                            {{ $fasyan->nama_fasyankes }}</option>
                                     @endforeach
                                 @endif
                             </select>
@@ -433,7 +435,7 @@
                                 <li
                                     class="w-full border-b border-orange-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="hasilPemeriksaan1" type="radio" value="Sakit"
+                                        <input id="hasilPemeriksaan1" type="radio" value="Sakit" required
                                             name="hasilPemeriksaan"
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="hasilPemeriksaan1"
@@ -443,7 +445,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="hasilPemeriksaan2" type="radio" value="Tidak"
+                                        <input id="hasilPemeriksaan2" type="radio" value="Tidak" required
                                             name="hasilPemeriksaan"
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="hasilPemeriksaan2"
@@ -452,7 +454,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 ">
                                     <div class="flex items-center ps-3">
-                                        <input id="hasilPemeriksaan3" type="radio" value="Tidak ada"
+                                        <input id="hasilPemeriksaan3" type="radio" value="Tidak ada" required
                                             name="hasilPemeriksaan"
                                             class="w-4 h-4 text-orange-500 bg-gray-100 border-orange-300 focus:ring-orange-500   ">
                                         <label for="hasilPemeriksaan3"
@@ -467,7 +469,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
                                 Re-visit</label>
                             <input type="date" name="tanggalRevisit" id="tanggalRevisit"
-                                wire:model.live='tglLahir' required
+                                required
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                         </div>
                         <div>

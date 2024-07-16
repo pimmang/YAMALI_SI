@@ -32,13 +32,13 @@
                 </a>
 
                 <a href="/profil"
-                class="{{ $status == 'profil' ? 'bg-orange-100' : '' }} flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md"
-                id="profil">
-                <div class="flex items-center justify-start  gap-2 ">
-                    <i class="ph ph-shield-plus text-lg"></i>
-                    <p>Profil</p>
-                </div>
-            </a>
+                    class="{{ $status == 'profil' ? 'bg-orange-100' : '' }} flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md"
+                    id="profil">
+                    <div class="flex items-center justify-start  gap-2 ">
+                        <i class="ph ph-shield-plus text-lg"></i>
+                        <p>Profil</p>
+                    </div>
+                </a>
 
 
                 {{-- menu investigasi kontak --}}
@@ -63,10 +63,34 @@
                                 class="ph ph-building text-lg"></i>
                             <p>Non Rumah Tangga</p>
                         </a>
-                        <a href="/tpt-balita"
+                        {{-- <a href="/tpt-balita"
                             class="flex justify-start w-full px-4 h-10 items-center hover:bg-orange-100 gap-2 rounded-md {{ $status == 'tpt-balita' ? 'bg-orange-100' : '' }}"><i
                                 class="ph ph-baby-carriage text-lg"></i>
                             <p>TPT Balita</p>
+                        </a> --}}
+                    </div>
+                </div>
+                {{-- menu tbc so --}}
+                <div class=" text-gray-700 w-full {{ $status == 'terduga' || $status == 'ternotifikasi' ? 'h-30' : 'h-10' }} overflow-hidden transition-all"
+                    id="tbc-so">
+                    <div class="flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md "
+                        id="tbc-so-utama">
+                        <div class="flex items-center justify-start  gap-2 ">
+                            <i class="ph ph-archive text-lg"></i>
+                            <p>TBC-SO</p>
+                        </div>
+                        <i class="ph ph-caret-right "></i>
+                    </div>
+                    <div class="ps-4">
+                        <a href="/terduga-tbc"
+                            class="flex w-full justify-start px-4 h-10 items-center hover:bg-orange-100 {{ $status == 'terduga' ? 'bg-orange-100' : '' }} gap-2 rounded-md"><i
+                                class="ph ph-buildings text-lg"></i>
+                            <p>Terduga TBC</p>
+                        </a>
+                        <a href="/ternotifikasi"
+                            class="flex justify-start w-full  px-4 h-10 items-center hover:bg-orange-100 gap-2 rounded-md {{ $status == 'ternotifikasi' ? 'bg-orange-100' : '' }}"><i
+                                class="ph ph-building text-lg"></i>
+                            <p>Ternotifikasi</p>
                         </a>
                     </div>
                 </div>
@@ -164,6 +188,7 @@
                         </a>
                     </div>
                 </div>
+
                 {{-- menu Tambah --}}
                 <div class=" text-gray-700 w-full {{ $status == 'kader' || $status == 'fasyankes' ? 'h-30' : 'h-10' }} overflow-hidden transition-all"
                     id="tambah">
@@ -210,10 +235,10 @@
     const investigasiKontakUtama = document.getElementById('investigasiKontakUtama');
     investigasiKontakUtama.addEventListener('click', function() {
         if (investigasiKontak.classList.contains('h-10')) {
-            investigasiKontak.classList.add('h-40');
+            investigasiKontak.classList.add('h-30');
             investigasiKontak.classList.remove('h-10');
-        } else if (investigasiKontak.classList.contains('h-40')) {
-            investigasiKontak.classList.remove('h-40');
+        } else if (investigasiKontak.classList.contains('h-30')) {
+            investigasiKontak.classList.remove('h-30');
             investigasiKontak.classList.add('h-10');
         }
     })
@@ -258,6 +283,19 @@
         } else if (tambah.classList.contains('h-30')) {
             tambah.classList.add('h-10');
             tambah.classList.remove('h-30');
+        }
+    })
+
+    const tbcSo = document.getElementById('tbc-so');
+    const tbcSoUtama = document.getElementById('tbc-so-utama');
+
+    tbcSoUtama.addEventListener('click', function() {
+        if (tbcSo.classList.contains('h-10')) {
+            tbcSo.classList.add('h-30');
+            tbcSo.classList.remove('h-10');
+        } else if (tbcSo.classList.contains('h-30')) {
+            tbcSo.classList.add('h-10');
+            tbcSo.classList.remove('h-30');
         }
     })
 

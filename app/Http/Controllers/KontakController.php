@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IKNRumahTangga;
 use App\Models\IKRumahTangga;
 use App\Models\Kontak;
 use Carbon\Carbon;
@@ -30,7 +31,7 @@ class KontakController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $index = IKRumahTangga::find($id);
+        
         $kontak = new Kontak();
         $kontak->tgl_kegiatan = $request->tanggalKegiatan;
         $kontak->nik_kontak = $request->nikKontak;
@@ -59,16 +60,22 @@ class KontakController extends Controller
         $kontak->keterangan = $request->keterangan;
         $kontak->rujukan = 0;
         $kontak->kunjungan = 0;
+        $kontak->terduga = 0;
         
-        if($request->status == 'ikrt'){
+        if($request->typeIk == 'ikrt'){
             $kontak->i_k_rumah_tangga_id = $id;
         }
-        if($request->status == 'iknrt'){
+        if($request->typeIk == 'iknrt'){
             $kontak->i_k_n_rumah_tangga_id = $id;
         }
         $kontak->save();
-        session()->flash('ik-rumah-tangga', 'Data kontak untuk '. $index->nama_pasien .' berhasil ditambahkan');
-        return redirect('/rumah-tangga');
+        session()->flash( $request->typeIk == 'ikrt' ?'ik-rumah-tangga':'ik-non-rumah-tangga', 'Data kontak berhasil ditambahkan');
+        if($request->typeIk == 'ikrt'){
+            return redirect('/rumah-tangga');
+        }else{
+            return redirect('/non-rumah-tangga');
+        }
+        
     }
 
     /**
@@ -120,9 +127,14 @@ class KontakController extends Controller
         $kontak->hasil_pemeriksaan = $request->hasilPemeriksaan;
         $kontak->tgl_revisit = $request->tanggalRevisit;
         $kontak->keterangan = $request->keterangan;
+      
         $kontak->update();
-        session()->flash('ik-rumah-tangga', 'Data kontak berhasil diperbarui');
-        return redirect('/rumah-tangga');
+        session()->flash( $kontak->i_k_rumah_tangga ?'ik-rumah-tangga':'ik-non-rumah-tangga', 'Data kontak berhasil diperbarui');
+        if($kontak->i_k_rumah_tangga){
+            return redirect('/rumah-tangga');
+        }else{
+            return redirect('/non-rumah-tangga');
+        }
     }
 
     /**

@@ -16,10 +16,17 @@ class Kontak extends Component
     public $rujuk = 1;
     public $kunjung = 0;
     public $kontaks;
+    public $status;
 
-    public function mount($id){
+    public function mount($id, $status){
         $this->idIndex = $id;
-        $this->kontaks = ModelsKontak::where('i_k_rumah_tangga_id',$id)->get();
+        $this->status = $status;
+        if($status == 'ikrt'){
+            $this->kontaks = ModelsKontak::where('i_k_rumah_tangga_id',$id)->get();
+        }
+        if($status == 'iknrt'){
+            $this->kontaks = ModelsKontak::where('i_k_n_rumah_tangga_id',$id)->get();
+        } 
     }
 
 

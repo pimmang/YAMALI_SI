@@ -3,11 +3,12 @@
 use App\Http\Controllers\FasyankesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IkController;
+use App\Http\Controllers\IknrtController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\InvestigasiKasusController;
 use App\Http\Controllers\IrtController;
 use App\Http\Controllers\KaderController;
-use App\Http\Controllers\Kontak;
+use App\Http\Controllers\TbcSoController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Kontak as ModelsKontak;
@@ -39,11 +40,16 @@ Route::middleware('auth')->group(function () {
             'status' => 'rumah-tangga',
         ]);
     });
+
     Route::get('/non-rumah-tangga', function () {
         return view('IK.ik-non-rumah-tangga',[
             'status' => 'non-rumah-tangga',
         ]);
     });
+    Route::post('/tambah-iknrt/{id}', [IknrtController::class, 'store']);
+
+
+
     Route::get('/tpt-balita', function () {
         return view('IK.ik-tpt-balita',[
             'status' => 'tpt-balita',
@@ -130,6 +136,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/tambah-kontak/{id}', [KontakController::class, 'store']);
     Route::post('/edit-kontak/{id}', [KontakController::class, 'update']);
     
-});
+    
+    Route::get('/terduga-tbc', [TbcSoController::class, 'terduga']);
+    Route::post('/tambah-terduga/{id}', [TbcSoController::class, 'storeTerduga']);
+    Route::post('/edit-terduga/{id}', [TbcSoController::class, 'updateTerduga']);
+
+    Route::get('/ternotifikasi', [TbcSoController::class, 'ternotifikasi']);
+    Route::post('/hasil-pengobatan/{id}', [TbcSoController::class, 'hasilPengobatan']);
+    Route::post('/ubah-hasil-pengobatan/{id}', [TbcSoController::class, 'ubahHasilPengobatan']);
+    Route::post('/riwayat-pemantauan/{id}', [TbcSoController::class, 'riwayatPemantauan']);
+   
+    });
 
 require __DIR__.'/auth.php';

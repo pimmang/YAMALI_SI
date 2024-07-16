@@ -2,10 +2,14 @@
 
 namespace App\Livewire\Component;
 
+use App\Livewire\IkNonRumahTangga\IkNonRumahTangga;
+use App\Livewire\IkNonRumahTangga\IkNonRumahTanggaList;
 use App\Livewire\IkRumahTangga\IkRumahTangga as IkRumahTanggaIkRumahTangga;
 use App\Livewire\IkRumahTangga\IkRumahTanggaList;
 use App\Livewire\Kontak\Kontak as KontakKontak;
 use App\Livewire\Kontak\ListKontak;
+use App\Livewire\TbSo\Ternotifikasi\RiwayatPemantauan;
+use App\Models\IKNRumahTangga;
 use App\Models\IKRumahTangga;
 use App\Models\Kontak;
 use Livewire\Component;
@@ -34,16 +38,31 @@ class ToastHapus extends Component
                 $irt->delete();
                 $this->dispatch('irtDeleted')->to(IkRumahTanggaIkRumahTangga::class);
             }
-        }if($this->status == 'kontak'){
+        }
+        if($this->status == 'iknrt'){
+            $ikrt = IKNRumahTangga::find($this->idHapus);
+            if($ikrt->kontak->count() > 0){
+                $this->dispatch('gagal', message:'Tidak bisa hapus, index memiliki kontak terkait')->to(IkNonRumahTanggaList::class);
+            }else{
+                $ikrt->delete();
+                $this->dispatch('iknrtDeleted')->to(IkNonRumahTangga::class);
+            }
+        }
+        if($this->status == 'kontak'){
             $kontak = Kontak::find($this->idHapus);
             $kontak->delete();
             $this->dispatch('hapusKontak')->to(KontakKontak::class);
         }
-        else{
+        
+        if($this->status == 'pemantauan'){
+            $this->dispatch('hapus')->to(RiwayatPemantauan::class);
+        }
+
+        if(!$this->status){
             $this->dispatch('hapus');
-          
         }
     }
+
     public function batal(){
         $this->delete = false ;
     }

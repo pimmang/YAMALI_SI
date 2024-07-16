@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Kontak extends Model
 {
@@ -37,4 +38,13 @@ class Kontak extends Model
     {
         return $this->belongsTo(IKRumahTangga::class);
     }
+    public function  iKNRumahTangga()
+    {
+        return $this->belongsTo(IKNRumahTangga::class);
+    }
+    public function terduga(): HasOne
+    {
+        return $this->hasOne(Terduga::class);
+    }
+
 }

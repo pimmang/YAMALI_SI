@@ -32,7 +32,7 @@
         </div>
     </div>
     @if ($klik)
-        <livewire:kontak.kontak :id="$data->id" />
+        <livewire:kontak.kontak :id="$data->id" status="ikrt" />
     @endif
 
     @if ($state == 'details')

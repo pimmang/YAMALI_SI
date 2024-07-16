@@ -39,7 +39,7 @@ class IrtController extends Controller
             $irt->kegiatan_ik = $request->kegiatanIk ;
         }
         $irt->nama_pasien = $request->namaPasien;
-        $irt->no_terduga = $request->nomorTerduga ;
+        // $irt->no_terduga = $request->nomorTerduga ;
         $irt->nik_index = $request->nikIndex ;
         $irt->tanggal_lahir = $request->tanggalLahir ;
         $irt->jenis_kelamin = $request->jenisKelamin ;
@@ -87,7 +87,7 @@ class IrtController extends Controller
             $irt->kegiatan_ik = $request->kegiatanIk ;
         }
         $irt->nama_pasien = $request->namaPasien;
-        $irt->no_terduga = $request->nomorTerduga ;
+        // $irt->no_terduga = $request->nomorTerduga ;
         $irt->nik_index = $request->nikIndex ;
         $irt->tanggal_lahir = $request->tanggalLahir ;
         $irt->jenis_kelamin = $request->jenisKelamin ;

@@ -39,4 +39,9 @@ class IKRumahTangga extends Model
     {
         return $this->hasMany(Kontak::class);
     }
+
+    public function iKNRumahTangga(): HasMany
+    {
+        return $this->hasMany(IKNRumahTangga::class);
+    }
 }

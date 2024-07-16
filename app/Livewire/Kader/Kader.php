@@ -62,16 +62,16 @@ class Kader extends Component
        $this->hapusId = $id;
     }
 
-    // #[On('hapus')] 
-    // public function HapusData()
-    // {
-    //     // dd($this->hapusId);
-    //     $kader = ModelsKader::find($this->hapusId);
-    //     $kader->delete();
-    //     session()->flash('kader', 'Data kader berhasil dihapus');
-    //     $this->hapusId = null;
-    //     return redirect('/kader');
-    // }
+    #[On('hapus')] 
+    public function HapusData()
+    {
+        // dd($this->hapusId);
+        $kader = ModelsKader::find($this->hapusId);
+        $kader->delete();
+        session()->flash('kader', 'Data kader berhasil dihapus');
+        $this->hapusId = null;
+        return redirect('/kader');
+    }
 
     public function mount(){
         $this->show = 10;

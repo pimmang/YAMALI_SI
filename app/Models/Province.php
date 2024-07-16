@@ -45,9 +45,13 @@ class Province extends Model
     {
         return $this->hasMany(fasyankes::class);
     }
-    public function ikrumahtangga(): HasMany
+    public function iKRumahTangga(): HasMany
     {
         return $this->hasMany(IKRumahTangga::class);
+    }
+    public function iKNRumahTangga(): HasMany
+    {
+        return $this->hasMany(IKNRumahTangga::class);
     }
     public function kontak(): HasMany
     {

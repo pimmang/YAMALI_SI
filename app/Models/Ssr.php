@@ -13,9 +13,13 @@ class Ssr extends Model
     {
         return $this->hasMany(Kader::class);
     }
-    public function ikrumahtangga(): HasMany
+    public function iKRumahTangga(): HasMany
     {
         return $this->hasMany(IKRumahTangga::class);
+    }
+    public function iKNRumahTangga(): HasMany
+    {
+        return $this->hasMany(IKNRumahTangga::class);
     }
     public function fasyankes(): HasMany
     {

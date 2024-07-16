@@ -93,7 +93,7 @@
                             <input type="text" id="idPasien" name="idPasien" value="{{ $details->id }}" disabled
                                 class=" border bg-gray-50 !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 cursor-not-allowed">
                         </div>
-                        <div>
+                        {{-- <div>
                             <label for="nomorRegister"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.
                                 Register
@@ -102,7 +102,7 @@
                                 value="{{ $details->nomor_register_tbc }}" disabled
                                 class="bg-gray-50 border cursor-not-allowed !border-orange-200  text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                 placeholder="No. Register TBC.03/06 Indeks" />
-                        </div>
+                        </div> --}}
                         <div>
                             <label for="namaPasien"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
@@ -111,7 +111,7 @@
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                 placeholder="Nama Pasien" />
                         </div>
-                        <div>
+                        {{-- <div>
                             <label for="nomorTerduga"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
                                 Terduga</label>
@@ -119,7 +119,7 @@
                                 value="{{ $details->no_terduga }}"
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                 placeholder="Nomor Terduga" />
-                        </div>
+                        </div> --}}
                         <div>
                             <label for="nikIndex"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK

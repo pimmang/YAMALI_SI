@@ -1,5 +1,8 @@
-<div class="h-fit w-full  pb-20">
-    <form action="/ik-rumah-tangga" method="POST">
+<div class="h-fit w-full bg-white rounded-lg ">
+    <div class="bg-orange-100 py-4 px-6 text-sm font-semibold uppercase text-gray-700 rounded-md flex items-center">
+        <p class="text-xs font-bold ">Form IK Rumah Tangga</p>
+    </div>
+    <form action="/ik-rumah-tangga" method="POST" class="p-6">
         @csrf
         <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div>
@@ -59,21 +62,21 @@
                     <option value="re-ik">Re-IK (IK Ulang)</option>
                 </select>
             </div>
-            <div>
+            {{-- <div>
                 <label for="idPasien" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID
                     Pasien</label>
                 <input type="text" id="idPasien" placeholder="ID Pasien"
                     class="bg-gray-100 border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 cursor-not-allowed"
                     value="" disabled>
-            </div>
-            <div>
+            </div> --}}
+            {{-- <div>
                 <label for="nomorRegister" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.
                     Register
                     TBC.03/06 Indeks</label>
                 <input type="text" id="nomorRegister" name="nomorRegister"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="No. Register TBC.03/06 Indeks" disabled />
-            </div>
+            </div> --}}
             <div>
                 <label for="namaPasien" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                     Pasien</label>
@@ -81,13 +84,13 @@
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="Nama Pasien" required />
             </div>
-            <div>
+            {{-- <div>
                 <label for="nomorTerduga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
                     Terduga</label>
                 <input type="tel" id="nomorTerduga" name="nomorTerduga"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="Nomor Terduga" required />
-            </div>
+            </div> --}}
             <div>
                 <label for="nikIndex" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK
                     Index</label>
@@ -139,7 +142,7 @@
             <div>
                 <label for="kabupaten"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota/kabupaten</label>
-                <select id="kabupaten" wire:model.change="kabupaten_id" name="kabupaten"
+                <select id="kabupaten" wire:model.change="kabupatenPilihan" name="kabupaten"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     @foreach ($kabupaten as $kab)
                         <option value={{ $kab->id }}>{{ ucwords(strtolower($kab->name)) }}
@@ -151,7 +154,7 @@
             <div>
                 <label for="kecamatan"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
-                <select id="kecamatan" name="kecamatan"
+                <select id="kecamatan" name="kecamatan" required
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     @if ($kecamatan)
                         @foreach ($kecamatan as $kec)

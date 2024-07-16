@@ -18,7 +18,6 @@ class IkRumahTanggaList extends Component
     public $details;
     public function mount($data){
     $this->data = $data;
-   
     }
     
     public function kontak(){

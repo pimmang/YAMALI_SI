@@ -13,7 +13,7 @@ class Profil extends Component
     public function render()
     {
         return view('livewire.profil.profil',[
-            'kontaks' => Kontak::where('rujukan', 1)->orderBy('updated_at', 'desc')->paginate(10),
+            'kontaks' => Kontak::where('rujukan', 1)->where('terduga',0)->orderBy('updated_at', 'desc')->paginate(10),
         ]);
     }
 }
