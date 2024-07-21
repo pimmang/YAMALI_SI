@@ -3,6 +3,8 @@
 namespace App\Livewire\Fasyankes;
 
 use App\Models\Fasyankes as ModelsFasyankes;
+use App\Models\IKRumahTangga;
+use App\Models\Ssr;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
@@ -12,7 +14,7 @@ class Fasyankes extends Component
     public $show = 10;
     public $nama ='';
     public $kode ='';
-    public $ssr ='';
+    public $ssrCari;
     public $kecamatan ='';
     public $jenis ='';
     public $kategoriCari = 'nama';
@@ -21,6 +23,12 @@ class Fasyankes extends Component
     public $state;
     public $edits;
     public $details;
+    
+    public $ssrs;
+
+    public function mount(){
+        $this->ssrs = Ssr::get();
+    }
 
 
     
@@ -56,37 +64,45 @@ class Fasyankes extends Component
     #[On('hapus')] 
     public function HapusData()
     {
-        $kader = ModelsFasyankes::find($this->hapusId);
-        $kader->delete();
-        session()->flash('fasyankes', 'Data fasyankes berhasil dihapus');
-        $this->hapusId = null;
-        return redirect('/fasyankes');
+
+       
+        $fasyankes = ModelsFasyankes::find($this->hapusId);
+        if($fasyankes->iKRumahTangga()->exists() || $fasyankes->iKNRumahTangga()->exists() || $fasyankes->kontak()->exists()  ){
+            $this->dispatch('gagal', message:'Data digunakan di data lain');
+        }else{
+            $fasyankes->delete();
+            $this->dispatch('sukses', message:'Data fasyankes berhasil dihapus')->self();
+            $this->hapusId = null;
+        }
+       
     }
     public function render()
     {
       
+        $query = ModelsFasyankes::query();
 
-        if(is_numeric($this->show) && $this->kategoriCari == 'nama'){
-            $fasyankes = ModelsFasyankes::where('nama_fasyankes', 'like', '%' . $this->nama . '%')->paginate($this->show);
-        }elseif(is_string($this->show) && $this->kategoriCari == 'nama'){
-            $fasyankes = ModelsFasyankes::where('nama_fasyankes', 'like', '%' . $this->nama . '%')->get();
-        }elseif(is_numeric($this->show)&& $this->kategoriCari == 'kode') {
-            $fasyankes = ModelsFasyankes::where('kode_fasyankes', 'like', '%' . $this->kode . '%')->paginate($this->show);
-        }elseif(is_string($this->show) && $this->kategoriCari == 'kode'){
-            $fasyankes = ModelsFasyankes::where('kode_fasyankes', 'like', '%' . $this->kode . '%')->get();
-        }elseif(is_numeric($this->show)&& $this->kategoriCari == 'ssr') {
-            $fasyankes = ModelsFasyankes::where('ssr', 'like', '%' . $this->ssr . '%')->paginate($this->show);
-        }elseif(is_string($this->show) && $this->kategoriCari == 'ssr'){
-            $fasyankes = ModelsFasyankes::where('ssr', 'like', '%' . $this->ssr . '%')->get();
-        }elseif(is_numeric($this->show)&& $this->kategoriCari == 'kecamatan') {
-            $fasyankes = ModelsFasyankes::where('kecamatan', 'like', '%' . $this->kecamatan . '%')->paginate($this->show);
-        }elseif(is_string($this->show) && $this->kategoriCari == 'kecamatan'){
-            $fasyankes = ModelsFasyankes::where('kecamatan', 'like', '%' . $this->kecamatan . '%')->get();
-        }elseif(is_numeric($this->show)&& $this->kategoriCari == 'jenis') {
-            $fasyankes = ModelsFasyankes::where('jenis', 'like', '%' . $this->jenis . '%')->paginate($this->show);
-        }elseif(is_string($this->show) && $this->kategoriCari == 'jenis'){
-            $fasyankes = ModelsFasyankes::where('jenis', 'like', '%' . $this->jenis . '%')->get();
+        if ($this->kategoriCari == 'nama') {
+            $query->where('nama_fasyankes', 'like', '%' . $this->nama . '%');
+        } elseif ($this->kategoriCari == 'kode') {
+            $query->where('kode_fasyankes', 'like', '%' . $this->kode . '%');
+        } elseif ($this->kategoriCari == 'ssr') {
+            $query->whereHas('ssr', function($query){
+                $query->where('nama', 'like', '%' . $this->ssrCari . '%');
+            });
+        } elseif ($this->kategoriCari == 'kecamatan') {
+            $query->whereHas('district', function($query){
+                $query->where('name', 'like', '%' . $this->kecamatan . '%');
+            });
+        } elseif ($this->kategoriCari == 'jenis') {
+            $query->where('jenis', 'like', '%' . $this->jenis . '%');
         }
+        
+        if (is_numeric($this->show)) {
+            $fasyankes = $query->paginate($this->show);
+        } else {
+            $fasyankes = $query->get();
+        }
+        
         return view('livewire.fasyankes.fasyankes',[
                 'fasyankess' => $fasyankes,
                

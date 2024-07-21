@@ -60,9 +60,15 @@
                                 <td class="px-6 py-4  whitespace-nowrap">
                                     {{ $terduga->no_telepon }}
                                 </td>
-                                <td class="px-6 py-4  whitespace-nowrap">
-                                    {{ $terduga->ssr->nama }}
-                                </td>
+                                @if ($terduga->i_k_rumah_tangga_id)
+                                    <td class="px-6 py-4  whitespace-nowrap">
+                                        {{ $terduga->iKRumahTangga->ssr->nama  }}
+                                    </td>
+                                @else
+                                    <td class="px-6 py-4  whitespace-nowrap">
+                                        {{ $terduga->iKNRumahTangga->ssr->nama  }}
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

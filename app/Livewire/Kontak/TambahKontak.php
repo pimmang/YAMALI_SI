@@ -14,7 +14,7 @@ class TambahKontak extends Component
     public $idIndex;
     public $tglLahir;
     public $umur;
-    public $ssrs;
+    // public $ssrs;
     public $fasyankes;
     public $ssrPilihan;
     public $fasyankesIndex;
@@ -38,7 +38,7 @@ class TambahKontak extends Component
 
     public function render()
     {
-        $this->ssrs = Ssr::get();
+        // $this->ssrs = Ssr::get();
         if($this->ssrPilihan){
             $this->fasyankes = Fasyankes::where('ssr_id', $this->ssrPilihan)->get();
         }

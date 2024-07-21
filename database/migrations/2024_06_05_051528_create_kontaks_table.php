@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('no_telepon');
             $table->integer('umur');
             $table->string('alamat');
-            $table->string('sr');
-            $table->foreignId('ssr_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            // $table->string('sr');
+            // $table->foreignId('ssr_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->string('jenis_ik');
             $table->boolean('kontak_serumah');
             $table->boolean('batuk');

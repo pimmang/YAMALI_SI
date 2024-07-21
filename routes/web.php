@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasyankesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IkController;
@@ -16,16 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard',[
-        'status' => 'dashboard'
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',[DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
 // Route::post('/logout', [ProfileController::class, 'edit'])->name('profile.edit');
 
 Route::middleware('auth')->group(function () {
 
-       
+    Route::get('/dashboard/{nama}',[DashboardController::class, 'ssrDashboard']);
    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -33,7 +31,9 @@ Route::middleware('auth')->group(function () {
 
     // investigasi kasus
     
-    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/', function(){
+        return redirect('/dashboard');
+    });
     Route::post('/ik-rumah-tangga', [IrtController::class, 'store']);
     Route::get('/rumah-tangga', function () {
         return view('IK.ik-rumah-tangga',[

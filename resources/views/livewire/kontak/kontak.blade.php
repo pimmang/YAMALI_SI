@@ -81,7 +81,6 @@
         </div>
     </div>
     <div class="flex flex-grow justify-end">
-
         <button wire:click='tambah'
             class=" bg-yellow-300 text-xs border-solid border active:scale-75 border-yellow-300 rounded-md px-3 font-semibold py-2 transition-all flex gap-1 items-center justify-center text-yellow-850"><i
                 class="ph-bold ph-plus"></i>

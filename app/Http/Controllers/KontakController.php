@@ -41,8 +41,8 @@ class KontakController extends Controller
         $kontak->umur = Carbon::parse($request->tanggalLahir)->age;
         $kontak->no_telepon = $request->nomorTelepon;
         $kontak->alamat = $request->alamat;
-        $kontak->sr = $request->sr;
-        $kontak->ssr_id = $request->ssr;
+        // $kontak->sr = $request->sr;
+        // $kontak->ssr_id = $request->ssr;
         $kontak->jenis_ik = $request->jenisIk;
         $kontak->kontak_serumah = $request->kontakSerumah;
         $kontak->batuk = $request->batuk;
@@ -110,8 +110,8 @@ class KontakController extends Controller
         $kontak->umur = Carbon::parse($request->tanggalLahir)->age;
         $kontak->no_telepon = $request->nomorTelepon;
         $kontak->alamat = $request->alamat;
-        $kontak->sr = $request->sr;
-        $kontak->ssr_id = $request->ssr;
+        // $kontak->sr = $request->sr;
+        // $kontak->ssr_id = $request->ssr;
         $kontak->jenis_ik = $request->jenisIk;
         $kontak->kontak_serumah = $request->kontakSerumah;
         $kontak->batuk = $request->batuk;

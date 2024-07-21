@@ -86,7 +86,7 @@ class TbcSoController extends Controller
 
         if($request->tipePemeriksaan == 'BTA +' || $request->tipePemeriksaan == 'CXR +' || $request->tipePemeriksaan == 'Extra Paru' || $request->tipePemeriksaan == 'Rontgen +' || $request->tipePemeriksaan == 'TCM +'){
             $ternotifikasi = new Ternotifikasi();
-            $ternotifikasi->kader_id = $request->kader;
+         
             $ternotifikasi->nama_petugas_pkm = $request->namaPetugasPKM;
             $ternotifikasi->tgl_verifikasi = $request->tglVerifikasi;
             $ternotifikasi->nama_pmo = $request->namaPMO;
@@ -127,7 +127,6 @@ class TbcSoController extends Controller
         if($request->tipePemeriksaan == 'BTA +' || $request->tipePemeriksaan == 'CXR +' || $request->tipePemeriksaan == 'Extra Paru' || $request->tipePemeriksaan == 'Rontgen +' || $request->tipePemeriksaan == 'TCM +'){
             if($terduga->ternotifikasi){
                 $ternotifikasi = Ternotifikasi::find($terduga->ternotifikasi->id) ;
-                $ternotifikasi->kader_id = $request->kader;
                 $ternotifikasi->nama_petugas_pkm = $request->namaPetugasPKM;
                 $ternotifikasi->tgl_verifikasi = $request->tglVerifikasi;
                 $ternotifikasi->nama_pmo = $request->namaPMO;
@@ -143,7 +142,7 @@ class TbcSoController extends Controller
                 return redirect('/ternotifikasi');
             }else{
                 $ternotifikasi = new Ternotifikasi();
-                $ternotifikasi->kader_id = $request->kader;
+               
                 $ternotifikasi->nama_petugas_pkm = $request->namaPetugasPKM;
                 $ternotifikasi->tgl_verifikasi = $request->tglVerifikasi;
                 $ternotifikasi->nama_pmo = $request->namaPMO;

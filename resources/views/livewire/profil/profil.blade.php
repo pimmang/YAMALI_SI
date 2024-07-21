@@ -165,7 +165,11 @@
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                            {{ $kontak->ssr->nama }}
+                            @if ($kontak->iKRumahTangga)
+                            {{ $kontak->iKRumahTangga->ssr->nama}}
+                            @else
+                            {{ $kontak->iKNRumahTangga->ssr->nama}}
+                            @endif
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

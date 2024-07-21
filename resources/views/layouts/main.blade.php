@@ -13,6 +13,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     @livewireStyles
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 
 <body class="overflow-hidden h-screen w-screen relative">
@@ -42,7 +43,7 @@
 
 
                 {{-- menu investigasi kontak --}}
-                <div class=" text-gray-700 w-full {{ $status == 'rumah-tangga' || $status == 'non-rumah-tangga' || $status == 'tpt-balita' ? 'h-40' : 'h-10' }} overflow-hidden transition-all"
+                <div class=" text-gray-700 w-full {{ $status == 'rumah-tangga' || $status == 'non-rumah-tangga' || $status == 'tpt-balita' ? 'h-30' : 'h-10' }} overflow-hidden transition-all"
                     id="investigasiKontak">
                     <div class="flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md "
                         id="investigasiKontakUtama">
@@ -76,7 +77,7 @@
                     <div class="flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md "
                         id="tbc-so-utama">
                         <div class="flex items-center justify-start  gap-2 ">
-                            <i class="ph ph-archive text-lg"></i>
+                            <i class="ph ph-plus-minus text-lg"></i>
                             <p>TBC-SO</p>
                         </div>
                         <i class="ph ph-caret-right "></i>
@@ -84,18 +85,18 @@
                     <div class="ps-4">
                         <a href="/terduga-tbc"
                             class="flex w-full justify-start px-4 h-10 items-center hover:bg-orange-100 {{ $status == 'terduga' ? 'bg-orange-100' : '' }} gap-2 rounded-md"><i
-                                class="ph ph-buildings text-lg"></i>
+                                class="ph ph-file-minus text-lg"></i>
                             <p>Terduga TBC</p>
                         </a>
                         <a href="/ternotifikasi"
                             class="flex justify-start w-full  px-4 h-10 items-center hover:bg-orange-100 gap-2 rounded-md {{ $status == 'ternotifikasi' ? 'bg-orange-100' : '' }}"><i
-                                class="ph ph-building text-lg"></i>
+                                class="ph ph-file-plus text-lg"></i>
                             <p>Ternotifikasi</p>
                         </a>
                     </div>
                 </div>
                 {{-- menu laporan --}}
-                <div class="text-gray-700 overflow-hidden {{ $status == 'lInvestigasiKontak' || $status == 'lTerdugaTbc' || $status == 'lTerdugaKasusEdukasiHiv' || $status == 'lTerdugaTbc' || $status == 'lTerdugaKasusEdukasiHiv' || $status == 'lTbRo' || $status == 'lIntervensiFasyankes' || $status == 'lCapaianIndikator' || $status == 'lHalamanMuka' || $status == 'lDataKader' || $status == 'lRekapKinerjaKader' || $status == 'lHasilPengobatan' || $status == 'lNarasiKegiatan' ? 'h-fit' : 'h-10' }} transition-all"
+                {{-- <div class="text-gray-700 overflow-hidden {{ $status == 'lInvestigasiKontak' || $status == 'lTerdugaTbc' || $status == 'lTerdugaKasusEdukasiHiv' || $status == 'lTerdugaTbc' || $status == 'lTerdugaKasusEdukasiHiv' || $status == 'lTbRo' || $status == 'lIntervensiFasyankes' || $status == 'lCapaianIndikator' || $status == 'lHalamanMuka' || $status == 'lDataKader' || $status == 'lRekapKinerjaKader' || $status == 'lHasilPengobatan' || $status == 'lNarasiKegiatan' ? 'h-fit' : 'h-10' }} transition-all"
                     id="laporan">
                     <div class="flex justify-between items-center w-full h-10 px-3 cursor-pointer  transition-all hover:bg-orange-200 rounded-md "
                         id="laporanUtama">
@@ -187,7 +188,7 @@
                             <p>Laporan Narasi Kegiatan</p>
                         </a>
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- menu Tambah --}}
                 <div class=" text-gray-700 w-full {{ $status == 'kader' || $status == 'fasyankes' ? 'h-30' : 'h-10' }} overflow-hidden transition-all"
@@ -195,7 +196,7 @@
                     <div class="flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md "
                         id="tambahUtama">
                         <div class="flex items-center justify-start  gap-2 ">
-                            <i class="ph ph-archive text-lg"></i>
+                            <i class="ph ph-folder-plus text-lg"></i>
                             <p>Tambah Data</p>
                         </div>
                         <i class="ph ph-caret-right "></i>
@@ -203,12 +204,12 @@
                     <div class="ps-4">
                         <a href="/kader"
                             class="flex w-full justify-start px-4 h-10 items-center hover:bg-orange-100 {{ $status == 'kader' ? 'bg-orange-100' : '' }} gap-2 rounded-md"><i
-                                class="ph ph-buildings text-lg"></i>
+                                class="ph ph-person-arms-spread text-lg"></i>
                             <p>Kader</p>
                         </a>
                         <a href="/fasyankes"
                             class="flex justify-start w-full  px-4 h-10 items-center hover:bg-orange-100 gap-2 rounded-md {{ $status == 'fasyankes' ? 'bg-orange-100' : '' }}"><i
-                                class="ph ph-building text-lg"></i>
+                                class="ph ph-hospital text-lg"></i>
                             <p>Fasyankes</p>
                         </a>
                     </div>
@@ -229,8 +230,8 @@
 <script>
     const investigasiKontak = document.getElementById('investigasiKontak');
 
-    var tinggiKonten = document.getElementById('laporan').scrollHeight;
-    console.log("Jumlah tinggi konten adalah: " + tinggiKonten + "px");
+    // var tinggiKonten = document.getElementById('laporan').scrollHeight;
+    // console.log("Jumlah tinggi konten adalah: " + tinggiKonten + "px");
 
     const investigasiKontakUtama = document.getElementById('investigasiKontakUtama');
     investigasiKontakUtama.addEventListener('click', function() {
@@ -243,35 +244,35 @@
         }
     })
 
-    const laporan = document.getElementById('laporan');
-    const laporanUtama = document.getElementById('laporanUtama');
+    // const laporan = document.getElementById('laporan');
+    // const laporanUtama = document.getElementById('laporanUtama');
 
-    laporanUtama.addEventListener('click', function() {
-        if (laporan.classList.contains('h-10')) {
-            laporan.classList.add('h-120');
-            laporan.classList.remove('h-10');
-        } else if (laporan.classList.contains('h-120')) {
-            laporan.classList.add('h-10');
-            laporan.classList.remove('h-120');
-        }
-    })
+    // laporanUtama.addEventListener('click', function() {
+    //     if (laporan.classList.contains('h-10')) {
+    //         laporan.classList.add('h-120');
+    //         laporan.classList.remove('h-10');
+    //     } else if (laporan.classList.contains('h-120')) {
+    //         laporan.classList.add('h-10');
+    //         laporan.classList.remove('h-120');
+    //     }
+    // })
 
-    const lTerdugaTbc = document.getElementById('lTerdugaTbc');
-    const lTerdugaTbcUtama = document.getElementById('lTerdugaTbcUtama');
+    // const lTerdugaTbc = document.getElementById('lTerdugaTbc');
+    // const lTerdugaTbcUtama = document.getElementById('lTerdugaTbcUtama');
 
-    lTerdugaTbcUtama.addEventListener('click', function() {
-        if (lTerdugaTbc.classList.contains('h-10')) {
-            lTerdugaTbc.classList.add('h-40');
-            lTerdugaTbc.classList.remove('h-10');
-            laporan.classList.remove('h-120');
-            laporan.classList.add('h-fit');
-        } else if (lTerdugaTbc.classList.contains('h-40')) {
-            lTerdugaTbc.classList.add('h-10');
-            lTerdugaTbc.classList.remove('h-40');
-            laporan.classList.remove('h-fit');
-            laporan.classList.add('h-120');
-        }
-    })
+    // lTerdugaTbcUtama.addEventListener('click', function() {
+    //     if (lTerdugaTbc.classList.contains('h-10')) {
+    //         lTerdugaTbc.classList.add('h-40');
+    //         lTerdugaTbc.classList.remove('h-10');
+    //         laporan.classList.remove('h-120');
+    //         laporan.classList.add('h-fit');
+    //     } else if (lTerdugaTbc.classList.contains('h-40')) {
+    //         lTerdugaTbc.classList.add('h-10');
+    //         lTerdugaTbc.classList.remove('h-40');
+    //         laporan.classList.remove('h-fit');
+    //         laporan.classList.add('h-120');
+    //     }
+    // })
 
     const tambah = document.getElementById('tambah');
     const tambahUtama = document.getElementById('tambahUtama');
@@ -299,8 +300,9 @@
         }
     })
 
-    console.log(laporan.style.height == `${tinggiKonten}`)
+    // console.log(laporan.style.height == `${tinggiKonten}`)
 </script>
 
+@stack('scripts')
 
 </html>

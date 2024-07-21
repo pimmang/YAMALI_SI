@@ -144,9 +144,9 @@
                             <option
                                 value="Pindah"{{ $dataHasilPengobatan->hasil_pengobatan == 'Pindah' ? 'selected' : '' }}>
                                 Pindah</option>
-                            <option
+                            {{-- <option
                                 value="Default"{{ $dataHasilPengobatan->hasil_pengobatan == 'Default' ? 'selected' : '' }}>
-                                Default</option>
+                                Default</option> --}}
                             <option
                                 value="Gagal"{{ $dataHasilPengobatan->hasil_pengobatan == 'Gagal' ? 'selected' : '' }}>
                                 Gagal</option>

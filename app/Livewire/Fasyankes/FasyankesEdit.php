@@ -21,6 +21,9 @@ class FasyankesEdit extends Component
         $this->edits = $data;
         $this->kabupaten_id = $data->regency_id;
     }
+    public function close(){
+        $this->dispatch('close')->to(Fasyankes::class);
+    }
     public function render()
     {
         $ssr = Ssr::get();

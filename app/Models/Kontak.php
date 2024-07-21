@@ -30,10 +30,10 @@ class Kontak extends Model
     {
         return $this->belongsTo(District::class);
     }
-    public function ssr()
-    {
-        return $this->belongsTo(Ssr::class);
-    }
+    // public function ssr()
+    // {
+    //     return $this->belongsTo(Ssr::class);
+    // }
     public function  iKRumahTangga()
     {
         return $this->belongsTo(IKRumahTangga::class);

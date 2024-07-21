@@ -158,7 +158,11 @@
                                 </th>
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                    {{ $data->kontak->ssr->nama }}
+                                    @if ($data->kontak->iKRumahTangga)
+                                        {{ $data->kontak->iKRumahTangga->ssr->nama }}
+                                    @else
+                                        {{ $data->kontak->iKNRumahTangga->ssr->nama }}
+                                    @endif
                                 </th>
                                 <th scope="row"
                                     class="px-6 text-center py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
@@ -170,7 +174,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                
+
             </div>
             <div class="container my-6">
                 {{ $datas->links() }}

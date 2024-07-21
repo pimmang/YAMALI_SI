@@ -63,14 +63,13 @@
                 <div class="relative">
                     <label for="fasyankes"
                         class="block mb-2 text-xs font-medium text-gray-900 dark:text-white">Fasyankes</label>
-                    <input type="text" id="cariFasyankes" wire:model.live="cariFasyankes" autocomplete="off"
+                    <input type="text" id="cariFasyan" wire:model.live="cariFasyankes" autocomplete="off"
                         {{ $ikrt ? 'disabled' : '' }}
                         class="{{ $ikrt ? 'bg-gray-100' : 'bg-white' }} border !border-orange-200 text-gray-900 text-xs rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                         placeholder="Ketik nama/kode fasyankes" required />
 
-                    <div id="fasyanContainer"
-                        class="absolute {{ $hidden ? 'hidden' : '' }} top-20 border-solid border border-orange-300 bg-white rounded-lg shadow w-full max-h-52 p-2 overflow-hidden ">
-
+                    <div id="fasyankesKontainer"
+                        class="absolute {{ $hidden ? 'hidden' : '' }}  top-20 border-solid border border-orange-300 bg-white rounded-lg shadow w-full max-h-52 p-2 overflow-hidden ">
                         <div class="w-full rounded-lg max-h-48 overflow-y-scroll  cursor-all-scroll">
                             @if ($fasyankes)
                                 @if ($fasyankes->count() > 0)
@@ -92,21 +91,6 @@
                             @endif
                         </div>
                     </div>
-
-                    <script>
-                        const cariFasyankes = document.getElementById('cariFasyankes');
-                        const fasyanContainer = document.getElementById('fasyanContainer');
-
-                        cariFasyankes.addEventListener('focus', function() {
-                            fasyanContainer.classList.remove('hidden');
-                        });
-
-                        cariFasyankes.addEventListener('blur', function() {
-                            setTimeout(function() {
-                                fasyanContainer.classList.add('hidden');
-                            }, 300);
-                        });
-                    </script>
                 </div>
 
             </form>
@@ -162,7 +146,7 @@
                 </div>
             @elseif($hasil)
                 @if ($hasil->count() > 0)
-                    <div class="relative overflow-auto rounded-lg flex-grow h-72">
+                    <div class="relative overflow-auto rounded-lg flex-grow h-72 mt-4">
                         <table
                             class="w-full whitespace-nowrap h-40 overflow-scroll text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead
@@ -397,4 +381,23 @@
             display: none;
         }
     </style>
+
+    @script
+        <script>
+            const cariFasyankes = document.getElementById('cariFasyan');
+            const fasyanContainer = document.getElementById('fasyankesKontainer');
+            console.log(cariFasyankes, fasyanContainer);
+
+            cariFasyankes.addEventListener('focus', function() {
+                console.log('focus');
+                fasyanContainer.classList.remove('hidden');
+            });
+
+            cariFasyankes.addEventListener('blur', function() {
+                setTimeout(function() {
+                    fasyanContainer.classList.add('hidden');
+                }, 300);
+            });
+        </script>
+    @endscript
 </div>

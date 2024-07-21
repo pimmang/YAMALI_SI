@@ -36,7 +36,12 @@ class EditTerduga extends Component
 
    public function mount($id){
     $this->dataTerduga = Terduga::find($id);
-    $this->ssrPilihan = $this->dataTerduga->kontak->ssr_id;
+    if($this->dataTerduga->kontak->iKRumahTangga){
+        $this->ssrPilihan = $this->dataTerduga->kontak->iKRumahTangga->ssr_id;
+    }else{
+        $this->ssrPilihan = $this->dataTerduga->kontak->iKNRumahTangga->ssr_id;
+    }
+    $this->fasyankesIdPilihan = $this->dataTerduga->kontak->fasyankes_id;
     $this->tipePemeriksaan = $this->dataTerduga->tipe_pemeriksaan;
     if($this->dataTerduga->ternotifikasi){
         $this->dataTernotifikasi = $this->dataTerduga->ternotifikasi;

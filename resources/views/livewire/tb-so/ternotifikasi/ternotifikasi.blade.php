@@ -201,16 +201,28 @@
                                 </th>
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                    {{ $data->terduga->kontak->ssr->nama }}
+                                    @if ($data->terduga->kontak->iKRumahTangga)
+                                        {{ $data->terduga->kontak->iKRumahTangga->ssr->nama }}
+                                    @else
+                                        {{ $data->terduga->kontak->iKNRumahTangga->ssr->nama }}
+                                    @endif
                                 </th>
                                 <th scope="row"
                                     class="px-6 text-center py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                     {{ $data->terduga->tipe_pemeriksaan }}
                                 </th>
-                                <th scope="row"
-                                    class="px-6  py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                    {{ $data->kader->nama }}
-                                </th>
+                                @if ($data->terduga->kontak->i_k_rumah_tangga_id)
+                                    <th scope="row"
+                                        class="px-6  py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
+                                        {{ $data->terduga->kontak->iKRumahTangga->kader->nama }}
+                                    </th>
+                                @else
+                                    <th scope="row"
+                                        class="px-6  py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
+                                        {{ $data->terduga->kontak->iKNRumahTangga->kader->nama }}
+                                    </th>
+                                @endif
+
                                 <th scope="row"
                                     class="px-6  py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                     {{ $data->nama_petugas_pkm }}

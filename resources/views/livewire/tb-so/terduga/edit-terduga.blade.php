@@ -25,14 +25,22 @@
                     </p>
                 @endif
                 <p class="underline text-xs">SR</p>
-                <p class="uppercase font-bold">{{ $dataTerduga->kontak->sr }}</p>
+                @if ($dataTerduga->kontak->iKrumahTangga)
+                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKRumahTangga->sr }}</p>
+                @else
+                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKNRumahTangga->sr }}</p>
+                @endif
                 <p class="underline text-xs">SSR</p>
-                <p class="uppercase font-bold">{{ $dataTerduga->kontak->ssr->nama }}</p>
+                @if ($dataTerduga->kontak->iKrumahTangga)
+                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKRumahTangga->ssr->nama }}</p>
+                @else
+                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKNRumahTangga->ssr->nama }}</p>
+                @endif
                 @if ($dataTerduga->kontak->i_k_rumah_tangga_id)
                     <p class="underline text-xs">Kegiatan IK</p>
                     <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKRumahTangga->kegiatan_ik }}</p>
                 @else
-                <p class="underline text-xs">Jenis Penyuluhan</p>
+                    <p class="underline text-xs">Jenis Penyuluhan</p>
                     <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKNRumahTangga->jenis_penyuluhan }}</p>
                 @endif
 
@@ -191,21 +199,6 @@
                         </div>
                         <div class="grid gap-10  md:grid-cols-2 p-5">
                             <div>
-                                <label for="kader"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required">Kader</label>
-                                <select id="kader" name="kader" required
-                                    class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                                    <option value='' selected>Pilih</option>
-                                    @if ($kaders)
-                                        @foreach ($kaders as $kader)
-                                            <option value="{{ $kader->id }}"
-                                                {{ $dataTernotifikasi->kader_id == $kader->id ? 'selected' : '' }}>
-                                                {{ $kader->nama . '(' . $kader->nik . ')' }}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
-                            <div>
                                 <label for="namaPetugasPKM"
                                     class="block mb-2 text-sm font-medium required text-gray-900 dark:text-white">Nama
                                     Petugas PKM</label>
@@ -307,20 +300,6 @@
                             <p class="uppercase font-semibold text-sm text-gray-700">Positif TBC</p>
                         </div>
                         <div class="grid gap-10  md:grid-cols-2 p-5">
-                            <div>
-                                <label for="kader"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required">Kader</label>
-                                <select id="kader" name="kader" required
-                                    class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                                    <option value='' selected>Pilih</option>
-                                    @if ($kaders)
-                                        @foreach ($kaders as $kader)
-                                            <option value="{{ $kader->id }}">
-                                                {{ $kader->nama . '(' . $kader->nik . ')' }}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
                             <div>
                                 <label for="namaPetugasPKM"
                                     class="block mb-2 text-sm font-medium required text-gray-900 dark:text-white">Nama

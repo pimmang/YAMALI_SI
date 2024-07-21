@@ -11,6 +11,7 @@ class IkNonRumahTangga extends Component
     public $statusPage = 'ik-non-rumah-tangga';
     public $status = 'list';
     
+    public $show;
     public function list(){
         $this->status = 'list';
     }

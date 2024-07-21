@@ -9,11 +9,13 @@ use App\Models\Province;
 use App\Models\Regency;
 use App\Models\Ssr;
 use Livewire\Component;
+use Livewire\WithPagination;
+
 
 class Kader extends Component
 {
     
-    
+    use WithPagination;
     // filter variabel
     public $status = 'list';
     public $show;
@@ -25,6 +27,7 @@ class Kader extends Component
     public $kategoriCari = 'nama';
     public $sr = 'sulawesi selatan';
     public $statusPage = 'kader';
+    
 
 
     // detail variabel
@@ -56,6 +59,10 @@ class Kader extends Component
         $this->kabupaten_id = $this->kaderEdit->regency_id;
     }
 
+
+    // cari
+    public $cariSsr;
+
     public $hapusId;
     public function hapus($id){
     // dd($id);
@@ -65,12 +72,17 @@ class Kader extends Component
     #[On('hapus')] 
     public function HapusData()
     {
-        // dd($this->hapusId);
+
+        
         $kader = ModelsKader::find($this->hapusId);
-        $kader->delete();
-        session()->flash('kader', 'Data kader berhasil dihapus');
-        $this->hapusId = null;
-        return redirect('/kader');
+        if($kader->iKRumahTangga()->exists() ||$kader->iKNRumahTangga()->exists()){
+            $this->dispatch('gagal', message:'Data digunakan di data lain')->self();
+        }else{
+            $kader->delete();
+            $this->dispatch('sukses', message:'Data berhasil dihapus')->self();
+            $this->hapusId = null;
+        }
+       
     }
 
     public function mount(){
@@ -113,27 +125,29 @@ class Kader extends Component
     public function render()
     {
     //    filter
-        if(is_numeric($this->show) && $this->kategoriCari == 'nama'){
-            $kaders = ModelsKader::where('nama', 'like', '%' . $this->nama . '%')->paginate($this->show);
-        }elseif(is_string($this->show) && $this->kategoriCari == 'nama'){
-            $kaders = ModelsKader::where('nama', 'like', '%' . $this->nama . '%')->get();
-        }elseif(is_numeric($this->show)&& $this->kategoriCari == 'nik') {
-            $kaders = ModelsKader::where('nik', 'like', '%' . $this->nik . '%')->paginate($this->show);
-        }elseif(is_string($this->show) && $this->kategoriCari == 'nik'){
-            $kaders= ModelsKader::where('nik', 'like', '%' . $this->nik . '%')->get();
-        }elseif(is_numeric($this->show)&& $this->kategoriCari == 'ssr') {
-            $kaders = ModelsKader::where('ssr', 'like', '%' . $this->ssr . '%')->paginate($this->show);
-        }elseif(is_string($this->show) && $this->kategoriCari == 'ssr'){
-            $kaders = ModelsKader::where('ssr', 'like', '%' . $this->ssr . '%')->get();
-        }elseif(is_numeric($this->show)&& $this->kategoriCari == 'kecamatan') {
-            $kaders = ModelsKader::where('kecamatan', 'like', '%' . $this->kecamatan . '%')->paginate($this->show);
-        }elseif(is_string($this->show) && $this->kategoriCari == 'kecamatan'){
-            $kaders = ModelsKader::where('kecamatan', 'like', '%' . $this->kecamatan . '%')->get();
-        }elseif(is_numeric($this->show)&& $this->kategoriCari == 'jenis') {
-            $kaders = ModelsKader::where('jenis', 'like', '%' . $this->jenis . '%')->paginate($this->show);
-        }elseif(is_string($this->show) && $this->kategoriCari == 'jenis'){
-            $kaders = ModelsKader::where('jenis', 'like', '%' . $this->jenis . '%')->get();
-        }
+    $kaders = ModelsKader::query();
+
+    if ($this->kategoriCari === 'nama') {
+        $kaders->where('nama', 'like', '%' . $this->nama . '%');
+    } elseif ($this->kategoriCari === 'nik') {
+        $kaders->where('nik', 'like', '%' . $this->nik . '%');
+    } elseif ($this->kategoriCari === 'ssr') {
+        $kaders->whereHas('ssr', function($query) {
+            $query->where('nama', 'like', '%' . $this->cariSsr . '%');
+        });
+    } elseif ($this->kategoriCari === 'kecamatan') {
+        $kaders->whereHas('district', function($query) {
+            $query->where('name', 'like', '%' . $this->kecamatan . '%');
+        });
+    } elseif ($this->kategoriCari === 'jenis') {
+        $kaders->where('jenis', 'like', '%' . $this->jenis . '%');
+    }
+
+    if (is_numeric($this->show)) {
+        $kaders = $kaders->paginate($this->show);
+    } else {
+        $kaders = $kaders->get();
+    }
 
     
         $ssr = Ssr::get();

@@ -142,7 +142,7 @@
             <div>
                 <label for="kabupaten"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota/kabupaten</label>
-                <select id="kabupaten" wire:model.change="kabupatenPilihan" name="kabupaten"
+                <select id="kabupaten" wire:model.change="kabupaten_id" name="kabupaten"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     @foreach ($kabupaten as $kab)
                         <option value={{ $kab->id }}>{{ ucwords(strtolower($kab->name)) }}

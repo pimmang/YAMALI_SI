@@ -40,16 +40,21 @@ class Kader extends Model
     {
         return $this->belongsTo(Ssr::class);
     }
-    public function ikrumahtangga(): HasMany
+    public function iKRumahTangga(): HasMany
     {
         return $this->hasMany(IKRumahTangga::class);
     }
-    public function ternotifikasi(): HasMany
+
+    public function iKNRumahtangga(): HasMany
     {
-        return $this->hasMany(ternotifikasi::class);
+        return $this->hasMany(IKNRumahTangga::class);
     }
-    public function kontak(): HasMany
-    {
-        return $this->hasMany(Kontak::class);
-    }
+    // public function ternotifikasi(): HasMany
+    // {
+    //     return $this->hasMany(ternotifikasi::class);
+    // }
+    // public function kontak(): HasMany
+    // {
+    //     return $this->hasMany(Kontak::class);
+    // }
 }

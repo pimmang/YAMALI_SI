@@ -41,15 +41,27 @@
                             {{ ucwords(strtolower($data->iKNRumahTangga->district->name . ', ' . $data->iKNRumahTangga->regency->name . ', ' . $data->iKNRumahTangga->province->name)) }}
                         </p>
                     @endif
-                    <p>{{ $data->sr }}</p>
-                    <p>{{ $data->ssr->nama }}</p>
+                    <p>
+                        @if ($data->i_k_rumah_tangga_id)
+                            {{ ucwords(strtolower($data->iKRumahTangga->sr)) }}
+                        @else
+                            {{ ucwords(strtolower($data->iKNRumahTangga->sr)) }}
+                        @endif
+                    </p>
+                    <p>
+                        @if ($data->i_k_rumah_tangga_id)
+                            {{ ucwords(strtolower($data->iKRumahTangga->ssr->nama)) }}
+                        @else
+                            {{ ucwords(strtolower($data->iKNRumahTangga->ssr->nama)) }}
+                        @endif
+                    </p>
                     @if ($data->i_k_rumah_tangga_id)
                         <p>
                             {{ ucwords(strtolower($data->iKRumahTangga->kegiatan_ik)) }}
                         </p>
                     @else
                         <p>
-                            {{ ucwords(strtolower($data->iKNRumahTangga->jenis_penyuluhan )) }}
+                            {{ ucwords(strtolower($data->iKNRumahTangga->jenis_penyuluhan)) }}
                         </p>
                     @endif
                 </div>
@@ -204,20 +216,6 @@
                         <p class="uppercase font-semibold text-sm text-gray-700">Positif TBC</p>
                     </div>
                     <div class="grid gap-10  md:grid-cols-2 p-5">
-                        <div>
-                            <label for="kader"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required">Kader</label>
-                            <select id="kader" name="kader" required
-                                class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                                <option value='' selected>Pilih</option>
-                                @if ($kaders)
-                                    @foreach ($kaders as $kader)
-                                        <option value="{{ $kader->id }}">
-                                            {{ $kader->nama . '(' . $kader->nik . ')' }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div>
                         <div>
                             <label for="namaPetugasPKM"
                                 class="block mb-2 text-sm font-medium required text-gray-900 dark:text-white">Nama

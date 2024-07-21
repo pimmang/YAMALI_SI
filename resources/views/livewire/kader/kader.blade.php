@@ -2,6 +2,9 @@
 
     <x-toast-component :status="$statusPage" class="z-50" />
     <livewire:component.toast-hapus />
+    <livewire:component.toast-hapus />
+    <livewire:component.toast-gagal />
+    <livewire:component.toast-sukses />
 
     <div class="w-full flex items-start justify-between mb-10">
         <div class="flex flex-col gap-2">
@@ -42,10 +45,8 @@
                 <div class="flex items-center gap-4 w-1/3">
                     <div class="flex items-center gap-2">
                         <p>Show</p>
-                        {{ $show }}
-
                         <select id="show" wire:model.live='show' wire:change="updateSymbolDetail"
-                            class="bg-gray-50 border border-white text-gray-900 text-sm rounded-lg shadow-md focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 ">
+                            class="bg-white border border-white text-gray-900 text-sm rounded-lg shadow focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 ">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -59,12 +60,12 @@
                 <div class="flex items-center gap-2 justify-end w-2/3">
                     <div class="flex items-center gap-2">
                         <select id="kategori" name="kategori" wire:model.live='kategoriCari'
-                            class="bg-gray-50 border border-white text-gray-900 text-sm rounded-lg shadow-md focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 ">
+                            class="bg-white border border-white text-gray-900 text-sm rounded-lg shadow focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 ">
                             <option value="nama">Nama</option>
                             <option value="nik">NIK</option>
                             <option value="ssr">SSR</option>
                             <option value="kecamatan">Kecamatan</option>
-                            <option value="jenis">Jenis</option>
+
                         </select>
                     </div>
 
@@ -78,7 +79,7 @@
                                 </svg>
                             </div>
                             <input type="search" id="default-search" wire:model.live='nama'
-                                class="block w-full ps-10 p-2.5 text-sm border-white text-gray-900 border shadow-md rounded-lg bg-gray-50 focus:ring-orange-500 focus:!border-orange-500"
+                                class="block w-full ps-10 p-2.5 text-sm border-white text-gray-900 border shadow rounded-lg bg-white focus:ring-orange-500 focus:!border-orange-500"
                                 placeholder="Cari data..." />
                         </div>
                     @elseif ($kategoriCari == 'nik')
@@ -91,22 +92,16 @@
                                 </svg>
                             </div>
                             <input type="search" id="default-search" wire:model.live='nik'
-                                class="block w-full ps-10 p-2.5 text-sm border-white text-gray-900 border shadow-md rounded-lg bg-gray-50 focus:ring-orange-500 focus:!border-orange-500"
+                                class="block w-full ps-10 p-2.5 text-sm border-white text-gray-900 border shadow rounded-lg bg-white focus:ring-orange-500 focus:!border-orange-500"
                                 placeholder="Cari data..." />
                         </div>
                     @elseif ($kategoriCari == 'ssr')
-                        <select id="ssr" name="ssr" wire:model.live='ssr'
-                            class="bg-gray-50 border border-white text-gray-900 text-sm rounded-lg shadow-md focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 ">
+                        <select id="ssr" name="ssr" wire:model.live='cariSsr'
+                            class="bg-white border border-white text-gray-900 text-sm rounded-lg shadow focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 ">
                             <option selected>Pilih</option>
-                            <option value="Makassar">Makassar</option>
-                            <option value="Gowa">Gowa</option>
-                            <option value="Wajo">Wajo</option>
-                            <option value="Pinrang">Pinrang</option>
-                            <option value="Bulukumba">Bulukumba</option>
-                            <option value="Jeneponto">Jeneponto</option>
-                            <option value="Maros">Maros</option>
-                            <option value="Bone">Bone</option>
-                            <option value="Sidrap">Sidrap</option>
+                            @foreach ($ssrs as $ssr)
+                                <option value="{{ $ssr->nama }}">{{ $ssr->nama }}</option>
+                            @endforeach
                         </select>
                     @elseif ($kategoriCari == 'kecamatan')
                         <div class="relative w-full ">
@@ -118,57 +113,85 @@
                                 </svg>
                             </div>
                             <input type="search" id="kecamatan" name="kecamatan" wire:model.live ='kecamatan'
-                                class="block w-full ps-10 p-2.5 text-sm border-white text-gray-900 border shadow-md rounded-lg bg-gray-50 focus:ring-orange-500 focus:!border-orange-500"
+                                class="block w-full ps-10 p-2.5 text-sm border-white text-gray-900 border shadow rounded-lg bg-white focus:ring-orange-500 focus:!border-orange-500"
                                 placeholder="Cari data..." required />
                         </div>
-                    @elseif ($kategoriCari == 'jenis')
-                        <select id="jenis" name="jenis" wire:model.live='jenis'
-                            class="bg-gray-50 border border-white text-gray-900 text-sm rounded-lg shadow-md focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 ">
-                            <option selected>Pilih</option>
-                            <option value="pemerintah">Pemerintah</option>
-                            <option value="swasta">Swasta</option>
-                        </select>
+
                     @endif
                 </div>
             </div>
+
+
+
+
+
+
+
             <div class="flex flex-col gap-3 mb-10">
-                <div
-                    class="rounded-lg text-xs shadow-md font-bold text-center text-white bg-orange-400 w-full grid grid-cols-5 gap-2 px-3 py-4">
-                    <p>NIK</p>
-                    <p>Nama</p>
-                    <p>Kecamatan</p>
-                    <p>SSR</p>
-                    <p>Aksi</p>
+
+                <div class="relative overflow-x-auto rounded-lg">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-orange-500 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Aksi
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nama
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nik
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Kecamatan
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    SSR
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($kaders as $kader)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center justify-around text-lg ">
+                                            <div
+                                                class="relative z-0 before:absolute before:content-['Detail'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+                                                <i class=" text-xl hover:text-lg ph-bold ph-eye p-0 text-blue-500 cursor-pointer  transition-all"
+                                                    wire:click="detail({{ $kader->id }})"></i>
+                                            </div>
+                                            <div wire:click="edit({{ $kader->id }})"
+                                                class="relative before:absolute before:content-['Edit'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+
+                                                <i
+                                                    class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
+                                            </div>
+                                            <div wire:click="hapus({{ $kader->id }})"
+                                                class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+
+                                                <i class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"
+                                                    onclick="tampilHapus()"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <p>{{ $kader->nama }}</p>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ $kader->nik }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <p>{{ ucwords(strtolower($kader->district->name)) }}</p>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <p>{{ $kader->ssr->nama }}</p>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                @foreach ($kaders as $kader)
-                    <div
-                        class=" rounded-lg shadow-md bg-white w-full text-xs text-center grid grid-cols-5 gap-2 px-3 py-4">
-                        <p>{{ $kader->nik }}</p>
-                        <p>{{ $kader->nama }}</p>
-                        <p>{{ ucwords(strtolower($kader->district->name)) }}</p>
-                        <p>{{ $kader->ssr->nama }}</p>
-                        <div class="flex items-center justify-around text-lg ">
-                            <div
-                                class="relative z-0 before:absolute before:content-['Detail'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
-                                <i class=" text-xl hover:text-lg ph-bold ph-eye p-0 text-blue-500 cursor-pointer  transition-all"
-                                    wire:click="detail({{ $kader->id }})"></i>
-                            </div>
-                            <div wire:click="edit({{ $kader->id }})"
-                                class="relative before:absolute before:content-['Edit'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
-
-                                <i
-                                    class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
-                            </div>
-                            <div wire:click="hapus({{ $kader->id }})"
-                                class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
-
-                                <i class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"
-                                    onclick="tampilHapus()"></i>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-
                 @if ($state == 'details')
                     <div
                         class="w-full h-full absolute z-50 top-0 left-0 flex items-center justify-center px-40 py-20 ">
@@ -493,7 +516,20 @@
     @endif
 
 
-   
+    @script
+        <script>
+            $wire.on('gagal', ({
+                message
+            }) => {
+                tampilGagal(message);
+            });
+            $wire.on('sukses', ({
+                message
+            }) => {
+                tampilSukses(message);
+            });
+        </script>
+    @endscript
 
 
 </div>

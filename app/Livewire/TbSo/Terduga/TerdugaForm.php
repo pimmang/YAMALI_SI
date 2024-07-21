@@ -32,7 +32,11 @@ class TerdugaForm extends Component
     #[On('data')]
     public function data($id){
         $this->data = Kontak::find($id);
-        $this->ssrPilihan = $this->data->ssr_id;
+        if($this->data->iKRumahTangga){
+            $this->ssrPilihan = $this->data->iKRumahTangga->ssr_id;
+        }else{
+            $this->ssrPilihan = $this->data->iKNRumahTangga->ssr_id;
+        }
         $this->fasyankesIdPilihan = $this->data->fasyankes_id;
     }
     

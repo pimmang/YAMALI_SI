@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ternotifikasis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('terduga_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('kader_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            // $table->foreignId('kader_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->string('nama_petugas_pkm');
             $table->string('nama_pmo');
             $table->string('no_telepon_pmo');
