@@ -38,4 +38,9 @@ class Fasyankes extends Model
     {
         return $this->hasMany(Kontak::class);
     }
+
+    public function index(): HasMany
+    {
+        return $this->hasMany(Index::class);
+    }
 }

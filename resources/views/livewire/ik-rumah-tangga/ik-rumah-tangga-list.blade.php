@@ -1,11 +1,13 @@
 <div class="w-full odd:bg-white  even:bg-orange-50 rounded-lg overflow-hidden  shadow-md " id="{{ $data->id }}">
     <div
-        class=" uppercase  text-gray-900 w-full text-sm font-medium text-start  items-center grid grid-cols-6 gap-2 px-3 py-5">
-        <p>{{ $data->nama_pasien }}</p>
-        <p>{{ $data->nik_index }}</p>
-        <p>{{ $data->tanggal_lahir }}</p>
+        class=" text-gray-700 w-full text-sm text-start   items-center grid grid-cols-6 gap-2 px-3 py-5">
+        {{-- <p class="text-gray-900 font-semibold overflow-ellipsis overflow-hidden whitespace-nowrap">{{ $data->index->nama_pasien }}</p> --}}
+        <p class="text-gray-900 font-semibold ">{{ $data->index->nama_pasien }}</p>
+        {{-- <p class="">{{ \Carbon\Carbon::parse($data->created_at)->format('Y-m-d') }}</p> --}}
+        <p>{{ $data->index->nik_index }}</p>
+        <p>{{ $data->index->tanggal_lahir }}</p>
+        <p>{{ $data->index->ssr->nama }}</p>
         <p>{{ $data->fasyankes->nama_fasyankes }}</p>
-        <p>{{ $data->ssr->nama }}</p>
         <div class="flex items-center justify-around text-lg capitalize text-center">
             <div
                 class="relative z-0 before:z-30 before:absolute before:content-['Detail'] before:shadow-md before:bg-white before:left-0 before:scale-0 before:transition-all hover:before:-left-16  hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">

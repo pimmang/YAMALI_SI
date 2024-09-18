@@ -21,13 +21,14 @@ class IkNonRumahTanggaEdit extends Component
     public $ssrPilihan;
     public $kaders;
     public $fasyankes;
-
+    // public $notChange = true;
     public $details;
     public function mount($data){
         $this->details = $data ;
-        $this->ssrPilihan = $data->ssr_id;
+        $this->ssrPilihan = $data->index->ssr_id;
         $this->kabupaten_id = $data->regency_id;
         $this->tglLahir = $data->tanggal_lahir;
+        // dd($this->details->index->ssr_id);
     }
     public function close(){
         $this->dispatch('close')->to(IkNonRumahTanggaList::class);

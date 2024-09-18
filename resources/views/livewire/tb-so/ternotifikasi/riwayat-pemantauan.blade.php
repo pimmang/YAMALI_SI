@@ -8,34 +8,56 @@
                 <p class="uppercase font-semibold text-sm text-gray-700">Data</p>
             </div>
             <div class="w-full flex flex-grow flex-col p-4 justify-around text-sm font-medium text-gray-700">
-                <p class="underline text-xs">Nama</p>
-                <p class="uppercase font-bold">{{ $data->terduga->kontak->nama }}</p>
-                <p class="underline text-xs">NIK</p>
-                <p class="uppercase font-bold">{{ $data->terduga->kontak->nik_kontak }}</p>
-                <p class="underline text-xs">Nomor Telepon</p>
-                <p class="uppercase font-bold">{{ $data->terduga->kontak->no_telepon }}</p>
-                <p class="underline text-xs">Kecamatan, Kabupaten, Provinsi</p>
-                @if ($data->terduga->kontak->i_k_rumah_tangga_id)
-                    <p class="uppercase font-bold">
-                        {{ $data->terduga->kontak->iKRumahTangga->district->name . ', ' . $data->terduga->kontak->iKRumahTangga->regency->name . ', ' . $data->terduga->kontak->iKRumahTangga->province->name }}
-                    </p>
-                @else
-                    <p class="uppercase font-bold">
-                        {{ $data->terduga->kontak->iKNRumahTangga->district->name . ', ' . $data->terduga->kontak->iKNRumahTangga->regency->name . ', ' . $data->terduga->kontak->iKNRumahTangga->province->name }}
-                    </p>
-                @endif
-                <p class="underline text-xs">SR</p>
-                <p class="uppercase font-bold">{{ $data->terduga->kontak->sr }}</p>
-                <p class="underline text-xs">SSR</p>
-                <p class="uppercase font-bold">{{ $data->terduga->kontak->ssr->nama }}</p>
-                @if ($data->terduga->kontak->i_k_rumah_tangga_id)
-                    <p class="underline text-xs">Kegiatan IK</p>
-                    <p class="uppercase font-bold">{{ $data->terduga->kontak->iKRumahTangga->kegiatan_ik }}</p>
-                @else
-                    <p class="underline text-xs">Jenis Penyuluhan</p>
-                    <p class="uppercase font-bold">{{ $data->terduga->kontak->iKNRumahTangga->jenis_penyuluhan }}</p>
-                @endif
+                <div>
+                    <p class="text-gray-500 text-xs">Nama</p>
+                    <p class="uppercase font-bold">{{ $data->terduga->kontak->nama }}</p>
+                </div>
+                <div>
 
+                    <p class="text-gray-500 text-xs">NIK</p>
+                    <p class="uppercase font-bold">{{ $data->terduga->kontak->nik_kontak }}</p>
+                </div>
+                <div>
+
+                    <p class="text-gray-500 text-xs">Nomor Telepon</p>
+                    <p class="uppercase font-bold">{{ $data->terduga->kontak->no_telepon }}</p>
+                </div>
+
+                @if ($data->terduga->kontak->i_k_rumah_tangga_id)
+                    <div>
+                        <p class="text-gray-500 text-xs">Kecamatan, Kabupaten</p>
+                        <p class="uppercase font-bold">
+                            {{ $data->terduga->kontak->iKRumahTangga->index->district->name . ', ' . $data->terduga->kontak->iKRumahTangga->index->regency->name }}
+                        </p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 text-xs">SSR</p>
+                        <p class="uppercase font-bold">{{ $data->terduga->kontak->iKRumahTangga->index->ssr->nama }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 text-xs">Kegiatan IK</p>
+                        <p class="uppercase font-bold">
+                            {{ $data->terduga->kontak->iKRumahTangga->kegiatan_ik ? $data->terduga->kontak->iKRumahTangga->kegiatan_ik : '' }}
+                        </p>
+                    </div>
+                @else
+                    <div>
+
+                        <p class="text-gray-500 text-xs">Lokasi Penyuluhan (Kecamatan, Kota/Kabupaten)</p>
+                        <p class="uppercase font-bold">
+                            {{ $data->terduga->kontak->iKNRumahTangga->district->name . ', ' . $data->terduga->kontak->iKNRumahTangga->regency->name }}
+                        </p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 text-xs">SSR</p>
+                        <p class="uppercase font-bold">{{ $data->terduga->kontak->iKNRumahTangga->index->ssr->nama }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 text-xs">Jenis Penyuluhan</p>
+                        <p class="uppercase font-bold">{{ $data->terduga->kontak->iKNRumahTangga->jenis_penyuluhan }}
+                        </p>
+                    </div>
+                @endif
             </div>
 
         </div>
@@ -119,8 +141,7 @@
                 <div class="w-full bg-orange-50 p-4 flex-none">
                     <p class="uppercase font-semibold text-sm text-gray-700">Form Tambah Riwayat Pemantauan</p>
                 </div>
-                <form wire:submit="save"
-                    class="p-4 grid grid-cols-2 gap-6">
+                <form wire:submit="save" class="p-4 grid grid-cols-2 gap-6">
                     @csrf
                     <div>
                         <label for="tglKegiatan"

@@ -45,6 +45,12 @@ class RiwayatPemantauan extends Component
         $pemantauan->jenis_kegiatan = $this->jenisKegiatan;
         $pemantauan->kegiatan = $this->kegiatan;
         $pemantauan->save();
+
+        $this->tglKegiatan ='';
+        $this->tahapKegiatan ='';
+        $this->waktuKegiatan ='';
+        $this->jenisKegiatan ='';
+        $this->kegiatan ='';
         $this->dispatch('sukses' , message:'Data pemantauan berhasil ditambahkan')->self();
         $this->dataPemantauans = Pemantauan::where('ternotifikasi_id', $this->pemantauanId)->get();
     }

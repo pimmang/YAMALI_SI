@@ -1,60 +1,109 @@
-<div class="w-full h-full absolute z-50 top-0 left-0 flex items-center justify-center p-10 ">
+<div class="w-full h-full absolute z-50 top-0 left-0 flex items-center justify-center px-20 py-20 ">
     <div class="bg-black bg-opacity-55 w-full absolute z-10 h-full" wire:click='close'>
 
     </div>
-    <div class="w-full h-full flex items-top gap-5 z-20">
-        <div class="w-3/12 h-full flex flex-col bg-white mb-10 overflow-hidden rounded-lg shadow">
-            <div class="w-full bg-orange-50 p-4 flex-none">
-                <p class="uppercase font-semibold text-sm text-gray-700">Data IK RT</p>
+    <div class="flex w-full h-fit z-20 gap-6 ">
+        <div class="bg-white rounded-xl overflow-hidden h-fit">
+            <div class="w-full bg-orange-100">
+                <p class="uppercase font-semibold text-gray-700 p-4">Data Index</p>
             </div>
-            <div class="w-full flex flex-grow flex-col p-4 justify-around text-sm font-medium text-gray-700">
-                <p class="underline text-xs">Nama Index</p>
-                <p class="uppercase font-bold">{{ $details->iKRumahTangga->nama_pasien }}</p>
-                <p class="underline text-xs">NIK</p>
-                <p class="uppercase font-bold">{{ $details->iKRumahTangga->nik_index }}</p>
-                <p class="underline text-xs">Tanggal Lahir</p>
-                <p class="uppercase font-bold">
-                    {{ $details->iKRumahTangga->tanggal_lahir }}
-                </p>
-                <p class="underline text-xs">Jenis Kelamin</p>
-                <p class="uppercase font-bold">{{ $details->iKRumahTangga->jenis_kelamin }}</p>
-                <p class="underline text-xs">Alamat</p>
-                <p class="uppercase font-bold">{{ $details->iKRumahTangga->alamat }}</p>
-            </div>
+            <div class="grid grid-cols-1 gap-2 overflow-y-auto p-4 items-start">
+                <div class="w-full flex  flex-col justify-around text-sm  font-medium text-gray-700 ">
+                    <p class="text-xs text-gray-400">Sumber Data</p>
+                    <p class="capitalize font-bold">{{ $details->index->sumber_data }}</p>
+                </div>
+                <div class="w-full flex  flex-col justify-around text-sm font-medium  text-gray-700">
+                    <p class="text-xs text-gray-400">Tipe Fasyankes</p>
+                    <p class="capitalize font-bold">{{ $details->index->type_fasyankes }}</p>
+                </div>
+                <div class="w-full flex  flex-col justify-around text-sm font-medium text-gray-700">
+                    <p class="text-xs text-gray-400">Tahun Index</p>
+                    <p class="capitalize font-bold">{{ $details->index->tahun_index }}</p>
+                </div>
+                <div class="w-full flex  flex-col justify-around text-sm font-medium text-gray-700">
+                    <p class="text-xs text-gray-400">Semester</p>
+                    <p class="capitalize font-bold">{{ $details->index->semester_index }}</p>
+                </div>
+                <div class="w-full flex  flex-col justify-around text-sm font-medium text-gray-700">
+                    <p class="text-xs text-gray-400">Nama</p>
+                    <p class="capitalize font-bold">{{ $details->index->nama_pasien }}</p>
+                </div>
+                <div class="w-full flex  flex-col justify-around text-sm font-medium text-gray-700">
+                    <p class="text-xs text-gray-400">NIK</p>
+                    <p class="capitalize font-bold">{{ $details->index->nik_index }}</p>
+                </div>
+                <div class="w-full flex  flex-col justify-around text-sm font-medium text-gray-700">
+                    <p class="text-xs text-gray-400">Tanggal Lahir</p>
+                    <p class="capitalize font-bold">{{ $details->index->tanggal_lahir }}</p>
+                </div>
+                <div class="w-full flex  flex-col justify-around text-sm font-medium text-gray-700">
+                    <p class="text-xs text-gray-400">Jenis Kelamin</p>
+                    <p class="capitalize font-bold">{{ $details->index->jenis_kelamin }}</p>
+                </div>
 
+                <div class="w-full flex  flex-col justify-around text-sm font-medium text-gray-700">
+                    <p class="text-xs text-gray-400">Fasyankes</p>
+                    <p class="capitalize font-bold">{{ $details->index->fasyankes->nama_fasyankes }}</p>
+                </div>
+                <div class="w-full flex  flex-col justify-around text-sm font-medium text-gray-700">
+                    <p class="text-xs text-gray-400">Alamat</p>
+                    <p class="capitalize font-bold">
+                        {{ ucwords(strtolower($details->index->alamat . ', ' . $details->index->district->name . ', ' . $details->index->regency->name)) }}
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="bg-white flex-grow rounded-xl p-8 ">
-            <form class="bg-white rounded-lg p-6 overflow-y-scroll h-full">
+
+        <div class="bg-white rounded-lg w-full overflow-hidden">
+            <div class="bg-orange-100 p-4 px-6 text-sm font-semibold uppercase text-gray-700">
+                <p>Detail IK Non Rumah Tangga</p>
+            </div>
+            <form action="/tambah-iknrt" method="POST" class="bg-white rounded-lg p-6">
                 @csrf
-                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                <div class="grid gap-4 mb-6 md:grid-cols-2">
                     <div>
                         <label for="lokasi-penyuluhan"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lokasi
                             Penyuluhan</label>
-                        <select id="lokasi-penyuluhan" disabled name="lokasiPenyuluhan" disabled
+                        <select id="lokasi-penyuluhan" required name="lokasiPenyuluhan" disabled
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                             <option value="">{{ $details->lokasi_penyuluhan }}</option>
+                            <option value="Balai Desa/warga">Balai Desa/Warga</option>
+                            <option value="Pertemuan RT/RW/Kel/Kec">Pertemuan RT/RW/Kel/Kec</option>
+                            <option value="Lingkungan Sekitar Tempat Tinggal">Lingkungan Sekitar Tempat Tinggal
+                            </option>
+                            <option value="Pertemuan PKK/Posyandu/Arisan">Pertemuan PKK/Posyandu/Arisan </option>
+                            <option value="Lingkungan Kupat-kumis">Lingkungan Kupat-kumis</option>
+                            <option value="Pengungsian">Pengungsian</option>
+                            <option value="Bantaran Kali">Bantaran Kali</option>
+                            <option value="Sekolah (SD/SMP/SMA)">Sekolah (SD/SMP/SMA)</option>
+                            <option value="Perguruan Tinggi">Perguruan Tinggi</option>
+                            <option value="Tempat Kerja(Perkantoran/pabrik/dll)">Tempat Kerja(Perkantoran/pabrik/dll)
+                            </option>
+                            <option value="Rutan/Lapas">Rutan/Lapas</option>
+                            <option value="Pondok Pesantren">Pondok Pesantren</option>
+                            <option value="Panti Asuhan">Panti Asuhan</option>
+                            <option value="Panti Jompo">Panti Jompo</option>
                         </select>
                     </div>
+
                     <div>
-                        <label for="tanggal-penyuluhan"
+                        <label for="tglPenyuluhan"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
                             Penyuluhan</label>
 
-                        <input id="tanggal-penyuluhan" name="tglPenyuluhan" type="date" disabled
-                            value="{{ $details->tgl_penyuluhan }}"
+                        <input id="tglPenyuluhan" name="tglPenyuluhan" type="date" disabled value="{{ $details->tgl_penyuluhan }}"
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:!border-orange-500 block w-full p-2.5 "
                             placeholder="Select date">
 
                     </div>
-
                     <div>
                         <label for="waktu-penyuluhan"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu
                             Penyuluhan</label>
-                        <select id="waktu-penyuluhan" disabled name="waktuPenyuluhan"
+                        <select id="waktu-penyuluhan" required name="waktuPenyuluhan"  disabled
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                            <option selected value="">{{ $details->waktu_penyuluhan }}</option>
+                            <option value="">{{ $details->waktu_penyuluhan }}</option>
                             <option value="pagi">Pagi</option>
                             <option value="siang">Siang</option>
                             <option value="malam">Malam</option>
@@ -64,91 +113,86 @@
                         <label for="jenis-penyuluhan"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
                             Penyuluhan</label>
-                        <select id="jenis-penyuluhan" disabled name="jenisPenyuluhan"
+                        <select id="jenis-penyuluhan" required name="jenisPenyuluhan" disabled
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                            <option selected value="">{{ $details->jenis_penyuluhan }}</option>
+                            <option value="">{{ $details->jenis_penyuluhan }}</option>
                             <option value="Budget">Budget</option>
                             <option value="Non-Budget">Non-Budget</option>
                         </select>
                     </div>
                     <div>
-                        <label for="provinsi"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
-                        <select id="provinsi" disabled name="provinsi"
-                            class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                            <option value = '73'>Sulawesi Selatan</option>
-                        </select>
-                    </div>
-                    <div>
                         <label for="kabupaten"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota/kabupaten</label>
-                        <select id="kabupaten" wire:model.change="kabupaten_form" disabled name="kabupaten"
+                        <select id="kabupaten" wire:model.change="kabupaten_form" required name="kabupaten" disabled
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                            <option>
-                                {{ ucwords(strtolower($details->regency->name)) }}
-                            </option>
-
+                            <option value=""> {{ ucwords(strtolower($details->regency->name)) }}</option>
+                            {{-- @foreach ($kabupaten as $kab)
+                                <option value={{ $kab->id }} {{ $kab->id == $kabupaten_id ? 'selected' : '' }}>
+                                    {{ ucwords(strtolower($kab->name)) }}
+                                </option>
+                            @endforeach --}}
                         </select>
                     </div>
                     <div>
                         <label for="kecamatan"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
-                        <select id="kecamatan" name="kecamatan" disabled
+                        <select id="kecamatan" name="kecamatan" required disabled
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                            <option value="">Pilih</option>
-                            <option>
-                                {{ ucwords(strtolower($details->district->name)) }}
-                            </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="Sr"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
-                        <select id="Sr" disabled name="sr"
-                            class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                            <option value="sulawesi selatan">Sulawesi Selatan</option>
+                            <option value="">{{ ucwords(strtolower($details->district->name)) }}</option>
+                            {{-- @if ($kecamatan)
+                                @foreach ($kecamatan as $kec)
+                                    <option value='{{ $kec->id }}'
+                                        {{ $kec->id == $kecamatan_id ? 'selected' : '' }}>
+                                        {{ ucwords(strtolower($kec->name)) }}
+                                    </option>
+                                @endforeach
+                            @endif --}}
                         </select>
                     </div>
 
                     <div>
-                        <label for="ssr"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
-                        <select id="ssr" name="ssr" wire:model.live='ssrPilihan' disabled
-                            class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                            <option>
-                                {{ ucwords(strtolower($details->ssr->nama)) }}
-                            </option>
-                        </select>
+                        <label for="alamatPenyuluhan"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat
+                            Penyuluhan</label>
+
+                        <input id="alamatPenyuluhan" name="alamatPenyuluhan" type="text" required disabled
+                            value="{{ $details->alamat_penyuluhan }}"
+                            class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:!border-orange-500 block w-full p-2.5 "
+                            placeholder="Alamat penyuluhan...">
+
                     </div>
                     <div>
-                        <label for="namaFasyankes"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fasyankes</label>
-                        <select id="namaFasyankes" name="namaFasyankes" disabled
+                        <label for="ssr"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
+                        <select id="ssr" name="ssr" wire:model.live='ssrPilihan' required disabled
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                            <option>
-                                {{ ucwords(strtolower($details->fasyankes->nama_fasyankes)) }}
-                            </option>
+                            <option value='' selected>{{ $details->index->ssr->nama }}</option>
+                            {{-- @foreach ($ssrs as $ssr)
+                                <option value="{{ $ssr->id }}">
+                                    {{ $ssr->nama }}</option>
+                            @endforeach --}}
                         </select>
                     </div>
 
                     <div>
                         <label for="kader"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kader</label>
-                        <select id="kader" name="kader" disabled
-                            class="bg-white border !border-orange-200 capitalize text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                           
-                            <option>
-                                {{ ucwords(strtolower($details->kader->nama .' (' . $details->kader->nik .')')) }}
-                            </option>
+                        <select id="kader" name="kader" required disabled
+                            class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                            <option value='' selected>{{ $details->kader->nama }}</option>
+                            {{-- @if ($kaders)
+                                @foreach ($kaders as $kader)
+                                    <option value="{{ $kader->id }} ">
+                                        {{ $kader->nama . '(' . $kader->nik . ')' }}
+                                    </option>
+                                @endforeach
+                            @endif --}}
                         </select>
                     </div>
 
-
                 </div>
-
 
             </form>
         </div>
     </div>
-
 </div>

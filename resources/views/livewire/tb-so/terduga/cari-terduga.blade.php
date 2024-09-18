@@ -26,7 +26,7 @@
                                 NIK Terduga
                             </th>
                             <th scope="col" class="px-6 py-3  whitespace-nowrap">
-                                Kecamatan, Kabupaten, Provinsi
+                                Kecamatan, Kabupaten
                             </th>
                             <th scope="col" class="px-6 py-3  whitespace-nowrap">
                                 Nomor Telepon
@@ -49,11 +49,11 @@
                                 </td>
                                 @if ($terduga->i_k_rumah_tangga_id)
                                     <td class="px-6 py-4  whitespace-nowrap">
-                                        {{ ucwords(strtolower($terduga->iKRumahTangga->district->name . ', ' . $terduga->iKRumahTangga->regency->name . ', ' . $terduga->iKRumahTangga->province->name)) }}
+                                        {{ ucwords(strtolower($terduga->iKRumahTangga->index->district->name . ', ' . $terduga->iKRumahTangga->index->regency->name )) }}
                                     </td>
                                 @else
                                     <td class="px-6 py-4  whitespace-nowrap">
-                                        {{ ucwords(strtolower($terduga->iKNRumahTangga->district->name . ', ' . $terduga->iKNRumahTangga->regency->name . ', ' . $terduga->iKNRumahTangga->province->name)) }}
+                                        {{ ucwords(strtolower($terduga->iKNRumahTangga->district->name . ', ' . $terduga->iKNRumahTangga->regency->name )) }}
                                     </td>
                                 @endif
 
@@ -62,11 +62,11 @@
                                 </td>
                                 @if ($terduga->i_k_rumah_tangga_id)
                                     <td class="px-6 py-4  whitespace-nowrap">
-                                        {{ $terduga->iKRumahTangga->ssr->nama  }}
+                                        {{ $terduga->iKRumahTangga->index->ssr->nama  }}
                                     </td>
                                 @else
                                     <td class="px-6 py-4  whitespace-nowrap">
-                                        {{ $terduga->iKNRumahTangga->ssr->nama  }}
+                                        {{ $terduga->iKNRumahTangga->index->ssr->nama  }}
                                     </td>
                                 @endif
                             </tr>

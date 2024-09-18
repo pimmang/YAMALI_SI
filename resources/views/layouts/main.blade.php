@@ -40,6 +40,14 @@
                         <p>Profil</p>
                     </div>
                 </a>
+                <a href="/index"
+                    class="{{ $status == 'index' ? 'bg-orange-100' : '' }} flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md"
+                    id="index">
+                    <div class="flex items-center justify-start  gap-2 ">
+                        <i class="ph ph-file-plus text-lg"></i>
+                        <p>Index</p>
+                    </div>
+                </a>
 
 
                 {{-- menu investigasi kontak --}}
@@ -191,7 +199,7 @@
                 </div> --}}
 
                 {{-- menu Tambah --}}
-                <div class=" text-gray-700 w-full {{ $status == 'kader' || $status == 'fasyankes' ? 'h-30' : 'h-10' }} overflow-hidden transition-all"
+                <div class=" text-gray-700 w-full {{ $status == 'kader' || $status == 'fasyankes' || $status == 'ssr' ? 'h-40' : 'h-10' }} overflow-hidden transition-all"
                     id="tambah">
                     <div class="flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md "
                         id="tambahUtama">
@@ -212,6 +220,13 @@
                                 class="ph ph-hospital text-lg"></i>
                             <p>Fasyankes</p>
                         </a>
+                        @if (Auth::user()->hasRole('sr'))
+                            <a href="/ssr"
+                                class="flex justify-start w-full  px-4 h-10 items-center hover:bg-orange-100 gap-2 rounded-md {{ $status == 'ssr' ? 'bg-orange-100' : '' }}"><i
+                                    class="ph ph-git-branch text-lg"></i>
+                                <p>SSR</p>
+                            </a>
+                        @endif
                     </div>
                 </div>
 
@@ -279,11 +294,11 @@
 
     tambahUtama.addEventListener('click', function() {
         if (tambah.classList.contains('h-10')) {
-            tambah.classList.add('h-30');
+            tambah.classList.add('h-40');
             tambah.classList.remove('h-10');
-        } else if (tambah.classList.contains('h-30')) {
+        } else if (tambah.classList.contains('h-40')) {
             tambah.classList.add('h-10');
-            tambah.classList.remove('h-30');
+            tambah.classList.remove('h-40');
         }
     })
 

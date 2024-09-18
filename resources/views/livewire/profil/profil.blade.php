@@ -1,19 +1,21 @@
 <div class="w-full mt-8">
     <div class="w-full flex items-start justify-between mb-10">
         <div class="flex flex-col gap-2">
-            <h1 class="font-bold text-gray-900 text-2xl">Profil</h1>
+            <div>
+                <h1 class="font-bold text-gray-900 text-2xl">Profil</h1>
+                {{-- <p class="text-sm text-gray-500">Daftar Kontak yang dirujuk oleh Kader</p> --}}
+            </div>
             <div class="flex items-center text-xs gap-1 font-semibold text-gray-500 ">
                 <i class="ph-fill ph-house-line"></i>
                 <i class="ph ph-caret-right text-sm font-bold"></i>
-
-                <p>Lihat Index</p>
+                <p>Lihat Profil</p>
 
                 {{-- <i class="ph ph-caret-right text-sm font-bold"></i> --}}
             </div>
         </div>
 
     </div>
-    <div class="flex items-center text-sm font-semibold gap-4 mt-10 justify-between !w-full">
+    {{-- <div class="flex items-center text-sm font-semibold gap-4 mt-10 justify-between !w-full">
         <div class="flex items-center gap-4 w-1/3">
             <div class="flex items-center gap-2">
                 <p>Show</p>
@@ -103,19 +105,15 @@
                 </select>
             @endif
         </div>
-    </div>
+    </div> --}}
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6 uppercase">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6 ">
         <table class="w-full text-sm text-left  rtl:text-right text-gray-500 dark:text-gray-400">
 
-            <thead class="text-xs text-white  bg-orange-500 dark:bg-gray-700 dark:text-gray-400 whitespace-nowrap">
+            <thead
+                class="uppercase text-xs text-white  bg-orange-500 dark:bg-gray-700 dark:text-gray-400 whitespace-nowrap">
                 <tr>
-                    {{-- <th scope="col" class="text-center py-3 ">
-                        Aksi
-                    </th> --}}
-                    {{-- <th scope="col" class="px-6 py-3">
-                        Tanggal
-                    </th> --}}
+
                     <th scope="col" class="px-6 py-3">
                         Nama
                     </th>
@@ -132,7 +130,34 @@
                         Alamat
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Ssr
+                        SSR
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Batuk
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Demam Meriang
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Sesak Nafas
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Keringat Malam
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Diabetes Melitus
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        > 60 Thn
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Ibu Hamil
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Perokok
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Berobat Tidak Tuntas
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Nama Index | NIK
@@ -141,47 +166,68 @@
             </thead>
             <tbody>
                 @foreach ($kontaks as $kontak)
-                    <tr class="odd:bg-white  even:bg-orange-50 border-b">
+                    <tr class="odd:bg-white  even:bg-orange-50 border-b capitalize">
 
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap uppercase">
                             {{ $kontak->nama }}
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        </td>
+                        <td scope="row" class="px-6 py-4  whitespace-nowrap ">
                             {{ $kontak->nik_kontak }}
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
                             {{ $kontak->tgl_lahir }}
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
                             {{ $kontak->jenis_kelamin }}
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
                             {{ $kontak->alamat }}
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
                             @if ($kontak->iKRumahTangga)
-                            {{ $kontak->iKRumahTangga->ssr->nama}}
+                                {{ $kontak->iKRumahTangga->index->ssr->nama }}
                             @else
-                            {{ $kontak->iKNRumahTangga->ssr->nama}}
+                                {{ $kontak->iKNRumahTangga->index->ssr->nama }}
                             @endif
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        </td>
+
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                            {!! $kontak->batuk == 1 ? '&#10003;' : '-' !!}
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                            {!! $kontak->demam_meriang == 1 ? '&#10003;' : '-' !!}
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                            {!! $kontak->sesak_napas == 1 ? '&#10003;' : '-' !!}
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                            {!! $kontak->keringat_malam == 1 ? '&#10003;' : '-' !!}
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                            {!! $kontak->dm == 1 ? '&#10003;' : '-' !!}
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                            {!! $kontak->lansia_60_thn == 1 ? '&#10003;' : '-' !!}
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                            {!! $kontak->ibu_hamil == 1 ? '&#10003;' : '-' !!}
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                            {!! $kontak->perokok == 1 ? '&#10003;' : '-' !!}
+                        </td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                            {!! $kontak->berobat_tidak_tuntas == 1 ? '&#10003;' : '-' !!}
+                        </td>
+                        <td scope="row" class="px-6 py-4  whitespace-nowrap ">
                             <p>
                                 @if ($kontak->iKRumahTangga)
-                                {{ $kontak->iKRumahTangga->nama_pasien . ' | ' . $kontak->iKRumahTangga->nik_index }}
+                                    {{ $kontak->iKRumahTangga->index->nama_pasien . ' | ' . $kontak->iKRumahTangga->index->nik_index }}
                                 @else
-                                {{ $kontak->iKNRumahTangga->iKRumahTangga->nama_pasien . ' | ' . $kontak->iKNRumahTangga->iKRumahTangga->nik_index }} 
+                                    {{ $kontak->iKNRumahTangga->index->nama_pasien . ' | ' . $kontak->iKNRumahTangga->index->nik_index }}
                                 @endif
-                               
+
                             </p>
-                        </th>
+                        </td>
 
                     </tr>
                 @endforeach

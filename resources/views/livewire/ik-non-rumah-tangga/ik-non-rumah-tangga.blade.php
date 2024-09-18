@@ -1,37 +1,43 @@
 <div class="w-full h-full flex flex-col items-start justify-start gap-6 text-slate-900 mt-8">
-    <h1 class="font-bold text-gray-900 text-2xl">Non Rumah Tangga</h1>
+
     <x-toast-component :status="$statusPage" class="z-50" />
     <livewire:component.toast-gagal />
     <livewire:component.toast-sukses />
     <livewire:component.toast-hapus />
-    <div class="flex items-center text-xs gap-1 font-semibold text-gray-500 ">
-        <i class="ph-fill ph-house-line"></i>
-        <i class="ph ph-caret-right text-sm font-bold"></i>
-        <p>Investigasi kontak</p>
-        <i class="ph ph-caret-right text-sm font-bold"></i>
-        <p>Non Rumah tangga</p>
-    </div>
-    <div>
-        @if ($status == 'list')
-            <x-primary-button class="w-fit gap-2" wire:click='list'>
-                <i class="ph ph-table text-lg"></i> List
-            </x-primary-button>
-            <x-secondary-button class="w-fit gap-2" wire:click='form'>
-                <i class="ph ph-waveform text-lg"></i> Form
-            </x-secondary-button>
-        @elseif($status == 'form')
-            <x-secondary-button class="w-fit gap-2" wire:click='list'>
-                <i class="ph ph-table text-lg"></i> List
-            </x-secondary-button>
-            <x-primary-button class="w-fit gap-2" wire:click='form'>
-                <i class="ph ph-waveform text-lg"></i> Form
-            </x-primary-button>
-        @endif
-    </div>
+    <div class="flex justify-between w-full">
 
+
+        <div>
+            <h1 class="font-bold text-gray-900 text-2xl">Non Rumah Tangga</h1>
+            <div class="flex items-center text-xs gap-1 font-semibold text-gray-500 ">
+                <i class="ph-fill ph-house-line"></i>
+                <i class="ph ph-caret-right text-sm font-bold"></i>
+                <p>Investigasi kontak</p>
+                <i class="ph ph-caret-right text-sm font-bold"></i>
+                <p>Non Rumah tangga</p>
+            </div>
+        </div>
+        <div>
+            @if ($status == 'list')
+                <x-primary-button class="w-fit gap-2" wire:click='list'>
+                    <i class="ph ph-table text-lg"></i> List
+                </x-primary-button>
+                <x-secondary-button class="w-fit gap-2" wire:click='form'>
+                    <i class="ph ph-waveform text-lg"></i> Form
+                </x-secondary-button>
+            @elseif($status == 'form')
+                <x-secondary-button class="w-fit gap-2" wire:click='list'>
+                    <i class="ph ph-table text-lg"></i> List
+                </x-secondary-button>
+                <x-primary-button class="w-fit gap-2" wire:click='form'>
+                    <i class="ph ph-waveform text-lg"></i> Form
+                </x-primary-button>
+            @endif
+        </div>
+    </div>
     @if ($status == 'list')
         <div class="w-full flex flex-col gap-5 h-full">
-            <div class="flex items-center text-sm font-semibold gap-4 mt-10 justify-between !w-full">
+            {{-- <div class="flex items-center text-sm font-semibold gap-4 mt-10 justify-between !w-full">
                 <div class="flex items-center gap-4">
                     <div class="flex items-center gap-2">
                         <p>Show</p>
@@ -73,26 +79,28 @@
                         class="block w-full ps-10 p-2.5 text-sm border-white text-gray-900 border shadow-md rounded-lg bg-gray-50 focus:ring-orange-500 focus:!border-orange-500"
                         placeholder="Cari data..." required />
                 </div>
-            </div>
-            <div class="flex flex-col gap-3 mb-10">
-                <div
-                    class="rounded-lg text-xs text-start shadow-md font-bold uppercase text-white bg-orange-500 w-full grid grid-cols-6 gap-2 px-3 py-4">
-                    <p>Nama</p>
-                    <p>Nik</p>
-                    <p>Tanggal Lahir</p>
-                    <p>Fasyankes</p>
-                    <p>SSR</p>
-                    <p class="text-center">Aksi</p>
-                </div>
+            </div> --}}
+            <livewire:component.filter-data>
+                <div class="flex flex-col gap-3 mb-10">
+                    <div
+                        class="rounded-lg text-xs text-start shadow-md font-bold uppercase text-white bg-orange-500 w-full whitespace-nowrap grid grid-cols-5 gap-2 px-3 py-4">
+                        <p>Nama Index</p>
+                        <p>NIK Index</p>
+                        <p>Lokasi Penyuluhan</p>
+                        <p>Alamat</p>
 
-                @foreach ($datas as $data)
-                    <livewire:ik-non-rumah-tangga.ik-non-rumah-tangga-list key="{{ now() }}" :data="$data">
-                @endforeach
-                <div class="container my-6">
-                    {{ $datas->links() }}
-                </div>
+                        <p class="text-center">Aksi</p>
+                    </div>
 
-            </div>
+                    @foreach ($datas as $data)
+                        <livewire:ik-non-rumah-tangga.ik-non-rumah-tangga-list key="{{ now() }}"
+                            :data="$data">
+                    @endforeach
+                    <div class="container my-6">
+                        {{ $datas->links() }}
+                    </div>
+
+                </div>
         </div>
     @elseif($status == 'form')
         @livewire('ik-non-rumah-tangga.ik-non-rumah-tangga-form')

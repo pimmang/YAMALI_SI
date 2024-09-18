@@ -63,17 +63,8 @@ class TbcSoController extends Controller
     }
     public function storeTerduga( Request $request,$id){
         $kontak = Kontak::find($id);
-        if($request->namaFasyankes != $kontak->fasyankes_id){
-            $kontak->fasyankes_id = $request->namaFasyankes;
-        }
-
         $terduga = new Terduga();
         $terduga->mulai_kembali_berobat = $request->mulaiKembaliBerobat;
-        // if($request->jenisIKRT){
-        //     $terduga->kegiatan_ik = $request->jenisIKRT;
-        // }if($request->jenisPenyuluhan){
-        //     $terduga->jenis_penyuluhan = $request->jenisPenyuluhan;
-        // }
         $terduga->nama_petugas_tbc = $request->namaPetugasTbc;
         $terduga->no_telepon_petugas_tbc = $request->noTeleponPetugas;
         $terduga->tgl_hasil_pemeriksaan_dahak = $request->tglHasilPemeriksaanDahak;
@@ -106,17 +97,7 @@ class TbcSoController extends Controller
     }
     public function updateTerduga( Request $request,$id){
         $terduga = Terduga::find($id);
-        $kontak = Kontak::find($terduga->kontak_id);
-        if($request->namaFasyankes != $kontak->fasyankes_id){
-            $kontak->fasyankes_id = $request->namaFasyankes;
-            $kontak->update();
-        }
         $terduga->mulai_kembali_berobat = $request->mulaiKembaliBerobat;
-        // if($request->jenisIKRT){
-        //     $terduga->kegiatan_ik = $request->jenisIKRT;
-        // }if($request->jenisPenyuluhan){
-        //     $terduga->jenis_penyuluhan = $request->jenisPenyuluhan;
-        // }
         $terduga->nama_petugas_tbc = $request->namaPetugasTbc;
         $terduga->no_telepon_petugas_tbc = $request->noTeleponPetugas;
         $terduga->tgl_hasil_pemeriksaan_dahak = $request->tglHasilPemeriksaanDahak;

@@ -9,18 +9,17 @@
                     <p>Nama Terduga</p>
                     <p>NIK Terduga</p>
                     <p>Nomor Telepon</p>
-                    <p>Kecamatan, Kabupaten, Provinsi</p>
-                    <p>SR</p>
                     <p>SSR</p>
                     @if ($data->i_k_rumah_tangga_id)
+                        <p>Kecamatan, Kabupaten</p>
                         <p>Jenis IK</p>
                     @else
                         <p>Jenis Penyuluhan</p>
+                        <p>Lokasi Penyuluhan (Kecamatan, Kota/Kabupaten)</p>
                     @endif
 
                 </div>
                 <div class="flex flex-col items-start gap-4 ">
-                    <p>:</p>
                     <p>:</p>
                     <p>:</p>
                     <p>:</p>
@@ -32,36 +31,26 @@
                     <p>{{ $data->nama }}</p>
                     <p>{{ $data->nik_kontak }}</p>
                     <p>{{ $data->no_telepon }}</p>
-                    @if ($data->i_k_rumah_tangga_id)
-                        <p>
-                            {{ ucwords(strtolower($data->iKRumahTangga->district->name . ', ' . $data->iKRumahTangga->regency->name . ', ' . $data->iKRumahTangga->province->name)) }}
-                        </p>
-                    @else
-                        <p>
-                            {{ ucwords(strtolower($data->iKNRumahTangga->district->name . ', ' . $data->iKNRumahTangga->regency->name . ', ' . $data->iKNRumahTangga->province->name)) }}
-                        </p>
-                    @endif
                     <p>
                         @if ($data->i_k_rumah_tangga_id)
-                            {{ ucwords(strtolower($data->iKRumahTangga->sr)) }}
+                            {{ ucwords(strtolower($data->iKRumahTangga->index->ssr->nama)) }}
                         @else
-                            {{ ucwords(strtolower($data->iKNRumahTangga->sr)) }}
-                        @endif
-                    </p>
-                    <p>
-                        @if ($data->i_k_rumah_tangga_id)
-                            {{ ucwords(strtolower($data->iKRumahTangga->ssr->nama)) }}
-                        @else
-                            {{ ucwords(strtolower($data->iKNRumahTangga->ssr->nama)) }}
+                            {{ ucwords(strtolower($data->iKNRumahTangga->index->ssr->nama)) }}
                         @endif
                     </p>
                     @if ($data->i_k_rumah_tangga_id)
                         <p>
-                            {{ ucwords(strtolower($data->iKRumahTangga->kegiatan_ik)) }}
+                            {{ ucwords(strtolower($data->iKRumahTangga->index->district->name . ', ' . $data->iKRumahTangga->index->regency->name)) }}
+                        </p>
+                        <p>
+                            {{ ucwords(strtolower($data->iKRumahTangga->kegiatan_ik ? $data->iKRumahTangga->kegiatan_ik : '-' )) }}
                         </p>
                     @else
                         <p>
                             {{ ucwords(strtolower($data->iKNRumahTangga->jenis_penyuluhan)) }}
+                        </p>
+                        <p>
+                            {{ ucwords(strtolower($data->iKNRumahTangga->district->name . ', ' . $data->iKNRumahTangga->regency->name)) }}
                         </p>
                     @endif
                 </div>
@@ -82,7 +71,7 @@
                 </div>
                 @csrf
                 <div class="grid gap-10  md:grid-cols-2 p-5">
-                    <div>
+                    {{-- <div>
                         <label for="namaFasyankes"
                             class="block mb-2 required text-sm font-medium text-gray-900 dark:text-white">Fasyankes</label>
                         <select id="namaFasyankes" name="namaFasyankes" required
@@ -95,7 +84,7 @@
                                 @endforeach
                             @endif
                         </select>
-                    </div>
+                    </div> --}}
                     <div>
                         <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required">Mulai kembali
                             pengobatan
@@ -185,7 +174,7 @@
                             Pemeriksaan Pasien</label>
                         <select id="tipePemeriksaan" name="tipePemeriksaan" required wire:model.change="tipePemeriksaan"
                             class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                            <option selected>Pilih</option>
+                            <option selected value="">Pilih</option>
                             <option value="BTA +">BTA +</option>
                             <option value="BTA -">BTA -</option>
                             <option value="CXR +">CXR +</option>

@@ -1,9 +1,9 @@
-<div class="w-full h-full  flex flex-col items-start justify-start gap-6 text-slate-900 mt-8">
+<div class="w-full h-full  flex flex-col items-start justify-start gap-6 text-slate-900 my-8 pb-20 ">
     <x-toast-component :status="$statusPage" />
     <livewire:component.toast-hapus />
     <livewire:component.toast-gagal />
     <livewire:component.toast-sukses />
-    <div class="w-full flex items-start justify-between mb-10">
+    <div class="w-full flex items-start justify-between ">
         <div class="flex flex-col gap-2">
             <h1 class="font-bold text-gray-900 text-2xl">Fasilitas Layanan Kesehatan</h1>
             <div class="flex items-center text-xs gap-1 font-semibold text-gray-500 ">
@@ -39,7 +39,7 @@
     @if ($status == 'list')
         <div class="w-full flex flex-col gap-5 h-full mb-10">
 
-            <div class="flex items-center text-sm font-semibold gap-4 mt-10 justify-between !w-full">
+            <div class="flex items-center text-sm font-semibold gap-4 justify-between !w-full">
                 <div class="flex items-center gap-4 w-1/3">
                     <div class="flex items-center gap-2">
                         <p>Show</p>
@@ -60,10 +60,10 @@
                         <select id="kategori" name="kategori" wire:model.live='kategoriCari'
                             class="bg-white border border-white text-gray-900 text-sm rounded-lg shadow focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 ">
                             <option value="nama">Nama</option>
-                            <option value="nik">NIK</option>
+                            {{-- <option value="nik">NIK</option> --}}
                             <option value="ssr">SSR</option>
-                            <option value="kecamatan">Kecamatan</option>
-                            <option value="jenis">Jenis</option>
+                            {{-- <option value="kecamatan">Kecamatan</option> --}}
+                            {{-- <option value="jenis">Jenis</option> --}}
 
                         </select>
                     </div>
@@ -119,76 +119,95 @@
                         <select id="jenis" name="jenis" wire:model.live='jenis'
                             class="bg-white border border-white text-gray-900 text-sm rounded-lg shadow focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 ">
                             <option selected>Pilih</option>
-                                <option value="swasta">Swasta</option>
-                                <option value="pemerintah">Pemerintah</option>
+                            <option value="swasta">Swasta</option>
+                            <option value="pemerintah">Pemerintah</option>
                         </select>
                     @endif
                 </div>
             </div>
-            <div class="flex flex-col gap-3 mb-10">
-
-                <div class="relative overflow-x-auto rounded-lg">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-white uppercase bg-orange-500 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-center">
-                                    Aksi
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Nama
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Kode
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Kecamatan
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    SSR
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($fasyankess as $fasyankes)
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center justify-around text-lg ">
-                                            <div
-                                                class="relative z-0 before:absolute before:content-['Detail'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
-                                                <i class=" text-xl hover:text-lg ph-bold ph-eye p-0 text-blue-500 cursor-pointer  transition-all"
-                                                    wire:click="detail({{ $fasyankes->id }})"></i>
-                                            </div>
-                                            <div wire:click="edit({{ $fasyankes->id }})"
-                                                class="relative before:absolute before:content-['Edit'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
-
-                                                <i
-                                                    class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
-                                            </div>
-                                            <div wire:click="hapus({{ $fasyankes->id }})"
-                                                class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
-
-                                                <i class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"
-                                                    onclick="tampilHapus()"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <p>{{ $fasyankes->nama_fasyankes }}</p>
+            <div class="flex flex-col gap-3">
+                <div class="relative  rounded-lg overflow-hidden">
+                    <div class="flex">
+                        <table
+                            class="w-11/12 overflow-x-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-white uppercase bg-orange-500 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Nama
                                     </th>
-                                    <td class="px-6 py-4">
-                                        {{ $fasyankes->kode_fasyankes }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <p>{{ ucwords(strtolower($fasyankes->district->name)) }}</p>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <p>{{ $fasyankes->ssr->nama }}</p>
-                                    </td>
+                                    <th scope="col" class="px-6 py-3">
+                                        Kode
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Kecamatan
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        SSR
+                                    </th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($fasyankess as $fasyankes)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <p>{{ $fasyankes->nama_fasyankes }}</p>
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ $fasyankes->kode_fasyankes }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p>{{ ucwords(strtolower($fasyankes->district->name)) }}</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p>{{ $fasyankes->ssr->nama }}</p>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <table class="w-1/12 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-white uppercase bg-orange-500 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-center">
+                                        Aksi
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($fasyankess as $fasyankes)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-4 justify-around text-lg ">
+                                                <div
+                                                    class="relative z-0 before:absolute before:content-['Detail'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+                                                    <i class=" text-xl hover:text-lg ph-bold ph-eye p-0 text-blue-500 cursor-pointer  transition-all"
+                                                        wire:click="detail({{ $fasyankes->id }})"></i>
+                                                </div>
+                                                <div wire:click="edit({{ $fasyankes->id }})"
+                                                    class="relative before:absolute before:content-['Edit'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+
+                                                    <i
+                                                        class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
+                                                </div>
+                                                <div wire:click="hapus({{ $fasyankes->id }})"
+                                                    class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+
+                                                    <i class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"
+                                                        onclick="tampilHapus()"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 @if ($state == 'details')
                     <livewire:fasyankes.fasyankes-detail :data="$details" />

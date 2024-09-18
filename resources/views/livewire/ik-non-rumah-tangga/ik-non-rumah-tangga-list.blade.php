@@ -1,11 +1,11 @@
 <div class="w-full odd:bg-white  even:bg-orange-50 rounded-lg overflow-hidden  shadow-md " id="{{ $data->id }}">
     <div
-        class=" uppercase  text-gray-900 w-full text-sm font-medium text-start  items-center grid grid-cols-6 gap-2 px-3 py-5">
-        <p>{{ $data->iKRumahTangga->nama_pasien }}</p>
-        <p>{{ $data->iKRumahTangga->nik_index }}</p>
-        <p>{{ $data->iKRumahTangga->tanggal_lahir }}</p>
-        <p>{{ $data->fasyankes->nama_fasyankes }}</p>
-        <p>{{ $data->ssr->nama }}</p>
+        class=" capitalize   w-full text-sm  text-start  items-center grid grid-cols-5 gap-2 px-3 py-5">
+        <p class="text-gray-900 font-medium">{{ $data->index->nama_pasien }}</p>
+        <p >{{ $data->index->nik_index }}</p>
+        <p>{{ $data->lokasi_penyuluhan }}</p>
+        <p>{{ ucwords(strtolower($data->alamat_penyuluhan.', '.$data->district->name.', '.$data->regency->name)) }}</p>
+        {{-- <p>{{ $data->district->name }}</p> --}}
         <div class="flex items-center justify-around text-lg capitalize text-center">
             <div
                 class="relative z-0 before:z-30 before:absolute before:content-['Detail'] before:shadow-md before:bg-white before:left-0 before:scale-0 before:transition-all hover:before:-left-16  hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">

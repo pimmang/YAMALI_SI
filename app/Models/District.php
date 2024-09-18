@@ -62,6 +62,10 @@ class District extends Model
     {
         return $this->hasMany(IKRumahTangga::class);
     }
+    public function iKNrumahtangga(): HasMany
+    {
+        return $this->hasMany(IKNRumahTangga::class);
+    }
     public function kaders(): HasMany
     {
         return $this->hasMany(Kader::class);

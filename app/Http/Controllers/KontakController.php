@@ -41,8 +41,7 @@ class KontakController extends Controller
         $kontak->umur = Carbon::parse($request->tanggalLahir)->age;
         $kontak->no_telepon = $request->nomorTelepon;
         $kontak->alamat = $request->alamat;
-        // $kontak->sr = $request->sr;
-        // $kontak->ssr_id = $request->ssr;
+        
         $kontak->jenis_ik = $request->jenisIk;
         $kontak->kontak_serumah = $request->kontakSerumah;
         $kontak->batuk = $request->batuk;
@@ -54,7 +53,7 @@ class KontakController extends Controller
         $kontak->ibu_hamil = $request->ibuHamil;
         $kontak->perokok = $request->perokok;
         $kontak->berobat_tidak_tuntas = $request->pernahBerobat;
-        $kontak->fasyankes_id = $request->fasyankes;
+        
         $kontak->hasil_pemeriksaan = $request->hasilPemeriksaan;
         $kontak->tgl_revisit = $request->tanggalRevisit;
         $kontak->keterangan = $request->keterangan;
@@ -100,7 +99,7 @@ class KontakController extends Controller
     public function update(Request $request, string $id)
     {
 
-        // dd($request);
+        
         $kontak = Kontak::find($id);
         $kontak->tgl_kegiatan = $request->tanggalKegiatan;
         $kontak->nik_kontak = $request->nikKontak;
@@ -110,8 +109,7 @@ class KontakController extends Controller
         $kontak->umur = Carbon::parse($request->tanggalLahir)->age;
         $kontak->no_telepon = $request->nomorTelepon;
         $kontak->alamat = $request->alamat;
-        // $kontak->sr = $request->sr;
-        // $kontak->ssr_id = $request->ssr;
+        
         $kontak->jenis_ik = $request->jenisIk;
         $kontak->kontak_serumah = $request->kontakSerumah;
         $kontak->batuk = $request->batuk;
@@ -123,7 +121,7 @@ class KontakController extends Controller
         $kontak->ibu_hamil = $request->ibuHamil;
         $kontak->perokok = $request->perokok;
         $kontak->berobat_tidak_tuntas = $request->pernahBerobat;
-        $kontak->fasyankes_id = $request->fasyankes;
+       
         $kontak->hasil_pemeriksaan = $request->hasilPemeriksaan;
         $kontak->tgl_revisit = $request->tanggalRevisit;
         $kontak->keterangan = $request->keterangan;

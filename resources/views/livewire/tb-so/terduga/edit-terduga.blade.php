@@ -8,39 +8,35 @@
                 <p class="uppercase font-semibold text-sm text-gray-700">Data</p>
             </div>
             <div class="w-full flex flex-grow flex-col p-4 justify-around text-sm font-medium text-gray-700">
-                <p class="underline text-xs">Nama</p>
+                <p class="text-gray-500 text-xs">Nama</p>
                 <p class="uppercase font-bold">{{ $dataTerduga->kontak->nama }}</p>
-                <p class="underline text-xs">NIK</p>
+                <p class="text-gray-500 text-xs">NIK</p>
                 <p class="uppercase font-bold">{{ $dataTerduga->kontak->nik_kontak }}</p>
-                <p class="underline text-xs">Nomor Telepon</p>
+                <p class="text-gray-500 text-xs">Nomor Telepon</p>
                 <p class="uppercase font-bold">{{ $dataTerduga->kontak->no_telepon }}</p>
-                <p class="underline text-xs">Kecamatan, Kabupaten, Provinsi</p>
+
                 @if ($dataTerduga->kontak->i_k_rumah_tangga_id)
+                    <p class="text-gray-500 text-xs">Kecamatan, Kota/Kabupaten</p>
                     <p class="uppercase font-bold">
-                        {{ $dataTerduga->kontak->iKRumahTangga->district->name . ', ' . $dataTerduga->kontak->iKRumahTangga->regency->name . ', ' . $dataTerduga->kontak->iKRumahTangga->province->name }}
+                        {{ $dataTerduga->kontak->iKRumahTangga->index->district->name . ', ' . $dataTerduga->kontak->iKRumahTangga->index->regency->name }}
                     </p>
                 @else
+                    <p class="text-gray-500 text-xs">Lokasi Penyuluhan (Kecamatan, Kota/Kabupaten)</p>
                     <p class="uppercase font-bold">
-                        {{ $dataTerduga->kontak->iKNRumahTangga->district->name . ', ' . $dataTerduga->kontak->iKNRumahTangga->regency->name . ', ' . $dataTerduga->kontak->iKNRumahTangga->province->name }}
+                        {{ $dataTerduga->kontak->iKNRumahTangga->district->name . ', ' . $dataTerduga->kontak->iKNRumahTangga->regency->name }}
                     </p>
                 @endif
-                <p class="underline text-xs">SR</p>
+                <p class="text-gray-500 text-xs">SSR</p>
                 @if ($dataTerduga->kontak->iKrumahTangga)
-                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKRumahTangga->sr }}</p>
+                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKRumahTangga->index->ssr->nama }}</p>
                 @else
-                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKNRumahTangga->sr }}</p>
-                @endif
-                <p class="underline text-xs">SSR</p>
-                @if ($dataTerduga->kontak->iKrumahTangga)
-                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKRumahTangga->ssr->nama }}</p>
-                @else
-                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKNRumahTangga->ssr->nama }}</p>
+                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKNRumahTangga->index->ssr->nama }}</p>
                 @endif
                 @if ($dataTerduga->kontak->i_k_rumah_tangga_id)
-                    <p class="underline text-xs">Kegiatan IK</p>
-                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKRumahTangga->kegiatan_ik }}</p>
+                    <p class="text-gray-500 text-xs">Kegiatan IK</p>
+                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKRumahTangga->kegiatan_ik ? $dataTerduga->kontak->iKRumahTangga->kegiatan_ik : '-'  }}</p>
                 @else
-                    <p class="underline text-xs">Jenis Penyuluhan</p>
+                    <p class="text-gray-500 text-xs">Jenis Penyuluhan</p>
                     <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKNRumahTangga->jenis_penyuluhan }}</p>
                 @endif
 
@@ -48,14 +44,14 @@
 
         </div>
 
-        <form action="/edit-terduga/{{ $dataTerduga->id }}" method="POST" class="h-full overflow-y-scroll flex-grow">
+        <form action="/edit-terduga/{{ $dataTerduga->id }}" method="POST" class="h-full overflow-y-auto flex-grow">
             <div class="bg-white rounded-lg overflow-hidden shadow ">
                 <div class="w-full bg-orange-50 p-4">
                     <p class="uppercase font-semibold text-sm text-gray-700">Form Terduga</p>
                 </div>
                 @csrf
                 <div class="grid gap-10  md:grid-cols-2 p-5">
-                    <div>
+                    {{-- <div>
                         <label for="namaFasyankes"
                             class="block mb-2 required text-sm font-medium text-gray-900 dark:text-white">Fasyankes</label>
                         <select id="namaFasyankes" name="namaFasyankes" required
@@ -68,7 +64,7 @@
                                 @endforeach
                             @endif
                         </select>
-                    </div>
+                    </div> --}}
                     <div>
                         <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required">Mulai kembali
                             pengobatan

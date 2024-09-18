@@ -22,19 +22,21 @@ class IkRumahTanggaEdit extends Component
     public $ssrPilihan;
     public $kaders;
     public $fasyankes;
-
     public $details;
+
 
 
     public function mount($data){
         $this->details = $data ;
-        $this->ssrPilihan = $data->ssr_id;
+        $this->ssrPilihan = $data->index->ssr_id;
         $this->kabupaten_id = $data->regency_id;
         $this->tglLahir = $data->tanggal_lahir;
     }
+ 
     public function close(){
         $this->dispatch('close')->to(IkRumahTanggaList::class);
     }
+   
     public function render()
     {
         // $this->umur = $this->tglLahir;
@@ -43,7 +45,7 @@ class IkRumahTanggaEdit extends Component
         if($this->kabupaten_id){
             $this->kecamatan = District::where('regency_id', $this->kabupaten_id)->get();
         }
-        $this->provinsi = Province::find(27);
+        // $this->provinsi = Province::find(27);
         $this->kabupaten = Regency::where('province_id',73)->get();
         $ssrs = Ssr::get();
         

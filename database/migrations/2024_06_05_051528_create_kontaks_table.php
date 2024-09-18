@@ -34,7 +34,7 @@ return new class extends Migration
             $table->boolean('ibu_hamil');
             $table->boolean('perokok');
             $table->boolean('berobat_tidak_tuntas');
-            $table->foreignId('fasyankes_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            // $table->foreignId('fasyankes_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->string('hasil_pemeriksaan');
             $table->date('tgl_revisit');
             $table->string('keterangan')->nullable();

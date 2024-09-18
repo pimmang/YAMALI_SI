@@ -5,6 +5,7 @@ namespace App\Livewire\Kontak;
 use App\Models\Fasyankes;
 use App\Models\IKNRumahTangga;
 use App\Models\IKRumahTangga;
+use App\Models\Index;
 use App\Models\Ssr;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -24,12 +25,12 @@ class TambahKontak extends Component
         $this->status = $status;
         if($status == 'ikrt'){
             $this->fasyankesIndex = IKRumahTangga::find($id)->fasyankes_id;
-            $this->ssrPilihan = IKRumahTangga::find($id)->ssr_id;
-        }
-        if($status == 'iknrt'){
+            $this->ssrPilihan = IKRumahTangga::find($id)->index->ssr_id;
+        }else{
             $this->fasyankesIndex = IKNRumahTangga::find($id)->fasyankes_id;
-            $this->ssrPilihan = IKNRumahTangga::find($id)->ssr_id;
+            $this->ssrPilihan = IKNRumahTangga::find($id)->index->ssr_id;
         }
+       
 
     }
     public function close(){

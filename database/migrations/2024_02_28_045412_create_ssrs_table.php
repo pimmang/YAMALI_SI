@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('ssrs', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }

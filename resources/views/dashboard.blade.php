@@ -3,34 +3,8 @@
     <div class="w-full mt-4 text-gray-700">
         <div class="w-full gap-6 flex items-center justify-between">
             <p class="font-semibold text-lg text-gray-700">Dashboard</p>
-            <livewire:dashboard.dashboard :ssr="$ssrPilihan" />
-            {{-- <div id="date-range-picker" date-rangepicker class="flex items-center">
-            <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                    </svg>
-                </div>
-                <input id="datepicker-range-start" name="start" type="text"
-                    class="bg-white border-none  text-gray-900 text-xs rounded-lg focus:ring-orange-500 block w-full ps-10 p-2.5  shadow"
-                    placeholder="Select date start">
-            </div>
-            <span class="mx-4 text-gray-700 font-semibold">to</span>
-            <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                    </svg>
-                </div>
-                <input id="datepicker-range-end" name="end" type="text"
-                    class="bg-white border-none  text-gray-900 text-xs rounded-lg focus:ring-orange-500 block w-full ps-10 p-2.5  shadow"
-                    placeholder="Select date end">
-            </div>
-        </div> --}}
+            <livewire:dashboard.dashboard :ssr="$ssrPilihan" :tahun="$tahun" />
+           
         </div>
         <div class="grid grid-cols-2 w-full mt-8 gap-4">
             <div class="grid grid-cols-2 flex-grow gap-4">
@@ -72,14 +46,24 @@
                     </div>
                     <p class="font-bold text-xl">{{ $jumlahDirujuk }}</p>
                 </div>
-                <div class="w-full bg-white shadow h-24 p-4 rounded-lg">
-                    <div class="flex items-top justify-between">
-                        <p>Kader</p>
-                        <i class="ph-bold ph-stethoscope text-lg text-red-500"></i>
+                <div class="w-full grid grid-cols-2 gap-2">
+                    <div class="w-full bg-white shadow h-24 p-4 rounded-lg">
+                        <div class="flex items-top justify-between">
+                            <p>Kader</p>
+                            <i class="ph-bold ph-stethoscope text-lg text-red-500"></i>
+                        </div>
+                        <p class="font-bold text-xl">{{ $jumlahKader }}</p>
                     </div>
-                    <p class="font-bold text-xl">{{ $jumlahKader }}</p>
+                    <div class="w-full bg-white shadow h-24 p-4 rounded-lg">
+                        <div class="flex items-top justify-between">
+                            <p>Fasyankes</p>
+                            <i class="ph-bold ph-stethoscope text-lg text-red-500"></i>
+                        </div>
+                        <p class="font-bold text-xl">{{ $jumlahFasyankes }}</p>
+                    </div>
+    
                 </div>
-
+               
             </div>
 
             <div class="w-full p-4 bg-white rounded-lg shadow" id="hasilPengobatan">
@@ -100,7 +84,7 @@
 
             <div class="col-span-2">
                 <div class="w-full grid grid-cols-4 gap-4">
-                    <div class="bg-white shadow rounded-lg p-2 flex flex-col justify-start gap-3" id="index">
+                    <div class="bg-white shadow rounded-lg p-2 flex flex-col justify-start gap-3" id="indexChart">
                         <div class="flex flex-col p-2 gap-2">
                             <p class="font-semibold text-xs">Index</p>
                             <div class="flex items-center gap-2">
@@ -527,10 +511,10 @@
 
             }
 
-            const kader = new ApexCharts(document.querySelector("#index"),
+            const index = new ApexCharts(document.querySelector("#indexChart"),
                 optionsIndex);
 
-            kader.render();
+            index.render();
         </script>
 
     </div>

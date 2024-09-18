@@ -6,11 +6,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,  HasRoles;
 
+    public function ssr()
+    {
+        return $this->hasOne(Ssr::class);
+    }
+
+    public function setNameAttribute($value)
+    {
+        // Capitalize setiap kata dalam nama
+        $this->attributes['name'] = ucwords(strtolower($value));
+    }
     /**
      * The attributes that are mass assignable.
      *
