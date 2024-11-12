@@ -6,6 +6,7 @@
     <livewire:component.toast-hapus />
     <div class="flex w-full justify-between">
 
+
         <div>
             <h1 class="font-bold text-gray-900 text-2xl">Index</h1>
             <div class="flex items-center text-xs gap-1 font-semibold text-gray-500 ">
@@ -35,34 +36,8 @@
     </div>
 
     {{-- @if ($status == 'list') --}}
-    <div class="w-full flex flex-col gap-5 h-full {{ $status == 'list' ? '' : 'hidden' }}">
-        <div class="w-full flex h-fit  gap-6 mb-6">
-            <div
-                class="w-1/2 flex-grow flex flex-col justify-between text-sm font-medium bg-white shadow  p-4 rounded-lg">
-                <div class="flex items-top justify-between">
-                    <p>Summary</p>
-                    <i class="ph-bold ph-building text-lg text-yellow-300"></i>
-                </div>
-                <div id="belumIK"></div>
-            </div>
-            <div class="w-1/2 grid grid-cols-2 gap-6  h-fit text-sm font-medium">
-                <div class="w-full bg-white shadow h-fit p-4 rounded-lg">
-                    <div class="flex items-top justify-between">
-                        <p>IK-RT</p>
-                        <i class="ph-bold ph-buildings  text-lg text-lime-400"></i>
-                    </div>
-                    <div id="jumlahIKRT"></div>
-                </div>
-                <div class="w-full bg-white shadow h-fit p-4 rounded-lg">
-                    <div class="flex items-top justify-between">
-                        <p>IK-NRT</p>
-                        <i class="ph-bold ph-building text-lg text-yellow-300"></i>
-                    </div>
-                    <div id="jumlahIKNRT"></div>
-                </div>
-
-            </div>
-        </div>
+    @livewire('index.hubungan-kontak')
+    <div class="w-full flex flex-col gap-5 h-full {{ $status == 'list' ? 'block' : 'hidden' }}">
         <livewire:component.filter-data>
             <div class="relative  shadow-md sm:rounded-lg overflow-clip flex ">
                 <div class=" w-11/12 overflow-x-auto">
@@ -200,7 +175,7 @@
             @endif
     </div>
     {{-- @elseif($status == 'form') --}}
-    <div class="{{ $status == 'form' ? '' : 'hidden' }} w-full">
+    <div class="{{ $status == 'form' ? 'block' : 'hidden' }} w-full">
         @livewire('index.form-index')
     </div>
     {{-- @endif --}}
@@ -220,173 +195,6 @@
             }) => {
                 tampilGagal(message);
             });
-
-            const optionsIKRT = {
-                series: [{
-                    data: [{{ $jumlahIKRT }}, {{ $jumlahIndex - $jumlahIKRT }}]
-
-                }],
-                chart: {
-                    type: 'bar',
-                    events: {
-                        click: function(chart, w, e) {
-                            // console.log(chart, w, e)
-                        }
-                    },
-                    height: 150,
-                    toolbar: {
-                        show: false,
-                    }
-                },
-
-                // colors: colors,
-                colors: ['#84CC16', '#EF4444'],
-                plotOptions: {
-                    bar: {
-                        columnWidth: '45%',
-                        distributed: true,
-                        borderRadius: 5,
-                        borderRadiusApplication: 'end',
-                        dataLabels: {
-                            position: 'top', // top, center, bottom
-                        },
-
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    offsetY: -20,
-                    style: {
-                        fontSize: '12px',
-                        colors: ["#304758"]
-                    }
-                },
-                legend: {
-                    show: false
-                },
-                xaxis: {
-                    categories: [
-                        'Sudah', 'Belum'
-                    ],
-                    labels: {
-                        style: {
-                            // colors: colors,
-                            fontSize: '10px'
-                        }
-                    }
-                },
-                yaxis: {
-                    max: {{ $jumlahIKRT > $jumlahIndex - $jumlahIKRT ? $jumlahIKRT + 1 : $jumlahIndex - $jumlahIKRT + 1 }}, // Membatasi nilai maksimum pada y-axis menjadi 5
-                    labels: {
-                        style: {
-                            fontSize: '12px'
-                        }
-                    }
-                }
-
-            }
-
-            const ikrt = new ApexCharts(document.querySelector("#jumlahIKRT"),
-                optionsIKRT);
-            ikrt.render();
-
-            const optionsIKNRT = {
-                series: [{
-                    data: [{{ $jumlahIKNRT }}, {{ $jumlahIndex - $jumlahIKRT }}]
-
-                }],
-                chart: {
-                    type: 'bar',
-                    events: {
-                        click: function(chart, w, e) {
-                            // console.log(chart, w, e)
-                        }
-                    },
-                    height: 150,
-                    toolbar: {
-                        show: false,
-                    }
-                },
-
-                colors: ['#fbd563', '#EF4444'],
-                plotOptions: {
-                    bar: {
-                        columnWidth: '45%',
-                        distributed: true,
-                        borderRadius: 5,
-                        borderRadiusApplication: 'end',
-                        dataLabels: {
-                            position: 'top', // top, center, bottom
-                        },
-
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    offsetY: -20,
-                    style: {
-                        fontSize: '12px',
-                        colors: ["#304758"]
-                    }
-                },
-                legend: {
-                    show: false
-                },
-                xaxis: {
-                    categories: [
-                        'Sudah', 'Belum'
-                    ],
-                    labels: {
-                        style: {
-                            // colors: colors,
-                            fontSize: '10px'
-                        }
-                    }
-                },
-                yaxis: {
-                    max: {{ $jumlahIKNRT > $jumlahIndex - $jumlahIKRT ? $jumlahIKRT + 1 : $jumlahIndex - $jumlahIKRT + 1 }}, // Membatasi nilai maksimum pada y-axis menjadi 5
-                    labels: {
-                        style: {
-                            fontSize: '12px'
-                        }
-                    }
-                }
-            }
-
-            const iknrt = new ApexCharts(document.querySelector("#jumlahIKNRT"),
-                optionsIKNRT);
-            iknrt.render();
-
-            const optionsTidakIK = {
-                chart: {
-                    type: 'donut',
-                    height: 150,
-                },
-                colors: ['#84CC16','#EF4444'],
-                series: [{{ $jumlahIndex - $belumIK }},{{ $belumIK }}],
-                labels: ['Sudah', 'Belum'],
-                legend: {
-                    style: {
-                        // colors: colors,
-                        fontSize: '20px'
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        donut: {
-                            size: '45%',
-                        }
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                }
-
-            }
-
-            const tidakIK = new ApexCharts(document.querySelector("#belumIK"),
-                optionsTidakIK);
-            tidakIK.render();
         </script>
     @endscript
     <style>
@@ -394,5 +202,10 @@
             background-color: rgb(255 90 31 / var(--tw-bg-opacity)) !important
         }
     </style>
-    <script></script>
+
+
+
+
+
+
 </div>

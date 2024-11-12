@@ -8,6 +8,7 @@ use App\Http\Controllers\IrtController;
 use App\Http\Controllers\KaderController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SigController;
 use App\Http\Controllers\SsrController;
 use App\Http\Controllers\TbcSoController;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +20,13 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 Route::get('/verification-notice', function () {
     return view('auth.verification-notice');
 })->name('verification.notice');
+
+// Route::post('/cek-kinerja-kader', [KaderController::class, 'cekKinerja']);
+Route::post('/cek-kinerja-kader', [KaderController::class, 'cekKinerja']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/filter-dashboard', [DashboardController::class, 'filter'])->name('filterDashboard');
+    Route::get('/filter-peta-sebaran-kasus', [SigController::class, 'filter'])->name('filterSig');
 
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -32,6 +38,7 @@ Route::middleware('auth')->group(function () {
         return redirect('/dashboard');
     });
     Route::get('/index', [IndexController::class, 'index']);
+    Route::get('/peta-sebaran-kasus', [SigController::class, 'index']);
     Route::post('/tambah-index', [IndexController::class, 'store']);
     Route::post('/edit-index/{id}', [IndexController::class, 'update']);
 

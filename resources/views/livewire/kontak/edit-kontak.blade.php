@@ -112,36 +112,39 @@
                             </ul>
                         </div>
                         <div class="col-span-2">
+                            <label for="map"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ubah Titik
+                                Lokasi</label>
+                            <div class="w-full h-fit flex justify-center">
+                                <div id="mapEdit" wire:ignore
+                                    class="w-1/2 h-80 rounded-lg shadow border-2 border-orange-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="">
                             <label for="alamat"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                            <textarea id="alamat" rows="4" name="alamat"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border !border-orange-200 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                                placeholder="Alamat">{{ $kontak->alamat }}</textarea>
+                            <input type="text" id="alamat" name="alamat" readonly value=""
+                                class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                placeholder="Alamat" required />
                         </div>
 
-
-                        <div>
-                            <label for="sr"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
-                            <select id="sr" name="sr"
-                                class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                                <option value="Sulawesi Selatan" selected>Sulawesi Selatan</option>
-                            </select>
+                        <div class="hidden">
+                            <label for="latitude"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Latitude</label>
+                            <input type="text" id="latitude" name="latitude" readonly value=""
+                                class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                placeholder="Latitude" required />
+                        </div>
+                        <div class="hidden">
+                            <label for="longitude"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Longitude</label>
+                            <input type="text" id="longitude" name="longitude" readonly value=""
+                                class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                placeholder="Longitude" required />
                         </div>
 
-                        <div>
-                            <label for="ssr"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
-                            <select id="ssr" name="ssr" wire:model.live='ssrPilihan'
-                                class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                                <option value='' selected>Pilih</option>
-                                @foreach ($ssrs as $ssr)
-                                    <option value="{{ $ssr->id }}"
-                                        {{ $kontak->ssr_id == $ssr->id ? 'selected' : '' }}>{{ $ssr->nama }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
                         <div>
                             <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kontak
                                 Serumah</h3>
@@ -507,10 +510,125 @@
                         <input type="hidden" name="status" value="ikrt">
                     </div>
 
-                    <button type="submit"
-                        class="text-white !bg-orange-500 !hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Update</button>
+                    <div class="flex w-full justify-end">
+                        <button type="submit"
+                            class="text-white !bg-orange-500 !hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Update</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+    @script
+        <script>
+            $wire.on('openEditKontak', () => {
+                // alert('ya');
+                setTimeout(() => {
+                    const provider = new GeoSearch.OpenStreetMapProvider();
+                    const alamat = document.getElementById('alamat');
+                    const latitude = document.getElementById('latitude');
+                    const longitude = document.getElementById('longitude');
+                    var map = L.map('mapEdit').setView([{{ $kontak->latitude }}, {{ $kontak->longitude }}],
+                        15);
+                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    }).addTo(map);
+
+                    // var popup = L.popup();
+                    var marker;
+                    var popup;
+
+                    marker = L.marker([{{ $kontak->latitude }}, {{ $kontak->longitude }}], {
+                        draggable: true
+                    }).addTo(map);
+
+                    showAdress({{ $kontak->latitude }}, {{ $kontak->longitude }});
+
+                    function showAdress(latitude, longitude) {
+                        provider
+                            .search({
+                                query: `${latitude},${longitude}`
+                            }) // Query the clicked location
+                            .then(function(result) {
+                                if (result && result.length > 0) {
+                                    const address = result[0].label; // Get the address from the result
+                                    alamat.value = result[0].label;
+                                    marker.bindPopup(address)
+                                        .openPopup(); // Show address in the marker popup
+                                } else {
+                                    marker.bindPopup("No address found")
+                                        .openPopup(); // Handle case where no address is found
+                                }
+                            })
+                            .catch(function(error) {
+                                console.error('Error retrieving address:', error);
+                                marker.bindPopup("Error retrieving address")
+                                    .openPopup(); // Handle error case
+                            });
+                        marker.on('dragend', function(e) {
+                            var newLatLng = e.target.getLatLng();
+                            // Update popup with the new coordinates or perform any action
+                            console.log(newLatLng);
+                            showAdress(newLatLng.lat, newLatLng.lng);
+                        });
+                    }
+
+                    const search = new GeoSearch.GeoSearchControl({
+                        provider: new GeoSearch.OpenStreetMapProvider(),
+                        showMarker: false, // Disable default markers
+                    });
+
+
+                    map.addControl(search);
+
+                    function onMapClick(e) {
+                        if (marker) {
+                            map.removeLayer(marker);
+                        }
+
+                        // Add a new draggable marker at the clicked location
+                        marker = L.marker(e.latlng, {
+                            draggable: true
+                        }).addTo(map);
+
+                        showAdress(e.latlng.lat, e.latlng.lng);
+                        latitude.value = e.latlng.lat;
+                        longitude.value = e.latlng.lng;
+
+                    }
+                    map.on('click', onMapClick);
+
+                    map.on('geosearch/showlocation', function(result) {
+                        // If there's an existing marker, remove it
+                        if (marker) {
+                            map.removeLayer(marker);
+                        }
+
+                        // Create a new draggable marker at the search result's location
+                        marker = L.marker([result.location.y, result.location.x], {
+                            draggable: true
+                        }).addTo(map);
+
+                        // Set the address as the popup content
+                        marker.bindPopup(result.location.label).openPopup();
+                        map.setView([result.location.y, result.location.x], 18);
+
+                        // Optional: Listen for the dragend event to show the updated position
+                        marker.on('dragend', function(e) {
+                            // var newLatLng = e.target.getLatLng();
+                            // Update popup with the new coordinates or perform any action
+                            marker.bindPopup(result.location.label).openPopup();
+                        });
+
+                        alamat.value = result.location.label;
+                        latitude.value = result.location.y;
+                        longitude.value = result.location.x;
+                    });
+
+                }, 500);
+
+
+            });
+        </script>
+    @endscript
 </div>

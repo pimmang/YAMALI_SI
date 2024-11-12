@@ -1,4 +1,5 @@
 <div class="w-full flex flex-col gap-2 bg-white p-2  shadow-md pb-4 mt-2">
+
     <div class=" bg-white flex-grow text-md text-center flex flex-col gap-2 mb-4">
         <div class="rounded-md overflow-hidden border border-solid ">
             {{-- <div class="text-sm grid grid-cols-9 gap-2 w-full text-start font-bold text-white bg-orange-500 py-3">
@@ -80,6 +81,7 @@
                 @else
                     <p class="w-full text-center p-6 text-sm text-gray-700 font-medium">Belum ada kontak untuk Index ini
                     </p>
+
                 @endif
 
             </div>
@@ -87,7 +89,10 @@
 
         </div>
     </div>
-    <div class="flex flex-grow justify-end">
+
+
+
+    <div class="flex flex-grow justify-end  ">
         <button wire:click='tambah'
             class=" bg-yellow-300 text-xs border-solid border active:scale-75 border-yellow-300 rounded-md px-3 font-semibold py-2 transition-all flex gap-1 items-center justify-center text-yellow-850"><i
                 class="ph-bold ph-plus"></i>
@@ -95,12 +100,14 @@
         </button>
     </div>
 
+    
     @if ($state == 'tambah')
         <livewire:kontak.tambah-kontak :id="$idIndex" :status="$status" />
     @endif
     @if ($state == 'edit')
         <livewire:kontak.edit-kontak :id="$editId" :status="$status" />
     @endif
+
 
 
 

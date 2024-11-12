@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
@@ -26,8 +26,22 @@
         </div>
 
         <div
-            class="w-4/6 h-full px-6 py-4 bg-white  overflow-hidden flex justify-center  shadow-2xl items-center rounded-l-3xl">
-            <div class="w-1/2">
+            class="w-4/6 h-full px-6 py-4 relative bg-white  overflow-hidden flex justify-center  flex-col shadow-2xl items-center rounded-l-3xl">
+
+
+            <!-- Modal toggle -->
+            <button data-modal-target="default-modal" data-modal-toggle="default-modal"
+                class="absolute top-5 right-5 text-gray-700 font-medium text-sm border hover:text-orange-500 hover:scale-105 transition-all border-slate-700 hover:border-orange-500 rounded-md px-2 flex gap-2 items-center  "
+                type="button">
+                <i class="ph-bold text-lg ph-address-book-tabs"></i>
+                <p>Cek Kinerja Kader</p>
+            </button>
+
+            <!-- Main modal -->
+            <livewire:kader.form-cek-kinerja-kader />
+
+            <div class="w-1/2 ">
+
                 {{ $slot }}
             </div>
 

@@ -7,21 +7,25 @@ use App\Models\Kontak;
 use App\Models\Pemantauan;
 use App\Models\Terduga;
 use App\Models\Ternotifikasi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TbcSoController extends Controller
 {
-    public function terduga(){
+    public function terduga()
+    {
         $status = 'terduga';
         return view('tbc-so.terduga', compact('status'));
     }
 
-    public function ternotifikasi(){
+    public function ternotifikasi()
+    {
         $status = 'ternotifikasi';
         return view('tbc-so.ternotifikasi', compact('status'));
     }
 
-    public function hasilPengobatan(Request $request, $id){
+    public function hasilPengobatan(Request $request, $id)
+    {
         // dd($request);
         $hasil = new HasilPengobatan();
         $hasil->ternotifikasi_id = $id;
@@ -35,7 +39,8 @@ class TbcSoController extends Controller
         return redirect('ternotifikasi');
     }
 
-    public function riwayatPemantauan(Request $request, $id){
+    public function riwayatPemantauan(Request $request, $id)
+    {
         // dd($request);
         $pemantauan = new Pemantauan();
         $pemantauan->ternotifikasi_id = $id;
@@ -49,19 +54,21 @@ class TbcSoController extends Controller
         return redirect('ternotifikasi');
     }
 
-    public function ubahHasilPengobatan(Request $request, $id){
+    public function ubahHasilPengobatan(Request $request, $id)
+    {
         // dd($request);
         $hasil = HasilPengobatan::find($id);
         $hasil->tanggal_mulai_pendampingan = $request->tglMulaiPendampingan;
         $hasil->tanggal_mulai_pengobatan = $request->tanggalMulaiPengobatan;
-        $hasil->bulan_lapor_hasil_pengobatan = $request->bulanLaporHasilPengobatan;
+        // $hasil->bulan_lapor_hasil_pengobatan = $request->bulanLaporHasilPengobatan;
         $hasil->tanggal_hasil_pengobatan = $request->tglHasilPengobatan;
         $hasil->hasil_pengobatan = $request->hasilPemeriksaan;
         $hasil->update();
         session()->flash('ternotifikasi', 'data hasil pengobatan berhasil diperbarui');
         return redirect('ternotifikasi');
     }
-    public function storeTerduga( Request $request,$id){
+    public function storeTerduga(Request $request, $id)
+    {
         $kontak = Kontak::find($id);
         $terduga = new Terduga();
         $terduga->mulai_kembali_berobat = $request->mulaiKembaliBerobat;
@@ -75,9 +82,9 @@ class TbcSoController extends Controller
         $kontak->terduga = 1;
         $kontak->update();
 
-        if($request->tipePemeriksaan == 'BTA +' || $request->tipePemeriksaan == 'CXR +' || $request->tipePemeriksaan == 'Extra Paru' || $request->tipePemeriksaan == 'Rontgen +' || $request->tipePemeriksaan == 'TCM +'){
+        if ($request->tipePemeriksaan == 'BTA +' || $request->tipePemeriksaan == 'CXR +' || $request->tipePemeriksaan == 'Extra Paru' || $request->tipePemeriksaan == 'Rontgen +' || $request->tipePemeriksaan == 'TCM +') {
             $ternotifikasi = new Ternotifikasi();
-         
+
             $ternotifikasi->nama_petugas_pkm = $request->namaPetugasPKM;
             $ternotifikasi->tgl_verifikasi = $request->tglVerifikasi;
             $ternotifikasi->nama_pmo = $request->namaPMO;
@@ -85,17 +92,26 @@ class TbcSoController extends Controller
             $ternotifikasi->tipe_pmo = $request->tipePMO;
             $ternotifikasi->terduga_id = $terduga->id;
             $ternotifikasi->edukasi_hiv = $request->edukasiHIV;
-            if($request->catatan){
+            if ($request->catatan) {
                 $ternotifikasi->catatan = $request->catatan;
             }
             $ternotifikasi->save();
+            $hasil_pengobatan = new HasilPengobatan();
+            $hasil_pengobatan->ternotifikasi_id = $ternotifikasi->id;
+            $hasil_pengobatan->tanggal_mulai_pendampingan = Carbon::now();
+            // $hasil_pengobatan->tanggal_hasil_pengobatan = Carbon::now();
+            // dd();
+            $hasil_pengobatan->hasil_pengobatan = 'Belum Mulai Pengobatan';
+            // $hasil_pengobatan->tanggal_mulai_pendampingan = $ternotifikasi->id;
+            $hasil_pengobatan->save();
             session()->flash('ternotifikasi', 'data ternotifikasi berhasil ditambahkan');
             return redirect('/ternotifikasi');
         }
         session()->flash('terduga', 'data terduga berhasil ditambahkan');
         return redirect('/terduga-tbc');
     }
-    public function updateTerduga( Request $request,$id){
+    public function updateTerduga(Request $request, $id)
+    {
         $terduga = Terduga::find($id);
         $terduga->mulai_kembali_berobat = $request->mulaiKembaliBerobat;
         $terduga->nama_petugas_tbc = $request->namaPetugasTbc;
@@ -104,10 +120,10 @@ class TbcSoController extends Controller
         $terduga->covid_19 = $request->covid;
         $terduga->tipe_pemeriksaan = $request->tipePemeriksaan;
         $terduga->update();
-      
-        if($request->tipePemeriksaan == 'BTA +' || $request->tipePemeriksaan == 'CXR +' || $request->tipePemeriksaan == 'Extra Paru' || $request->tipePemeriksaan == 'Rontgen +' || $request->tipePemeriksaan == 'TCM +'){
-            if($terduga->ternotifikasi){
-                $ternotifikasi = Ternotifikasi::find($terduga->ternotifikasi->id) ;
+
+        if ($request->tipePemeriksaan == 'BTA +' || $request->tipePemeriksaan == 'CXR +' || $request->tipePemeriksaan == 'Extra Paru' || $request->tipePemeriksaan == 'Rontgen +' || $request->tipePemeriksaan == 'TCM +') {
+            if ($terduga->ternotifikasi) {
+                $ternotifikasi = Ternotifikasi::find($terduga->ternotifikasi->id);
                 $ternotifikasi->nama_petugas_pkm = $request->namaPetugasPKM;
                 $ternotifikasi->tgl_verifikasi = $request->tglVerifikasi;
                 $ternotifikasi->nama_pmo = $request->namaPMO;
@@ -115,15 +131,16 @@ class TbcSoController extends Controller
                 $ternotifikasi->tipe_pmo = $request->tipePMO;
                 $ternotifikasi->terduga_id = $terduga->id;
                 $ternotifikasi->edukasi_hiv = $request->edukasiHIV;
-                if($request->catatan){
+                if ($request->catatan) {
                     $ternotifikasi->catatan = $request->catatan;
                 }
                 $ternotifikasi->update();
+
                 session()->flash('ternotifikasi', 'data ternotifikasi berhasil diperbarui');
                 return redirect('/ternotifikasi');
-            }else{
+            } else {
                 $ternotifikasi = new Ternotifikasi();
-               
+
                 $ternotifikasi->nama_petugas_pkm = $request->namaPetugasPKM;
                 $ternotifikasi->tgl_verifikasi = $request->tglVerifikasi;
                 $ternotifikasi->nama_pmo = $request->namaPMO;
@@ -131,18 +148,26 @@ class TbcSoController extends Controller
                 $ternotifikasi->tipe_pmo = $request->tipePMO;
                 $ternotifikasi->terduga_id = $terduga->id;
                 $ternotifikasi->edukasi_hiv = $request->edukasiHIV;
-                if($request->catatan){
+                if ($request->catatan) {
                     $ternotifikasi->catatan = $request->catatan;
                 }
                 $ternotifikasi->save();
+
+                $hasil_pengobatan = new HasilPengobatan();
+                $hasil_pengobatan->ternotifikasi_id = $ternotifikasi->id;
+                $hasil_pengobatan->tanggal_mulai_pendampingan = Carbon::now();
+                // $hasil_pengobatan->tanggal_hasil_pengobatan = Carbon::now();
+                // dd();
+                $hasil_pengobatan->hasil_pengobatan = 'Belum Mulai Pengobatan';
+                // $hasil_pengobatan->tanggal_mulai_pendampingan = $ternotifikasi->id;
+                $hasil_pengobatan->save();
+
                 session()->flash('ternotifikasi', 'data ternotifikasi berhasil ditambahkan');
                 return redirect('/ternotifikasi');
             }
-            
-         
-        }else{
+        } else {
 
-            if($terduga->ternotifikasi){
+            if ($terduga->ternotifikasi) {
                 $ternotifkasi = Ternotifikasi::find($terduga->ternotifikasi->id);
                 $ternotifkasi->delete();
             }
@@ -150,5 +175,4 @@ class TbcSoController extends Controller
         session()->flash('terduga', 'data terduga berhasil diperbarui');
         return redirect('/terduga-tbc');
     }
-
 }

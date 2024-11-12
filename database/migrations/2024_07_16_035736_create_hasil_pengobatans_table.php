@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ternotifikasi_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->date('tanggal_mulai_pendampingan');
-            $table->date('tanggal_mulai_pengobatan');
-            $table->date('bulan_lapor_hasil_pengobatan');
-            $table->date('tanggal_hasil_pengobatan');
+            $table->date('tanggal_mulai_pengobatan')->nullable();
+            // $table->date('bulan_lapor_hasil_pengobatan');
+            $table->date('tanggal_hasil_pengobatan')->nullable();
             $table->string('hasil_pengobatan');
             $table->timestamps();
         });

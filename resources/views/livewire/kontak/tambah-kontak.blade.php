@@ -113,12 +113,39 @@
                                     </li>
                                 </ul>
                             </div>
+
                             <div class="col-span-2">
+                                <label for="map"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Beri Titik
+                                    Lokasi</label>
+                                <div class="w-full h-fit flex justify-center">
+                                    <div id="map" wire:ignore
+                                        class="w-1/2 h-80 rounded-lg shadow border-2 border-orange-500">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="">
                                 <label for="alamat"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                                <textarea id="alamat" rows="4" name="alamat" required
-                                    class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border !border-orange-200 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                                    placeholder="Alamat"></textarea>
+                                <input type="text" id="alamat" name="alamat" readonly
+                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                    placeholder="Alamat" required />
+                            </div>
+
+                            <div class="hidden">
+                                <label for="latitude"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Latitude</label>
+                                <input type="text" id="latitude" name="latitude" readonly 
+                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                    placeholder="Latitude" required />
+                            </div>
+                            <div class="hidden">
+                                <label for="longitude"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Longitude</label>
+                                <input type="text" id="longitude" name="longitude" readonly
+                                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+                                    placeholder="Longitude" required />
                             </div>
 
 
@@ -491,6 +518,7 @@
                                 <input type="date" name="tanggalRevisit" id="tanggalRevisit" required
                                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                             </div>
+
                             <div>
                                 <label for="keterangan"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
@@ -498,6 +526,8 @@
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border !border-orange-200 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                     placeholder="keterangan"></textarea>
                             </div>
+
+
 
                             <input type="hidden" name="status" value="ikrt">
                         </div>
@@ -510,4 +540,106 @@
             </div>
         </div>
     </div>
+
+    <script></script>
+    @script
+        <script>
+            // $wire.on('openTambahKontak', () => {
+            //     alert('ya');
+            // });
+
+            $wire.on('openTambahKontak', () => {
+                setTimeout(() => {
+                    const provider = new GeoSearch.OpenStreetMapProvider();
+
+                    var map = L.map('map').setView([-2.301019, 120.377305], 6);
+                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    }).addTo(map);
+
+                    // var popup = L.popup();
+                    var marker;
+                    var popup;
+                    const search = new GeoSearch.GeoSearchControl({
+                        provider: new GeoSearch.OpenStreetMapProvider(),
+                        showMarker: false, // Disable default markers
+                    });
+
+                    const alamat = document.getElementById('alamat');
+                    const latitude = document.getElementById('latitude');
+                    const longitude = document.getElementById('longitude');
+                    map.addControl(search);
+
+                    function onMapClick(e) {
+                        if (marker) {
+                            map.removeLayer(marker);
+                        }
+
+                        // Add a new draggable marker at the clicked location
+                        marker = L.marker(e.latlng, {
+                            draggable: true
+                        }).addTo(map);
+
+
+                        provider
+                            .search({
+                                query: `${e.latlng.lat},${e.latlng.lng}`
+                            }) // Query the clicked location
+                            .then(function(result) {
+                                if (result && result.length > 0) {
+                                    const address = result[0].label; // Get the address from the result
+                                    alamat.value = result[0].label;
+                                    marker.bindPopup(address)
+                                        .openPopup(); // Show address in the marker popup
+                                } else {
+                                    marker.bindPopup("No address found")
+                                        .openPopup(); // Handle case where no address is found
+                                }
+                            })
+                            .catch(function(error) {
+                                console.error('Error retrieving address:', error);
+                                marker.bindPopup("Error retrieving address")
+                                    .openPopup(); // Handle error case
+                            });
+
+                        latitude.value = e.latlng.lat;
+                        longitude.value = e.latlng.lng;
+
+                    }
+                    map.on('click', onMapClick);
+
+                    map.on('geosearch/showlocation', function(result) {
+                        // If there's an existing marker, remove it
+                        if (marker) {
+                            map.removeLayer(marker);
+                        }
+
+                        // Create a new draggable marker at the search result's location
+                        marker = L.marker([result.location.y, result.location.x], {
+                            draggable: true
+                        }).addTo(map);
+
+                        // Set the address as the popup content
+                        marker.bindPopup(result.location.label).openPopup();
+                        map.setView([result.location.y, result.location.x], 18);
+
+                        // Optional: Listen for the dragend event to show the updated position
+                        marker.on('dragend', function(e) {
+                            // var newLatLng = e.target.getLatLng();
+                            // Update popup with the new coordinates or perform any action
+                            marker.bindPopup(result.location.label).openPopup();
+                        });
+
+                        alamat.value = result.location.label;
+                        latitude.value = result.location.y;
+                        longitude.value = result.location.x;
+                    });
+
+                }, 500);
+
+
+            });
+        </script>
+    @endscript
 </div>

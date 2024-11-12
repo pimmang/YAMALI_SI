@@ -1,6 +1,5 @@
 <div class="w-full odd:bg-white  even:bg-orange-50 rounded-lg overflow-hidden  shadow-md " id="{{ $data->id }}">
-    <div
-        class=" text-gray-700 w-full text-sm text-start   items-center grid grid-cols-6 gap-2 px-3 py-5">
+    <div class=" text-gray-700 w-full text-sm text-start   items-center grid grid-cols-6 gap-2 px-3 py-5">
         {{-- <p class="text-gray-900 font-semibold overflow-ellipsis overflow-hidden whitespace-nowrap">{{ $data->index->nama_pasien }}</p> --}}
         <p class="text-gray-900 font-semibold ">{{ $data->index->nama_pasien }}</p>
         {{-- <p class="">{{ \Carbon\Carbon::parse($data->created_at)->format('Y-m-d') }}</p> --}}
@@ -33,6 +32,9 @@
 
         </div>
     </div>
+
+
+
     @if ($klik)
         <livewire:kontak.kontak :id="$data->id" status="ikrt" />
     @endif

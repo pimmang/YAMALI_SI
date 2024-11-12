@@ -24,24 +24,24 @@
                         <label for="tanggalMulaiPengobatan"
                             class="block mb-2 text-sm required font-medium text-gray-900 dark:text-white">
                             Tanggal Mulai Pengobatan</label>
-                        <input type="date" name="tanggalMulaiPengobatan" id="tanggalMulaiPengobatan" required
+                        <input type="date" name="tanggalMulaiPengobatan" id="tanggalMulaiPengobatan" 
                             value="{{ $dataHasilPengobatan->tanggal_mulai_pengobatan }}"
                             class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     </div>
-                    <div>
+                    {{-- <div>
                         <label for="bulanLaporHasilPengobatan"
                             class="block mb-2 text-sm required font-medium text-gray-900 dark:text-white">
                             Bulan Lapor Hasil Pengobatan</label>
                         <input type="date" name="bulanLaporHasilPengobatan" id="bulanLaporHasilPengobatan" required
                             value="{{ $dataHasilPengobatan->bulan_lapor_hasil_pengobatan }}"
                             class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    </div>
+                    </div> --}}
                     <div>
                         <label for="tglHasilPengobatan"
                             class="block mb-2 text-sm required font-medium text-gray-900 dark:text-white">
                             Tanggal Hasil Pengobatan</label>
                         <input type="date" name="tglHasilPengobatan" id="tglHasilPengobatan"
-                            wire:model.live='tglHasilPengobatan' required
+                            wire:model.live='tglHasilPengobatan' 
                             value="{{ $dataHasilPengobatan->tanggal_hasil_pengobatan }}"
                             class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     </div>
@@ -56,18 +56,18 @@
                             <option
                                 value="Sembuh"{{ $dataHasilPengobatan->hasil_pengobatan == 'Sembuh' ? 'selected' : '' }}>
                                 Sembuh</option>
-                            <option
+                            {{-- <option
                                 value="Lengkap"{{ $dataHasilPengobatan->hasil_pengobatan == 'Lengkap' ? 'selected' : '' }}>
-                                Lengkap</option>
+                                Lengkap</option> --}}
                             <option
                                 value="Meninggal"{{ $dataHasilPengobatan->hasil_pengobatan == 'Meninggal' ? 'selected' : '' }}>
                                 Meninggal</option>
                             <option
                                 value="Pindah"{{ $dataHasilPengobatan->hasil_pengobatan == 'Pindah' ? 'selected' : '' }}>
                                 Pindah</option>
-                            <option
+                            {{-- <option
                                 value="Default"{{ $dataHasilPengobatan->hasil_pengobatan == 'Default' ? 'selected' : '' }}>
-                                Default</option>
+                                Default</option> --}}
                             <option
                                 value="Gagal"{{ $dataHasilPengobatan->hasil_pengobatan == 'Gagal' ? 'selected' : '' }}>
                                 Gagal</option>
@@ -107,14 +107,14 @@
                             value="{{ $dataHasilPengobatan->tanggal_mulai_pengobatan }}"
                             class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     </div>
-                    <div>
+                    {{-- <div>
                         <label for="bulanLaporHasilPengobatan"
                             class="block mb-2 text-sm disabled font-medium text-gray-900 dark:text-white">
                             Bulan Lapor Hasil Pengobatan</label>
                         <input type="date" name="bulanLaporHasilPengobatan" id="bulanLaporHasilPengobatan" disabled
                             value="{{ $dataHasilPengobatan->bulan_lapor_hasil_pengobatan }}"
                             class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    </div>
+                    </div> --}}
                     <div>
                         <label for="tglHasilPengobatan"
                             class="block mb-2 text-sm disabled font-medium text-gray-900 dark:text-white">
@@ -135,9 +135,9 @@
                             <option
                                 value="Sembuh"{{ $dataHasilPengobatan->hasil_pengobatan == 'Sembuh' ? 'selected' : '' }}>
                                 Sembuh</option>
-                            <option
+                            {{-- <option
                                 value="Lengkap"{{ $dataHasilPengobatan->hasil_pengobatan == 'Lengkap' ? 'selected' : '' }}>
-                                Lengkap</option>
+                                Lengkap</option> --}}
                             <option
                                 value="Meninggal"{{ $dataHasilPengobatan->hasil_pengobatan == 'Meninggal' ? 'selected' : '' }}>
                                 Meninggal</option>
@@ -165,62 +165,6 @@
                     </div>
                 </div>
             @endif
-        @else
-            <form action="/hasil-pengobatan/{{ $pengobatanId }}" method="POST" class="p-4 grid grid-cols-2 gap-6">
-                @csrf
-                <div>
-                    <label for="tglMulaiPendampingan"
-                        class="block mb-2 text-sm required font-medium text-gray-900 dark:text-white">
-                        Tanggal Mulai Pendampingan</label>
-                    <input type="date" name="tglMulaiPendampingan" id="tglMulaiPendampingan" required
-                        class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                </div>
-                <div>
-                    <label for="tanggalMulaiPengobatan"
-                        class="block mb-2 text-sm required font-medium text-gray-900 dark:text-white">
-                        Tanggal Mulai Pengobatan</label>
-                    <input type="date" name="tanggalMulaiPengobatan" id="tanggalMulaiPengobatan" required
-                        class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                </div>
-                <div>
-                    <label for="bulanLaporHasilPengobatan"
-                        class="block mb-2 text-sm required font-medium text-gray-900 dark:text-white">
-                        Bulan Lapor Hasil Pengobatan</label>
-                    <input type="date" name="bulanLaporHasilPengobatan" id="bulanLaporHasilPengobatan" required
-                        class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                </div>
-                <div>
-                    <label for="tglHasilPengobatan"
-                        class="block mb-2 text-sm required font-medium text-gray-900 dark:text-white">
-                        Tanggal Hasil Pengobatan</label>
-                    <input type="date" name="tglHasilPengobatan" id="tglHasilPengobatan"
-                        wire:model.live='tglHasilPengobatan' required
-                        class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                </div>
-
-                <div>
-                    <label for="hasilPemeriksaan"
-                        class="block mb-2 text-sm required font-medium text-gray-900 dark:text-white">Tipe
-                        Hasil Pengobatan</label>
-                    <select id="hasilPemeriksaan" name="hasilPemeriksaan" required
-                        class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                        <option selected value="">Pilih</option>
-                        <option value="Sembuh">Sembuh</option>
-                        <option value="Lengkap">Lengkap</option>
-                        <option value="Meninggal">Meninggal</option>
-                        <option value="Pindah">Pindah</option>
-                        <option value="Default">Default</option>
-                        <option value="Gagal">Gagal</option>
-                        <option value="Belum Mulai Pengobatan">Belum Mulai Pengobatan</option>
-                        <option value="Proses Pengobatan">Proses Pengobatan</option>
-                    </select>
-                </div>
-
-                <div class=" w-full flex items-end col-span-2">
-                    <button type="submit"
-                        class="text-white bg-orange-500  hover:bg-orange-600 transition-all focus:ring-4 !p-2.5 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                </div>
-            </form>
         @endif
     </div>
 </div>

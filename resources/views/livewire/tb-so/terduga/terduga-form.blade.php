@@ -10,8 +10,9 @@
                     <p>NIK Terduga</p>
                     <p>Nomor Telepon</p>
                     <p>SSR</p>
+                    <p>Alamat</p>
                     @if ($data->i_k_rumah_tangga_id)
-                        <p>Kecamatan, Kabupaten</p>
+                        <p>Kecamatan, Kota/Kabupaten</p>
                         <p>Jenis IK</p>
                     @else
                         <p>Jenis Penyuluhan</p>
@@ -20,6 +21,7 @@
 
                 </div>
                 <div class="flex flex-col items-start gap-4 ">
+                    <p>:</p>
                     <p>:</p>
                     <p>:</p>
                     <p>:</p>
@@ -38,12 +40,13 @@
                             {{ ucwords(strtolower($data->iKNRumahTangga->index->ssr->nama)) }}
                         @endif
                     </p>
+                    <p>{{ $data->alamat }}</p>
                     @if ($data->i_k_rumah_tangga_id)
                         <p>
                             {{ ucwords(strtolower($data->iKRumahTangga->index->district->name . ', ' . $data->iKRumahTangga->index->regency->name)) }}
                         </p>
                         <p>
-                            {{ ucwords(strtolower($data->iKRumahTangga->kegiatan_ik ? $data->iKRumahTangga->kegiatan_ik : '-' )) }}
+                            {{ ucwords(strtolower($data->iKRumahTangga->kegiatan_ik ? $data->iKRumahTangga->kegiatan_ik : '-')) }}
                         </p>
                     @else
                         <p>

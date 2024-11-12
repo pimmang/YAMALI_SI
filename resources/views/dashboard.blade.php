@@ -1,11 +1,12 @@
 @extends('layouts.main')
+
 @section('main')
     <div class="w-full mt-4 text-gray-700">
         <div class="w-full gap-6 flex items-center justify-between">
             <p class="font-semibold text-lg text-gray-700">Dashboard</p>
-            <livewire:dashboard.dashboard :ssr="$ssrPilihan" :tahun="$tahun" />
-           
+            <livewire:dashboard.dashboard :ssr="$ssrPilihan" :tahun="$tahun" :status="$status" />
         </div>
+
         <div class="grid grid-cols-2 w-full mt-8 gap-4">
             <div class="grid grid-cols-2 flex-grow gap-4">
 
@@ -61,9 +62,9 @@
                         </div>
                         <p class="font-bold text-xl">{{ $jumlahFasyankes }}</p>
                     </div>
-    
+
                 </div>
-               
+
             </div>
 
             <div class="w-full p-4 bg-white rounded-lg shadow" id="hasilPengobatan">
@@ -214,23 +215,22 @@
 
             const optionsKinerjaKader = {
                 series: [{
-                    name: 'Dirujuk',
-                    data: @json($jumlahDirujukKader)
-                }, {
-                    name: 'Diperiksa',
-                    data: @json($jumlahDiperiksaKader)
-                }, {
-                    name: 'Positif',
-                    data: @json($jumlahPositifKader)
-                }, {
-                    name: 'Sembuh',
-                    data: @json($jumlahSembuhKader)
-                }],
+                        name: 'Dirujuk',
+                        data: @json($jumlahDirujukKader)
+                    },
+                    {
+                        name: 'Positif',
+                        data: @json($jumlahPositifKader)
+                    }, {
+                        name: 'Sembuh',
+                        data: @json($jumlahSembuhKader)
+                    }
+                ],
                 chart: {
                     type: 'bar',
                     height: 350,
                 },
-                colors: ['#26A0FC', '#FEBC3B', '#FE6077', '#26E7A6'],
+                colors: ['#26A0FC', '#FE6077', '#26E7A6'],
                 plotOptions: {
                     bar: {
                         horizontal: false,

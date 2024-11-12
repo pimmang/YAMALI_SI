@@ -8,12 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/x-icon" href="/img/yamali.svg">
     <title>Yamali TB</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     @livewireStyles
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+    @stack('leaflet')
 </head>
 
 <body class="overflow-hidden h-screen w-screen relative">
@@ -29,6 +32,14 @@
                     <div class="flex items-center justify-start  gap-2 ">
                         <i class="ph ph-house-line text-lg"></i>
                         <p>Dashboard</p>
+                    </div>
+                </a>
+                <a href="/peta-sebaran-kasus"
+                    class="{{ $status == 'sig' ? 'bg-orange-100' : '' }} flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md"
+                    id="sig">
+                    <div class="flex items-center justify-start  gap-2 ">
+                        <i class="ph ph-globe-hemisphere-west text-lg"></i>
+                        <p>Peta Sebaran Kasus TB</p>
                     </div>
                 </a>
 
@@ -240,6 +251,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     @livewireScripts
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
+
 </body>
 
 <script>
@@ -318,6 +332,8 @@
     // console.log(laporan.style.height == `${tinggiKonten}`)
 </script>
 
+{{-- <script src="resources/js/app.js"></script> --}}
 @stack('scripts')
+
 
 </html>

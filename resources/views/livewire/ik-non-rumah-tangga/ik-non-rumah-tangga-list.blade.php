@@ -1,10 +1,9 @@
 <div class="w-full odd:bg-white  even:bg-orange-50 rounded-lg overflow-hidden  shadow-md " id="{{ $data->id }}">
-    <div
-        class=" capitalize   w-full text-sm  text-start  items-center grid grid-cols-5 gap-2 px-3 py-5">
+    <div class=" capitalize   w-full text-sm  text-start  items-center grid grid-cols-5 gap-2 px-3 py-5">
         <p class="text-gray-900 font-medium">{{ $data->index->nama_pasien }}</p>
-        <p >{{ $data->index->nik_index }}</p>
+        <p>{{ $data->index->nik_index }}</p>
         <p>{{ $data->lokasi_penyuluhan }}</p>
-        <p>{{ ucwords(strtolower($data->alamat_penyuluhan.', '.$data->district->name.', '.$data->regency->name)) }}</p>
+        <p>{{ ucwords(strtolower($data->alamat_penyuluhan . ', ' . $data->district->name . ', ' . $data->regency->name)) }}</p>
         {{-- <p>{{ $data->district->name }}</p> --}}
         <div class="flex items-center justify-around text-lg capitalize text-center">
             <div
@@ -31,9 +30,11 @@
 
         </div>
     </div>
-    @if ($klik)
+    {{-- @if ($klik) --}}
+    <div class="{{ $klik ? '' : 'hidden' }}">
         <livewire:kontak.kontak :id="$data->id" status="iknrt" />
-    @endif
+    </div>
+    {{-- @endif --}}
 
     @if ($state == 'details')
         <livewire:ik-non-rumah-tangga.ik-non-rumah-tangga-details :data="$details" />

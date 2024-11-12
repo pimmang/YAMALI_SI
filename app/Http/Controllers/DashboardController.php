@@ -76,7 +76,7 @@ class DashboardController extends Controller
         // kinerja kader
         $jumlahDirujukKader = [];
         $jumlahPositifKader = [];
-        $jumlahDiperiksaKader = [];
+        // $jumlahDiperiksaKader = [];
         $jumlahSembuhKader = [];
 
         foreach ($ssrs as $ssr) {
@@ -144,7 +144,7 @@ class DashboardController extends Controller
             })->count();
         }
 
-        $jumlahDiperiksaKader = $jumlahRawat;
+        // $jumlahDiperiksaKader = $jumlahRawat;
 
         $jumlahIndex = Index::count();
         $jumlahIkrt = Index::whereHas('iKRumahTangga')->count();
@@ -174,7 +174,7 @@ class DashboardController extends Controller
             })->count();
         }
 
-        return view('dashboard', compact('status', 'tahun', 'jumlahFasyankes', 'temuanPositif', 'temuanNegatif', 'temuanBergejala', 'jumlahIndex', 'jumlahIkrt', 'jumlahIknrt', 'jumlahBelumIk', 'jumlahDirujukKader', 'jumlahPositifKader', 'jumlahSembuhKader', 'jumlahDiperiksaKader', 'namaKader', 'namaFasyankes', 'jumlahRawat', 'ssrPilihan', 'jumlahTerduga', 'jumlahNegatif', 'jumlahPositif', 'jumlahDiperiksaLaki', 'jumlahDiperiksaPerempuan', 'jumlahBergejala', 'jumlahDikunjungi', 'jumlahDirujuk', 'jumlahKader', 'jumlahSembuh', 'jumlahMeninggal', 'jumlahPindah', 'jumlahGagal', 'jumlahLengkap', 'jumlahBelumMulai', 'jumlahProses'));
+        return view('dashboard', compact('status', 'tahun', 'jumlahFasyankes', 'temuanPositif', 'temuanNegatif', 'temuanBergejala', 'jumlahIndex', 'jumlahIkrt', 'jumlahIknrt', 'jumlahBelumIk', 'jumlahDirujukKader', 'jumlahPositifKader', 'jumlahSembuhKader', 'namaKader', 'namaFasyankes', 'jumlahRawat', 'ssrPilihan', 'jumlahTerduga', 'jumlahNegatif', 'jumlahPositif', 'jumlahDiperiksaLaki', 'jumlahDiperiksaPerempuan', 'jumlahBergejala', 'jumlahDikunjungi', 'jumlahDirujuk', 'jumlahKader', 'jumlahSembuh', 'jumlahMeninggal', 'jumlahPindah', 'jumlahGagal', 'jumlahLengkap', 'jumlahBelumMulai', 'jumlahProses'));
     }
 
     /**
@@ -184,7 +184,7 @@ class DashboardController extends Controller
     {
         // dd($request);
 
-        if (Auth::user()->name != $request->query('ssr')) {
+    if (Auth::user()->name != $request->query('ssr')) {
             if (Auth::user()->hasRole('ssr')) {
                 abort(403, 'Unauthorized action.');
             }
@@ -521,7 +521,7 @@ class DashboardController extends Controller
 
         $jumlahDirujukKader = [];
         $jumlahPositifKader = [];
-        $jumlahDiperiksaKader = [];
+        // $jumlahDiperiksaKader = [];
         $jumlahSembuhKader = [];
 
         if ($ssrPilihan == 'semua') {
@@ -599,7 +599,7 @@ class DashboardController extends Controller
                     $query->whereYear('created_at', $tahun);
                 })->count();
             }
-            $jumlahDiperiksaKader = $jumlahRawat;
+            // $jumlahDiperiksaKader = $jumlahRawat;
         } else {
 
             $fasyankes = Fasyankes::where('ssr_id', $ssrPilihan)->get();
@@ -660,21 +660,21 @@ class DashboardController extends Controller
                     $query->whereYear('created_at', $tahun);
                 })->count();
 
-                $jumlahDiperiksaKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
-                    $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
-                        $query->whereHas('index', function ($query) use ($ssrPilihan) {
-                            $query->where('ssr_id', $ssrPilihan);
-                        })->where('kader_id', $kader->id);
-                    })
-                        ->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan, $kader) {
-                            $query->whereHas('index', function ($query) use ($ssrPilihan) {
-                                $query->where('ssr_id', $ssrPilihan);
-                            })->where('kader_id', $kader->id);
-                        });
-                })->where('terduga', 1)
-                    ->when($tahun != 'semua', function ($query) use ($tahun) {
-                        $query->whereYear('created_at', $tahun);
-                    })->count();
+                // $jumlahDiperiksaKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
+                //     $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
+                //         $query->whereHas('index', function ($query) use ($ssrPilihan) {
+                //             $query->where('ssr_id', $ssrPilihan);
+                //         })->where('kader_id', $kader->id);
+                //     })
+                //         ->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan, $kader) {
+                //             $query->whereHas('index', function ($query) use ($ssrPilihan) {
+                //                 $query->where('ssr_id', $ssrPilihan);
+                //             })->where('kader_id', $kader->id);
+                //         });
+                // })->where('terduga', 1)
+                //     ->when($tahun != 'semua', function ($query) use ($tahun) {
+                //         $query->whereYear('created_at', $tahun);
+                //     })->count();
 
                 $jumlahSembuhKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
                     $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
@@ -802,7 +802,7 @@ class DashboardController extends Controller
             })->count();
         }
 
-        return view('dashboard', compact('status', 'tahun', 'jumlahFasyankes', 'temuanPositif', 'temuanNegatif', 'temuanBergejala', 'jumlahIndex', 'jumlahIkrt', 'jumlahIknrt', 'jumlahBelumIk', 'jumlahDirujukKader', 'jumlahPositifKader', 'jumlahSembuhKader', 'jumlahDiperiksaKader', 'namaKader', 'namaFasyankes', 'jumlahRawat', 'ssrPilihan', 'jumlahTerduga', 'jumlahNegatif', 'jumlahPositif', 'jumlahDiperiksaLaki', 'jumlahDiperiksaPerempuan', 'jumlahBergejala', 'jumlahDikunjungi', 'jumlahDirujuk', 'jumlahKader', 'jumlahSembuh', 'jumlahMeninggal', 'jumlahPindah', 'jumlahGagal', 'jumlahLengkap', 'jumlahBelumMulai', 'jumlahProses'));
+        return view('dashboard', compact('status', 'tahun', 'jumlahFasyankes', 'temuanPositif', 'temuanNegatif', 'temuanBergejala', 'jumlahIndex', 'jumlahIkrt', 'jumlahIknrt', 'jumlahBelumIk', 'jumlahDirujukKader', 'jumlahPositifKader', 'jumlahSembuhKader',  'namaKader', 'namaFasyankes', 'jumlahRawat', 'ssrPilihan', 'jumlahTerduga', 'jumlahNegatif', 'jumlahPositif', 'jumlahDiperiksaLaki', 'jumlahDiperiksaPerempuan', 'jumlahBergejala', 'jumlahDikunjungi', 'jumlahDirujuk', 'jumlahKader', 'jumlahSembuh', 'jumlahMeninggal', 'jumlahPindah', 'jumlahGagal', 'jumlahLengkap', 'jumlahBelumMulai', 'jumlahProses'));
     }
 
     /**

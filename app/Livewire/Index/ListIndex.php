@@ -81,6 +81,10 @@ class ListIndex extends Component
     {
         $this->status = 'form';
     }
+    public function hubungan()
+    {
+        $this->status = 'hubungan';
+    }
 
     #[On('indexDeleted')]
     public function indexDeleted()
