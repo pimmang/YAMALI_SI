@@ -6,6 +6,8 @@
     <div class="w-fit h-fit bg-white rounded-lg z-20 overflow-hidden">
         <div class="w-full bg-orange-50 p-4 flex-none ">
             <p class="uppercase font-semibold text-sm text-gray-700">Hasil Pengobatan</p>
+            <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                wire:click='close'></i>
         </div>
         @if ($dataHasilPengobatan)
             @if ($state == 'edit')
@@ -24,7 +26,7 @@
                         <label for="tanggalMulaiPengobatan"
                             class="block mb-2 text-sm required font-medium text-gray-900 dark:text-white">
                             Tanggal Mulai Pengobatan</label>
-                        <input type="date" name="tanggalMulaiPengobatan" id="tanggalMulaiPengobatan" 
+                        <input type="date" name="tanggalMulaiPengobatan" id="tanggalMulaiPengobatan"
                             value="{{ $dataHasilPengobatan->tanggal_mulai_pengobatan }}"
                             class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     </div>
@@ -41,7 +43,7 @@
                             class="block mb-2 text-sm required font-medium text-gray-900 dark:text-white">
                             Tanggal Hasil Pengobatan</label>
                         <input type="date" name="tglHasilPengobatan" id="tglHasilPengobatan"
-                            wire:model.live='tglHasilPengobatan' 
+                            wire:model.live='tglHasilPengobatan'
                             value="{{ $dataHasilPengobatan->tanggal_hasil_pengobatan }}"
                             class="bg-white border !border-orange-400 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     </div>

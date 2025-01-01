@@ -40,7 +40,7 @@
                     <p class="text-xs text-gray-400">Jenis Kelamin</p>
                     <p class="capitalize font-bold">{{ $details->index->jenis_kelamin }}</p>
                 </div>
-               
+
                 <div class="w-full flex  flex-col justify-around text-sm font-medium text-gray-700">
                     <p class="text-xs text-gray-400">Fasyankes Index</p>
                     <p class="capitalize font-bold">{{ $details->index->fasyankes->nama_fasyankes }}</p>
@@ -58,6 +58,8 @@
             <div class="bg-white w-full  overflow-y-auto">
                 <div class="flex justify-between items-top bg-orange-100 p-4">
                     <h1 class="font-medium text-gray-700 uppercase ">Detail Investigasi Kontak</h1>
+                    <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                        wire:click='close'></i>
                 </div>
                 <div class="grid gap-4 md:grid-cols-1 p-4">
                     <div>
@@ -68,7 +70,8 @@
                             <option value="">Pilih</option>
                             <option value='Revisit' {{ $details->kegiatan_ik == 'Revisit' ? 'selected' : '' }}>Revisit
                             </option>
-                            <option value='Re-IK' {{ $details->kegiatan_ik == 'Re-IK' ? 'selected' : '' }}>Re-IK</option>
+                            <option value='Re-IK' {{ $details->kegiatan_ik == 'Re-IK' ? 'selected' : '' }}>Re-IK
+                            </option>
                         </select>
                     </div>
                     <div>

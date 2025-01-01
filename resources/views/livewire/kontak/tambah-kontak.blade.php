@@ -7,6 +7,8 @@
             <div class="flex justify-between items-top relative">
                 <div class="w-full bg-orange-50 p-6 absolute top-0 right-0 left-0">
                     <p class="uppercase font-semibold text-sm text-gray-700">Form tambah kontak</p>
+                    <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                        wire:click='close'></i>
                 </div>
                 {{-- <div class="flex items-top gap-5 pe-10">
                 <div
@@ -40,7 +42,7 @@
                                 <label for="nikKontak"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK Kontak
                                 </label>
-                                <input type="text" id="nikKontak" name="nikKontak"
+                                <input type="number" pattern="[1-9]*" id="nikKontak" name="nikKontak"
                                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                     placeholder="Nik Kontak" required />
                             </div>
@@ -136,7 +138,7 @@
                             <div class="hidden">
                                 <label for="latitude"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Latitude</label>
-                                <input type="text" id="latitude" name="latitude" readonly 
+                                <input type="text" id="latitude" name="latitude" readonly
                                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                     placeholder="Latitude" required />
                             </div>

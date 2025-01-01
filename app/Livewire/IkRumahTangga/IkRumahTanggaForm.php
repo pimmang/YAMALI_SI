@@ -120,9 +120,21 @@ class IkRumahTanggaForm extends Component
         $array = explode("-", $this->tahunSemester);
         if ($this->fasyanId) {
             if (Auth::user()->hasRole('ssr')) {
-                $this->hasil = Index::where('fasyankes_id', $this->fasyanId)->where('semester_index', $array[1])->where('tahun_index', $array[0])->where('ssr_id', Auth::user()->ssr->id)->get();
+                $this->hasil = Index::where('fasyankes_id', $this->fasyanId)
+                    ->where('semester_index', $array[1])
+                    ->where('tahun_index', $array[0])
+                    ->where('ssr_id', Auth::user()->ssr->id)
+                    ->whereNotIn('id', function ($query) {
+                        $query->select('index_id')->from('i_k_rumah_tanggas');
+                    })
+                    ->get();
             } elseif (Auth::user()->hasRole('sr')) {
-                $this->hasil = Index::where('fasyankes_id', $this->fasyanId)->where('semester_index', $array[1])->where('tahun_index', $array[0])->get();
+                $this->hasil = Index::where('fasyankes_id', $this->fasyanId)
+                    ->where('semester_index', $array[1])
+                    ->where('tahun_index', $array[0])
+                    ->whereNotIn('id', function ($query) {
+                        $query->select('index_id')->from('i_k_rumah_tanggas');
+                    })->get();
             }
         }
 

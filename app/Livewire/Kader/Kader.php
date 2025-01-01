@@ -59,6 +59,30 @@ class Kader extends Component
         $this->state = 'edit';
         $this->kaderEdit = ModelsKader::where('id', $id)->first();
         $this->kabupaten_id = $this->kaderEdit->regency_id;
+        $this->nikEdit = $this->kaderEdit->nik;
+        $this->oldNik = $this->nikEdit;
+
+    }
+
+    public $message;
+    public $nikEdit;
+    public $oldNik;
+    public function updatedNikEdit()
+    {
+
+        if ($this->nikEdit !== $this->oldNik) {
+            $kader = ModelsKader::where('nik', $this->nikEdit)->first();
+
+            if ($kader) {
+                $this->dispatch('gagal', message: 'NIK sudah terdaftar')->to(Kader::class);
+                $this->message = 'NIK sudah terdaftar';
+            } else {
+                $this->message = '';
+            }
+        } else {
+            // Jika NIK sama dengan yang lama, pesan validasi dikosongkan
+            $this->message = '';
+        }
     }
 
 

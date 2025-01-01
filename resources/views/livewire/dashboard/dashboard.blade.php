@@ -9,7 +9,7 @@
                 <option value="{{ $ssr->id }}">{{ $ssr->nama }}</option>
             @endforeach
         @else
-            <option value="semua">{{ Auth::user()->name }}</option>
+            <option value="{{ Auth::user()->name }}">{{ Auth::user()->name }}</option>
         @endif
     </select>
     <p class="font-semibold">Tahun</p>

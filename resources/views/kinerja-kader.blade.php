@@ -56,16 +56,12 @@
                     <p class="font-semibold">Tahun</p>
                     <select required name="tahun"
                         class="bg-white border border-white text-gray-900 text-xs rounded-lg shadow focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 ">
-                        {{-- <option value="semua">Semua</option> --}}
-                        {{-- @if ($tahun != 'semua')
-                @endif --}}
+                     
                         @for ($i = $tahunTerlama; $i <= date('Y'); $i++)
-                            <option {{ $i == date('Y') ? 'selected' : '' }} value="{{ $i }}">
+                            <option {{ $i == $tahunSekarang ? 'selected' : '' }} value="{{ $i }}">
                                 {{ $i }}</option>
                         @endfor
-                        {{-- @for ($i = date('Y') - 1; $i >= $tahunTerkecil; $i--)
-                    <option value="{{ $i }}"> {{ $i }}</option>
-                @endfor --}}
+                        
                     </select>
                     <p class="font-semibold">Bulan</p>
                     <select required name="bulan"

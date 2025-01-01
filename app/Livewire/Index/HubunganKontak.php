@@ -6,6 +6,7 @@ use App\Models\IKRumahTangga;
 use App\Models\Index;
 use App\Models\Kontak;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -15,14 +16,14 @@ class HubunganKontak extends Component
     public $nodes;
     public $links;
 
-
-
-    public function mount()
+    #[On('hubungan')]
+    public function cek($id)
     {
+        // this->nodes = ''
 
-        $nodeUtama = Index::where('id', 1)->first();
+        $nodeUtama = Index::where('id', $id)->first();
         // Ambil data pasien (index) sebagai nodes
-        $KoleksiNodeUtama = Index::where('id', 1)
+        $KoleksiNodeUtama = Index::where('id', $id)
             ->get()
             ->map(function ($index) {
                 return [
@@ -114,8 +115,13 @@ class HubunganKontak extends Component
                         'type' => 'index', // Menandakan bahwa ini adalah node untuk kontak
                     ];
                 });
+            // dd($indexSebelumnya);
+            $indexSebelumnya->each(function ($node) {
+                if (!$this->nodes->contains('id', $node['id'])) {
+                    $this->nodes->push($node); // Tambahkan node ke $this->nodes jika belum ada
+                }
+            });
 
-            $this->nodes = $this->nodes->merge($indexSebelumnya);
             $linkIndexSebelumnya = $indexSebelumnya->map(function ($index) use ($nodeUtama) {
                 return [
                     'source' => $nodeUtama->nik_index, // Menghubungkan dengan node utama (index)
@@ -193,6 +199,33 @@ class HubunganKontak extends Component
                 });
             // dd($nodeUtama);
         }
+
+        // Pastikan nodes adalah koleksi
+        // $this->nodes = collect($this->nodes);
+
+        // // Hapus duplikasi berdasarkan ID
+        // $this->nodes = $this->nodes->unique('id');
+
+        // // Filter nodes dengan koneksi
+        // $this->nodes = $this->nodes->filter(function ($node) {
+        //     $isConnected = $this->links->contains('source', $node['id']) ||
+        //         $this->links->contains('target', $node['id']);
+        //     return $isConnected;
+        // });
+
+        // // Jika diperlukan sebagai array
+        // // $this->nodes = $this->nodes->toArray();
+        // dd($this->nodes);
+        // $nodeBaru = $this->nodes->unique('id');
+        // dd($this->nodes, $nodeBaru);
+        // dd($this->nodes);
+        $this->dispatch('tampilGrafik', nodes: $this->nodes, links: $this->links);
+        // $this->dispatch('sukses', message: 'Data Index berhasil dihapus');
+    }
+    public function close()
+    {
+        // dd('tutup');
+        $this->dispatch('close')->to(ListIndex::class);
     }
     public function render()
     {

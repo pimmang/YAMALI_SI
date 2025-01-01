@@ -6,6 +6,7 @@
         <div class="bg-white rounded-xl overflow-hidden h-fit">
             <div class="w-full bg-orange-100">
                 <p class="uppercase font-semibold text-gray-700 p-4">Data Index</p>
+
             </div>
             <div class="grid grid-cols-1 gap-2 overflow-y-auto p-4 items-start">
                 <div class="w-full flex  flex-col justify-around text-sm  font-medium text-gray-700 ">
@@ -57,6 +58,8 @@
         <div class="bg-white rounded-lg w-full overflow-hidden">
             <div class="bg-orange-100 p-4 px-6 text-sm font-semibold uppercase text-gray-700">
                 <p>Detail IK Non Rumah Tangga</p>
+                <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                    wire:click='close'></i>
             </div>
             <form action="/tambah-iknrt" method="POST" class="bg-white rounded-lg p-6">
                 @csrf
@@ -92,7 +95,8 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
                             Penyuluhan</label>
 
-                        <input id="tglPenyuluhan" name="tglPenyuluhan" type="date" disabled value="{{ $details->tgl_penyuluhan }}"
+                        <input id="tglPenyuluhan" name="tglPenyuluhan" type="date" disabled
+                            value="{{ $details->tgl_penyuluhan }}"
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:!border-orange-500 block w-full p-2.5 "
                             placeholder="Select date">
 
@@ -101,7 +105,7 @@
                         <label for="waktu-penyuluhan"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu
                             Penyuluhan</label>
-                        <select id="waktu-penyuluhan" required name="waktuPenyuluhan"  disabled
+                        <select id="waktu-penyuluhan" required name="waktuPenyuluhan" disabled
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                             <option value="">{{ $details->waktu_penyuluhan }}</option>
                             <option value="pagi">Pagi</option>
@@ -187,6 +191,21 @@
                                     </option>
                                 @endforeach
                             @endif --}}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="fasyankes"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fasyankes</label>
+                        <select id="fasyankes" name="fasyankes" disabled
+                            class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                            <option value='' selected>Pilih</option>
+                            @if ($fasyankes)
+                                @foreach ($fasyankes as $fasyankes)
+                                    <option value="{{ $fasyankes->id }}"
+                                        {{ $details->fasyankes_id == $fasyankes->id ? 'selected' : '' }}>
+                                        {{ $fasyankes->nama_fasyankes }}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
 

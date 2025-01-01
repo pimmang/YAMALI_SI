@@ -57,6 +57,8 @@
         <div class="bg-white rounded-lg w-full overflow-hidden">
             <div class="bg-orange-100 p-4 px-6 text-sm font-semibold uppercase text-gray-700">
                 <p>Detail IK Non Rumah Tangga</p>
+                <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                    wire:click='close'></i>
             </div>
             <form action="/edit-iknrt/{{ $details->id }}" method="POST" class="bg-white rounded-lg p-6">
                 @csrf
@@ -233,7 +235,8 @@
                             <option value='' selected>Pilih</option>
                             @if ($fasyankes)
                                 @foreach ($fasyankes as $fasyankes)
-                                    <option value="{{ $fasyankes->id }}" {{ $details->fasyankes_id == $fasyankes->id ? 'selected' : '' }}>
+                                    <option value="{{ $fasyankes->id }}"
+                                        {{ $details->fasyankes_id == $fasyankes->id ? 'selected' : '' }}>
                                         {{ $fasyankes->nama_fasyankes }}</option>
                                 @endforeach
                             @endif

@@ -17,16 +17,6 @@ class IndexController extends Controller
 
     public function store(Request $request)
     {
-
-        $request->validate([
-            'nik' => 'required|unique:users,nik_index',
-        ], [
-            'nik.required' => 'NIK wajib diisi.',
-            'nik.unique' => 'NIK ini sudah terdaftar, silakan gunakan NIK yang berbeda.',
-        ]);
-
-        
-
         $index = new Index();
         $index->sumber_data = $request->sumberData;
         $index->type_fasyankes = $request->tipe_fasyankes;
@@ -47,7 +37,11 @@ class IndexController extends Controller
     }
     public function update(Request $request, $id)
     {
+
+
         $index = Index::find($id);
+        // dd($index->isDirty($request->except('_token')));
+        // if ($index->isDirty($request->except('_token'))) {
         $index->sumber_data = $request->sumberData;
         $index->type_fasyankes = $request->tipe_fasyankes;
         $index->tahun_index = $request->tahunIndex;
@@ -62,7 +56,13 @@ class IndexController extends Controller
         $index->fasyankes_id = $request->fasyankes;
         $index->ssr_id = $request->ssr;
         $index->update();
+
         session()->flash('index', 'Data index berhasil diperbarui');
         return redirect('/index');
+        // } else {
+        //     // dd('ya');
+        //     session()->flash('gagal', 'tidak ada perubahan data');
+        //     return redirect('/index');
+        // }
     }
 }

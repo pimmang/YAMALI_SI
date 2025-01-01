@@ -35,8 +35,7 @@
         </div>
     </div>
 
-    {{-- @if ($status == 'list') --}}
-    @livewire('index.hubungan-kontak')
+
     <div class="w-full flex flex-col gap-5 h-full {{ $status == 'list' ? 'block' : 'hidden' }}">
         <livewire:component.filter-data>
             <div class="relative  shadow-md sm:rounded-lg overflow-clip flex ">
@@ -150,11 +149,20 @@
                                             <i
                                                 class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
                                         </div>
-                                        <div wire:click="hapus({{ $data->id }})"
-                                            class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+                                        @if (Auth::user()->hasRole('sr'))
+                                            <div wire:click="hapus({{ $data->id }})"
+                                                class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+
+                                                <i
+                                                    class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"></i>
+                                            </div>
+                                        @endif
+
+                                        <div wire:click="hubungan({{ $data->id }})"
+                                            class="relative before:absolute before:content-['Relasi'] before:shadow-md before:bg-white before:top-0 before:scale-0 before:transition-all hover:before:-top-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
 
                                             <i
-                                                class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"></i>
+                                                class="text-xl hover:text-lg ph-bold ph-line-segments text-lime-500 p-0 cursor-pointer transition-all"></i>
                                         </div>
                                     </div>
                                 </td>
@@ -162,21 +170,26 @@
                         @endforeach
                     </tbody>
                 </table>
-
+@php
+    use App\Models
+@endphp
             </div>
             <div class="container my-6">
                 {{ $datas->links() }}
             </div>
-            @if ($state == 'details')
-                <livewire:index.detail-index :data="$details" />
-            @endif
-            @if ($state == 'edit')
-                <livewire:index.edit-index :data="$edits" />
-            @endif
     </div>
+    @if ($state == 'details')
+        <livewire:index.detail-index :data="$details" />
+    @endif
+    @if ($state == 'edit')
+        <livewire:index.edit-index :data="$edits" />
+    @endif
     {{-- @elseif($status == 'form') --}}
     <div class="{{ $status == 'form' ? 'block' : 'hidden' }} w-full">
         @livewire('index.form-index')
+    </div>
+    <div class="{{ $state == 'hubungan' ? 'block' : 'hidden' }} w-full">
+        @livewire('index.hubungan-kontak')
     </div>
     {{-- @endif --}}
 

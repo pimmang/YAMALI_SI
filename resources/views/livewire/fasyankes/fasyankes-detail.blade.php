@@ -3,25 +3,14 @@
 
     </div>
 
-    <div class="bg-white w-full h-full rounded-xl p-8 z-20">
-        <div class="bg-white w-full h-full overflow-y-scroll">
-            <div class="flex justify-between items-top">
-                <h1 class="font-bold text-black text-xl mb-8">Detail</h1>
-                <div class="flex items-top gap-5 pe-10">
-                    <div
-                        class="relative before:absolute before:z-50 before:content-['Edit'] before:shadow-md before:bg-white before:bottom-0 before:scale-0 before:transition-all hover:before:-bottom-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+    <div class="bg-white w-full h-full rounded-xl  overflow-hidden z-20 pb-8">
+        <div class="w-full bg-orange-100 flex justify-between items-center ">
+            <p class="uppercase font-semibold text-gray-700 p-4">Detail Fasyankes</p>
+            <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                wire:click='close'></i>
+        </div>
 
-                        <i
-                            class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
-                    </div>
-                    <div
-                        class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:bottom-0 before:scale-0 before:transition-all hover:before:-bottom-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
-
-                        <i
-                            class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"></i>
-                    </div>
-                </div>
-            </div>
+        <div class="bg-white w-full h-full overflow-y-scroll p-8 ">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                     <label for="namaKader" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode

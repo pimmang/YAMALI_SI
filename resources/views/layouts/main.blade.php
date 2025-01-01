@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class=" font-body">
+<html lang="id" class=" font-body">
 
 <head>
     <meta charset="UTF-8">
@@ -23,7 +23,7 @@
     <div class="w-full bg-yellow-400 absolute top-0">
         @include('layouts.navigation')
     </div>
-    <div class="w-screen h-full flex overflow-hidden">
+    <div class="w-screen h-full flex overflow-hidden !text-gray-900">
         <div class="sidebar pt-12 h-screen shadow-xl text-xs text-nowrap ">
             <div class="h-full w-full overflow-y-scroll p-3">
                 <a href="/"
@@ -62,7 +62,7 @@
 
 
                 {{-- menu investigasi kontak --}}
-                <div class=" text-gray-700 w-full {{ $status == 'rumah-tangga' || $status == 'non-rumah-tangga' || $status == 'tpt-balita' ? 'h-30' : 'h-10' }} overflow-hidden transition-all"
+                <div class="  w-full {{ $status == 'rumah-tangga' || $status == 'non-rumah-tangga' || $status == 'tpt-balita' ? 'h-30' : 'h-10' }} overflow-hidden transition-all"
                     id="investigasiKontak">
                     <div class="flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md "
                         id="investigasiKontakUtama">
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 {{-- menu tbc so --}}
-                <div class=" text-gray-700 w-full {{ $status == 'terduga' || $status == 'ternotifikasi' ? 'h-30' : 'h-10' }} overflow-hidden transition-all"
+                <div class=" w-full {{ $status == 'terduga' || $status == 'ternotifikasi' ? 'h-30' : 'h-10' }} overflow-hidden transition-all"
                     id="tbc-so">
                     <div class="flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md "
                         id="tbc-so-utama">
@@ -210,7 +210,7 @@
                 </div> --}}
 
                 {{-- menu Tambah --}}
-                <div class=" text-gray-700 w-full {{ $status == 'kader' || $status == 'fasyankes' || $status == 'ssr' ? 'h-40' : 'h-10' }} overflow-hidden transition-all"
+                <div class="  w-full {{ $status == 'kader' || $status == 'fasyankes' || $status == 'ssr' ? 'h-40' : 'h-10' }} overflow-hidden transition-all"
                     id="tambah">
                     <div class="flex justify-between items-center w-full h-10 cursor-pointer  transition-all hover:bg-orange-200 px-3 rounded-md "
                         id="tambahUtama">
@@ -330,6 +330,8 @@
     })
 
     // console.log(laporan.style.height == `${tinggiKonten}`)
+
+   
 </script>
 
 {{-- <script src="resources/js/app.js"></script> --}}

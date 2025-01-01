@@ -14,9 +14,14 @@
                         placeholder="Nama kader" required />
                 </div>
                 <div>
-                    <label for="nikKader" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK
-                    </label>
-                    <input type="text" id="nikKader" name="nikKader"
+                    <div class="flex mb-2  gap-3 items-center">
+                        <label for="nikKader" class="block text-sm font-medium text-gray-900 dark:text-white">NIK
+                        </label>
+                        @if ($message)
+                            <p class="text-xs text-red-500">{{ $message }}</p>
+                        @endif
+                    </div>
+                    <input type="number" pattern="[1-9]*" id="nikKader" name="nikKader" wire:model.blur="nik"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                         placeholder="Nik Kader" required />
                 </div>
@@ -137,8 +142,8 @@
                 </div>
             </div>
             <div class="flex justify-end">
-                <button type="submit"
-                    class="text-white !bg-orange-500 hover:bg-orange-400 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+                <button type="submit" {{ $message ? 'disabled' : '' }}
+                    class="text-white  hover:bg-orange-400  {{ $message ? '!bg-orange-200' : 'bg-orange-500' }} focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
             </div>
         </form>
 

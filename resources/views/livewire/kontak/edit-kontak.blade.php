@@ -6,6 +6,8 @@
         <div class="bg-white w-full h-full overflow-y-scroll">
             <div class="flex justify-between items-top">
                 <h1 class="font-bold text-black text-xl mb-8">Edit Kontak</h1>
+                <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                wire:click='close'></i> 
                 {{-- <div class="flex items-top gap-5 pe-10">
                 <div
                     class="relative before:absolute before:z-50 before:content-['Edit'] before:shadow-md before:bg-white before:bottom-0 before:scale-0 before:transition-all hover:before:-bottom-8 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
@@ -37,7 +39,7 @@
                             <label for="nikKontak"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK Kontak
                             </label>
-                            <input type="text" id="nikKontak" name="nikKontak" value="{{ $kontak->nik_kontak }}"
+                            <input type="number" pattern="[1-9]*" id="nikKontak" name="nikKontak" value="{{ $kontak->nik_kontak }}"
                                 class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                 placeholder="Nik Kontak" required />
                         </div>

@@ -35,6 +35,7 @@ class KaderController extends Controller
     public function cekKinerja(Request $request)
     {
         // dd($request);
+        // dd($request);
         $namaBulan = [
             1 => 'Januari',
             'Februari',
@@ -67,6 +68,7 @@ class KaderController extends Controller
         }
         if ($request->tahun) {
             $tahunSekarang = $request->tahun;
+            // dd($request->tahun);
         } else {
             $tahunSekarang = date('Y');
         }
@@ -156,7 +158,7 @@ class KaderController extends Controller
 
             $negatif[] = $jumlahTerduga - $positif[$i - 1];
         }
-        return view('kinerja-kader', compact('tahunTerlama', 'jumlahPendampingan', 'jumlahPositif', 'pendampinganIntensif', 'pendampinganLanjutan', 'jumlahPasien', 'kader', 'namaBulan', 'bulanSekarang', 'tanggal', 'positif', 'bergejala', 'negatif', 'sembuh'));
+        return view('kinerja-kader', compact('tahunTerlama', 'jumlahPendampingan', 'jumlahPositif', 'pendampinganIntensif', 'pendampinganLanjutan', 'jumlahPasien', 'kader', 'namaBulan', 'bulanSekarang', 'tanggal', 'positif', 'bergejala', 'negatif', 'sembuh', 'tahunSekarang'));
     }
 
     /**
@@ -165,9 +167,10 @@ class KaderController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request);
-        // $kabupaten = Regency::where('id',$request->kabupaten)->first();
-        // $kecamatan = District::where('id', $request->kecamatan)->first();
+        $validated = $request->validate([
+            'nikKader' => 'required|unique:kaders,nik|max:255',
+        ]);
+
         $kader = new Kader();
         $kader->nama = $request->namaKader;
         $kader->nik = $request->nikKader;

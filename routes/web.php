@@ -19,7 +19,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 
 Route::get('/verification-notice', function () {
     return view('auth.verification-notice');
-})->name('verification.notice');
+})->name('verification-notice');
 
 // Route::post('/cek-kinerja-kader', [KaderController::class, 'cekKinerja']);
 Route::post('/cek-kinerja-kader', [KaderController::class, 'cekKinerja']);

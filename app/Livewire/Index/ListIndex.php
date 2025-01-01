@@ -71,19 +71,23 @@ class ListIndex extends Component
         $this->dispatch('hapusIndex');
     }
 
+
+
     #[On('close')]
     public function close()
     {
-        $this->state = '';
+        $this->state = null;
     }
 
     public function form()
     {
         $this->status = 'form';
     }
-    public function hubungan()
+    public function hubungan($id)
     {
-        $this->status = 'hubungan';
+        // dd('ya');
+        $this->dispatch('hubungan', id: $id);
+        $this->state = 'hubungan';
     }
 
     #[On('indexDeleted')]

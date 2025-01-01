@@ -50,7 +50,8 @@
                     </div>
                     <div>
                         <p class="text-gray-500 text-xs">SSR</p>
-                        <p class="uppercase font-bold">{{ $data->terduga->kontak->iKNRumahTangga->index->ssr->nama }}</p>
+                        <p class="uppercase font-bold">{{ $data->terduga->kontak->iKNRumahTangga->index->ssr->nama }}
+                        </p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-xs">Jenis Penyuluhan</p>
@@ -65,6 +66,8 @@
             <div class="bg-white rounded-lg overflow-hidden !h-fit mb-4">
                 <div class="w-full bg-orange-50 p-4 flex-none mb-3">
                     <p class="uppercase font-semibold text-sm text-gray-700">Data Riwayat Pemantauan</p>
+                    <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                        wire:click='close'></i>
                 </div>
                 <div class="p-4">
                     <div class="relative overflow-x-auto !h-fit rounded-lg">

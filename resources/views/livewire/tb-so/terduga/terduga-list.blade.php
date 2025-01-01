@@ -1,4 +1,4 @@
-<div class="w-full odd:bg-white  even:bg-orange-50 rounded-lg overflow-hidden  shadow-md " >
+<div class="w-full odd:bg-white  even:bg-orange-50 rounded-lg overflow-hidden  shadow-md ">
     <div
         class=" uppercase  text-gray-900 w-full text-sm font-medium text-start  items-center grid grid-cols-7 gap-2 px-3 py-5">
         <p>{{ $data->kontak->nama }}</p>
@@ -19,11 +19,14 @@
                 <i
                     class="text-xl hover:text-lg ph-bold ph-pencil-simple-line text-yellow-400 p-0 cursor-pointer transition-all"></i>
             </div>
-            <div wire:click="hapus({{ $data->id }})"
-                class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:left-0 before:scale-0 before:transition-all hover:before:-left-16 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
+            @if (Auth::user()->hasRole('sr'))
+                <div wire:click="hapus({{ $data->id }})"
+                    class="relative before:absolute before:content-['Hapus'] before:shadow-md before:bg-white before:left-0 before:scale-0 before:transition-all hover:before:-left-16 hover:before:scale-100 before:opacity-0 hover:before:opacity-100 before:text-xs before:px-3 before:py-1 before:rounded  before:text-black detail-simbol h-5 w-5 flex items-center justify-center">
 
-                <i class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"></i>
-            </div>
+                    <i
+                        class="text-xl hover:text-lg ph-bold ph-trash text-red-500 p-0 cursor-pointer transition-all"></i>
+                </div>
+            @endif
         </div>
     </div>
     {{-- @if ($klik)

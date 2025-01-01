@@ -34,7 +34,9 @@
                 @endif
                 @if ($dataTerduga->kontak->i_k_rumah_tangga_id)
                     <p class="text-gray-500 text-xs">Kegiatan IK</p>
-                    <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKRumahTangga->kegiatan_ik ? $dataTerduga->kontak->iKRumahTangga->kegiatan_ik : '-'  }}</p>
+                    <p class="uppercase font-bold">
+                        {{ $dataTerduga->kontak->iKRumahTangga->kegiatan_ik ? $dataTerduga->kontak->iKRumahTangga->kegiatan_ik : '-' }}
+                    </p>
                 @else
                     <p class="text-gray-500 text-xs">Jenis Penyuluhan</p>
                     <p class="uppercase font-bold">{{ $dataTerduga->kontak->iKNRumahTangga->jenis_penyuluhan }}</p>
@@ -48,6 +50,8 @@
             <div class="bg-white rounded-lg overflow-hidden shadow ">
                 <div class="w-full bg-orange-50 p-4">
                     <p class="uppercase font-semibold text-sm text-gray-700">Form Terduga</p>
+                    <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                        wire:click='close'></i>
                 </div>
                 @csrf
                 <div class="grid gap-10  md:grid-cols-2 p-5">

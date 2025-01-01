@@ -33,7 +33,10 @@ class FasyankesController extends Controller
      */
     public function store(Request $request)
     {
-    
+        $request->validate([
+            'kodeFasyankes' => 'required|unique:fasyankes,kode_fasyankes|max:255',
+        ]);
+        
         $fasyankes = new Fasyankes();
         $fasyankes->kode_fasyankes = $request->kodeFasyankes;
         $fasyankes->nama_fasyankes = $request->namaFasyankes;

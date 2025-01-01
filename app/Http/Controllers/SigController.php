@@ -6,18 +6,47 @@ use App\Models\Kontak;
 use App\Models\Ssr;
 use App\Models\Ternotifikasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SigController extends Controller
 {
     public function index()
     {
+
+
+        if (Auth::user()->hasRole("ssr")) {
+            $ssr = Ssr::where('nama', Auth::user()->name)->first();
+            $ssrPilihan = $ssr->id;
+            $tahun = "semua";
+            // dd($ssrPilihan);
+        } else {
+            $ssrPilihan = "semua";
+            $tahun = "semua";
+        }
         $status = 'sig';
-        $ssrPilihan = "semua";
-        $tahun = "semua";
+
         $ternotifikasi = Kontak::whereHas('terduga', function ($query) {
             $query->whereHas('ternotifikasi');
+        })->where(function ($query) use ($ssrPilihan) {
+            $query->where(function ($query) use ($ssrPilihan) {
+                $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan) {
+                    $query->whereHas('index', function ($query) use ($ssrPilihan) {
+                        $query->when($ssrPilihan != 'semua', function ($query) use ($ssrPilihan) {
+                            $query->where('ssr_id', $ssrPilihan);
+                        });
+                    });
+                })->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan) {
+                    $query->whereHas('index', function ($query) use ($ssrPilihan) {
+                        $query->when($ssrPilihan != 'semua', function ($query) use ($ssrPilihan) {
+                            $query->where('ssr_id', $ssrPilihan);
+                        });
+                    });
+                });
+            });
         })->get();
+
+
 
         // $ternotifikasi = $kontak->toJson();
 

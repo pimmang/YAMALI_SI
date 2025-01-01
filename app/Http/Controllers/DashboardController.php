@@ -184,7 +184,7 @@ class DashboardController extends Controller
     {
         // dd($request);
 
-    if (Auth::user()->name != $request->query('ssr')) {
+        if (Auth::user()->name != $request->query('ssr')) {
             if (Auth::user()->hasRole('ssr')) {
                 abort(403, 'Unauthorized action.');
             }
