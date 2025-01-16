@@ -1,4 +1,5 @@
 <div class="w-full flex items-center justify-between  gap-6">
+
     <div id="date-range-picker" date-rangepicker class="flex items-center">
         <div class="relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -8,9 +9,9 @@
                         d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                 </svg>
             </div>
-            <input id="datepicker-range-start" name="start" type="text" wire:model.change='dateStart'
+            <input id="datepicker-range-start" name="start" type="text" wire:model='dateStart'
                 class="bg-white border-none  text-gray-900 text-xs rounded-lg focus:ring-orange-500 block w-full ps-10 p-2.5  shadow"
-                placeholder="Select date start">
+                placeholder="Pilih tanggal mulai">
         </div>
         <span class="mx-4 text-gray-700 font-medium">to</span>
         <div class="relative">
@@ -21,12 +22,11 @@
                         d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                 </svg>
             </div>
-            <input id="datepicker-range-end" name="end" type="text" wire:model.live='dateEnd'
+            <input id="datepicker-range-end" name="end" type="text" wire:model='dateEnd'
                 class="bg-white border-none  text-gray-900 text-xs rounded-lg focus:ring-orange-500 block w-full ps-10 p-2.5  shadow"
-                placeholder="Select date end">
+                placeholder="Pilih tanggal akhir">
         </div>
     </div>
-
 
 
     <div class="flex items-center flex-grow">
@@ -42,10 +42,15 @@
             </div>
             <input type="text" id="simple-search" wire:model.live='cari'
                 class="bg-white border-none  text-gray-900 text-sm rounded-lg focus:ring-orange-500 shadow block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-                placeholder="Cari nama, nik, ssr..." />
+                placeholder="Cari nama, NIK, atau kode Fasyankes" />
         </div>
+        <button id="restart" wire:click='restart'
+            class="px-2.5 py-2.5  ms-2 text-sm font-medium text-orange-500 shadow  border-orange-500 rounded-lg border-2  hover:bg-orange-300  hover:border-orange-300 ">
+            {{-- <i class="ph-bold ph-arrow-counter-clockwise text-lg"></i> --}}
+            <p class="text-xs">Reset</p>
+        </button>
         <button id="submit" wire:click='submit'
-            class="p-2.5 ms-2 text-sm font-medium text-white shadow bg-orange-500 rounded-lg border  hover:bg-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">
+            class="p-2.5 ms-2 text-sm font-medium text-white shadow bg-orange-500 rounded-lg border-2 border-orange-500  hover:bg-orange-300 hover:border-orange-300 ">
             <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 20 20">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -53,6 +58,7 @@
             </svg>
             <span class="sr-only">Search</span>
         </button>
+
     </div>
 
     <script>
@@ -65,10 +71,11 @@
         function masukanNilai() {
             dateStart.dispatchEvent(new Event('input'));
             dateEnd.dispatchEvent(new Event('input'));
-            
         }
+
+        console.log(dateEnd, dateStart);
     </script>
 
 
-   
+
 </div>

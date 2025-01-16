@@ -21,7 +21,7 @@
                             <p class="text-xs text-red-500">{{ $message }}</p>
                         @endif
                     </div>
-                    <input type="number" pattern="[1-9]*" id="nikKader" name="nikKader" wire:model.blur="nik"
+                    <input  type="text" pattern="\d*" maxlength="16" minlength="16"  id="nikKader" name="nikKader" wire:model.blur="nik" maxlength="16"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                         placeholder="Nik Kader" required />
                 </div>
@@ -50,14 +50,14 @@
                     </select>
                 </div>
 
-                <div>
+                {{-- <div>
                     <label for="provinsi"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
                     <select id="provinsi" name="provinsi"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                         <option value = '73'>Sulawesi Selatan</option>
                     </select>
-                </div>
+                </div> --}}
 
                 <div>
                     <label for="kabupaten"
@@ -87,14 +87,14 @@
                     </select>
                 </div>
 
-                <div>
+                {{-- <div>
                     <label for="sr"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
                     <select id="sr" name="sr"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                         <option value="Sulawesi Selatan">Sulawesi Selatan</option>
                     </select>
-                </div>
+                </div> --}}
 
                 <div>
                     <label for="ssr"

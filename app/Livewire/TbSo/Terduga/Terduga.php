@@ -2,6 +2,7 @@
 
 namespace App\Livewire\TbSo\Terduga;
 
+use App\Livewire\Component\LoadingStatus;
 use App\Livewire\Component\ToastHapus;
 use App\Models\IKRumahTangga;
 use App\Models\Kontak;
@@ -81,7 +82,7 @@ class Terduga extends Component
         $this->tanggalMulai = $tanggalMulai;
         $this->tanggalAkhir = $tanggalAkhir;
         $this->cari = $cari;
-
+        $this->dispatch('loading')->to(LoadingStatus::class);
         $this->resetPage();
     }
 
@@ -114,7 +115,7 @@ class Terduga extends Component
         });
 
         if (Auth::user()->hasRole('ssr')) {
-            $query->whereHas('kontak',function ($query) {
+            $query->whereHas('kontak', function ($query) {
                 $query->whereHas('iKRumahTangga', function ($query) {
                     $query->whereHas('index', function ($query) {
                         $query->where('ssr_id', Auth::user()->ssr->id);
@@ -128,7 +129,7 @@ class Terduga extends Component
         }
 
         $data = $query->orderBy('created_at', 'desc')->paginate(10);
-        // $data = ModelsTerduga::
+        $this->dispatch('loadingStop')->to(LoadingStatus::class);
         return view('livewire.tb-so.terduga.terduga', [
             'datas' => $data,
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Kader;
 
+use App\Livewire\Component\LoadingStatus;
 use App\Models\District;
 use Livewire\Attributes\On;
 use App\Models\Kader as ModelsKader;
@@ -61,7 +62,6 @@ class Kader extends Component
         $this->kabupaten_id = $this->kaderEdit->regency_id;
         $this->nikEdit = $this->kaderEdit->nik;
         $this->oldNik = $this->nikEdit;
-
     }
 
     public $message;
@@ -126,10 +126,10 @@ class Kader extends Component
         $this->detailTelepon = $kader->nomor_telepon;
         $this->detailUmur = $kader->umur;
         $this->detailKelamin = $kader->jenis_kelamin;
-        $this->detailProvinsi = $kader->province->name;
+        // $this->detailProvinsi = $kader->province->name;
         $this->detailKabupaten = $kader->regency->name;
         $this->detailKecamatan = $kader->district->name;
-        $this->detailSr = $kader->sr;
+        // $this->detailSr = $kader->sr;
         $this->detailSsr = $kader->ssr->nama;
         $this->detailJenis = $kader->jenis;
         $this->detailStatus = $kader->status;
@@ -154,51 +154,51 @@ class Kader extends Component
         $this->status = 'form';
     }
 
+
+    #filter
+    public $tanggalMulai;
+    public $tanggalAkhir;
+    public $cari;
+    #[On('filter')]
+    public function filter($tanggalMulai, $tanggalAkhir, $cari)
+    {
+        // Store the filter inputs instead of the query itself
+        $this->tanggalMulai = $tanggalMulai;
+        $this->tanggalAkhir = $tanggalAkhir;
+        $this->cari = $cari;
+        $this->dispatch('loading')->to(LoadingStatus::class);
+        $this->resetPage();
+    }
     public function render()
     {
-        //    filter
+       
         $query = ModelsKader::query();
-
-        if ($this->kategoriCari === 'nama') {
-            $query->where('nama', 'like', '%' . $this->nama . '%');
-        } elseif ($this->kategoriCari === 'nik') {
-            $query->where('nik', 'like', '%' . $this->nik . '%');
-        } elseif ($this->kategoriCari === 'ssr') {
-            $query->whereHas('ssr', function ($query) {
-                $query->where('nama', 'like', '%' . $this->cariSsr . '%');
-            });
-        } elseif ($this->kategoriCari === 'kecamatan') {
-            $query->whereHas('district', function ($query) {
-                $query->where('name', 'like', '%' . $this->kecamatan . '%');
-            });
-        } elseif ($this->kategoriCari === 'jenis') {
-            $query->where('jenis', 'like', '%' . $this->jenis . '%');
+        if ($this->tanggalMulai && $this->tanggalAkhir) {
+            $query->whereBetween('created_at', [$this->tanggalMulai, $this->tanggalAkhir]);
         }
+        if ($this->cari) {
+            if (is_numeric($this->cari)) {
+                $query->where('nik', 'like', '%' . $this->cari . '%');
+            } else {
+                $query->where('nama', 'like', '%' . $this->cari . '%');
+            }
+        }
+
         if (Auth::user()->hasRole('ssr')) {
             $query->where('ssr_id', Auth::user()->ssr->id);
         }
-
-        if (is_numeric($this->show)) {
-            $kaders = $query->paginate($this->show);
-        } else {
-            $kaders = $query->get();
-        }
-
-
-
-
+        // Paginate the results
+        $data = $query->orderBy('created_at', 'desc')->paginate(10);
         $ssr = Ssr::get();
         if ($this->kabupaten_id) {
             $this->kecamatan = District::where('regency_id', $this->kabupaten_id)->get();
         }
         $this->provinsi = Province::find(27);
         $this->kabupaten = Regency::where('province_id', 73)->get();
+        $this->dispatch('loadingStop')->to(LoadingStatus::class);
         return view('livewire.kader.kader', [
-            'kaders' => $kaders,
-            'ssrs' => 'ssr',
-
-            // 'kabupaten' => $this->kabupatenEdit,
-            // 'provinsi' => $this->provinsiEdit,
+            'kaders' => $data,
+            'ssrs' => $ssr,
         ]);
     }
 }

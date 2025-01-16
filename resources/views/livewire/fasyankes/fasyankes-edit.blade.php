@@ -4,14 +4,13 @@
     </div>
 
     <div class="bg-white w-full h-full rounded-xl  overflow-hidden z-20 pb-8">
-        <div class="w-full bg-orange-100  ">
+        <div class="w-full bg-orange-100  flex justify-between items-center">
             <p class="uppercase font-semibold text-gray-700 p-4">Edit Fasyankes</p>
             <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
                 wire:click='close'></i>
         </div>
 
-        <div class="bg-white w-full h-full overflow-y-scroll p-8 ">
-
+        <div class="bg-white w-full h-full overflow-y-scroll p-6 ">
             <form action="/edit-fasyankes/{{ $edits->id }}" method="POST">
                 @csrf
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -63,14 +62,14 @@
                         </select>
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label for="provinsi"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
                         <select id="provinsi" name="provinsi"
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                             <option value = '73'>Sulawesi Selatan</option>
                         </select>
-                    </div>
+                    </div> --}}
 
                     <div>
                         <label for="kabupaten"
@@ -113,31 +112,36 @@
                             placeholder="Alamat" required />
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label for="sr"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
                         <select id="sr" name="sr"
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                             <option value="Sulawesi Selatan">Sulawesi Selatan</option>
                         </select>
-                    </div>
+                    </div> --}}
 
                     <div>
                         <label for="ssr"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
                         <select id="ssr" name="ssr"
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                            @foreach ($ssrs as $ssr)
-                                <option value="{{ $ssr->id }}"
-                                    {{ $edits->ssr_id == $ssr->id ? 'selected' : '' }}>{{ $ssr->nama }}
-                                </option>
-                            @endforeach
+                            @if (Auth::user()->hasRole('sr'))
+                                <option value='' selected>Pilih</option>
+                                @foreach ($ssrs as $ssr)
+                                    <option value="{{ $ssr->id }}">{{ $ssr->nama }}
+                                    </option>
+                                @endforeach
+                            @elseif(Auth::user()->hasRole('ssr'))
+                                <option value="{{ Auth::user()->ssr->id }}">
+                                    {{ Auth::user()->ssr->nama }}</option>
+                            @endif
                         </select>
                     </div>
 
 
                 </div>
-                <div class="flex justify-end">
+                <div class="flex justify-end mb-8">
                     <button type="submit" {{ $message ? 'disabled' : '' }}
                         class="text-white  hover:bg-orange-400  {{ $message ? '!bg-orange-200' : 'bg-orange-500' }} focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
                 </div>

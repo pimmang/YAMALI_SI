@@ -177,10 +177,10 @@ class KaderController extends Controller
         $kader->nomor_telepon = $request->nomorTelepon;
         $kader->umur = $request->umur;
         $kader->jenis_kelamin = $request->jenisKelamin;
-        $kader->province_id = $request->provinsi;
+        // $kader->province_id = $request->provinsi;
         $kader->regency_id = $request->kabupaten;
         $kader->district_id = $request->kecamatan;
-        $kader->sr = $request->sr;
+        // $kader->sr = $request->sr;
         $kader->ssr_id = $request->ssr;
         $kader->jenis = $request->jenis;
         $kader->status = $request->status;
@@ -217,10 +217,10 @@ class KaderController extends Controller
         $kader->nomor_telepon = $request->nomorTelepon;
         $kader->umur = $request->umur;
         $kader->jenis_kelamin = $request->jenisKelamin;
-        $kader->province_id = $request->provinsi;
+        // $kader->province_id = $request->provinsi;
         $kader->regency_id = $request->kabupaten;
         $kader->district_id = $request->kecamatan;
-        $kader->sr = $request->sr;
+        // $kader->sr = $request->sr;
         $kader->ssr_id = $request->ssr;
         $kader->jenis = $request->jenis;
         $kader->status = $request->status;

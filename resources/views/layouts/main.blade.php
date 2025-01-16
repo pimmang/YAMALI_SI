@@ -10,7 +10,8 @@
     <title>Yamali TB</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    {{-- <script src="https://unpkg.com/@phosphor-icons/web"></script> --}}
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     @livewireStyles
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
@@ -245,6 +246,7 @@
         </div>
         <div class="right w-full !h-full bg-gray-100 mt-12 overflow-y-scroll overflow-x-hidden !pb-16 p-6 !pt-2 ">
             @yield('main')
+
         </div>
     </div>
     </div>
@@ -253,7 +255,31 @@
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
 
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #fb923c;
+            border-radius: 5px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #fdba74;
+            cursor: grab;
+        }
+
+        
+    </style>
 </body>
 
 <script>
@@ -330,8 +356,6 @@
     })
 
     // console.log(laporan.style.height == `${tinggiKonten}`)
-
-   
 </script>
 
 {{-- <script src="resources/js/app.js"></script> --}}

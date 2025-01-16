@@ -10,6 +10,7 @@ use App\Models\Province;
 use App\Models\Regency;
 use App\Models\Ssr;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 
@@ -21,7 +22,7 @@ class FormIndex extends Component
     public $kecamatan;
     public $tglLahir;
     public $umur;
-    public $kecamatanPilihan;
+    public $ssrPilihan;
     // public $kaders;
     public $fasyankes;
     public $tahun;
@@ -43,7 +44,9 @@ class FormIndex extends Component
     public function mount()
     {
         $this->tahun = Carbon::now()->year;
-        // dd($this->tahun);
+        if (Auth::user()->hasRole('ssr')) {
+            $this->ssrPilihan = Auth::user()->ssr->id;
+        }
     }
 
     public function render()
@@ -59,8 +62,8 @@ class FormIndex extends Component
         $this->kabupaten = Regency::where('province_id', 73)->get();
         $ssrs = Ssr::get();
 
-        if ($this->kecamatanPilihan) {
-            $this->fasyankes = Fasyankes::where('district_id', $this->kecamatanPilihan)->get();
+        if ($this->ssrPilihan) {
+            $this->fasyankes = Fasyankes::where('ssr_id', $this->ssrPilihan)->get();
         }
 
         // if ($this->ssrPilihan) {

@@ -13,7 +13,6 @@ use AzisHapidin\IndoRegion\Traits\DistrictTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Regency;
 use App\Models\Village;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * District Model.
@@ -56,26 +55,5 @@ class District extends Model
     public function villages()
     {
         return $this->hasMany(Village::class);
-    }
-
-    public function ikrumahtangga(): HasMany
-    {
-        return $this->hasMany(IKRumahTangga::class);
-    }
-    public function iKNrumahtangga(): HasMany
-    {
-        return $this->hasMany(IKNRumahTangga::class);
-    }
-    public function kaders(): HasMany
-    {
-        return $this->hasMany(Kader::class);
-    }
-    public function fasyankes(): HasMany
-    {
-        return $this->hasMany(fasyankes::class);
-    }
-    public function kontak(): HasMany
-    {
-        return $this->hasMany(Kontak::class);
     }
 }

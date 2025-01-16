@@ -56,9 +56,9 @@
         </div>
 
         <div class="bg-white rounded-lg w-full overflow-hidden">
-            <div class="bg-orange-100 p-4 px-6 text-sm font-semibold uppercase text-gray-700">
+            <div class="bg-orange-100 p-4 px-6 text-sm font-semibold uppercase text-gray-700 flex justify-between items-center">
                 <p>Detail IK Non Rumah Tangga</p>
-                <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                <i class="text-lg ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
                     wire:click='close'></i>
             </div>
             <form action="/tambah-iknrt" method="POST" class="bg-white rounded-lg p-6">
@@ -66,7 +66,7 @@
                 <div class="grid gap-4 mb-6 md:grid-cols-2">
                     <div>
                         <label for="lokasi-penyuluhan"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lokasi
+                            class="block mb-2 text-sm font-medium capi text-gray-900 dark:text-white">Lokasi
                             Penyuluhan</label>
                         <select id="lokasi-penyuluhan" required name="lokasiPenyuluhan" disabled
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">

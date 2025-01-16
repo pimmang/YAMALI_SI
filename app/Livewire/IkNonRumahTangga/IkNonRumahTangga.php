@@ -2,11 +2,13 @@
 
 namespace App\Livewire\IkNonRumahTangga;
 
+use App\Livewire\Component\LoadingStatus;
 use App\Models\IKNRumahTangga;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+
 class IkNonRumahTangga extends Component
 {
     use WithPagination;
@@ -34,6 +36,7 @@ class IkNonRumahTangga extends Component
     public $tanggalMulai;
     public $tanggalAkhir;
     public $cari;
+    public $cariStatus = false;
     #[On('filter')]
     public function filter($tanggalMulai, $tanggalAkhir, $cari)
     {
@@ -41,10 +44,15 @@ class IkNonRumahTangga extends Component
         $this->tanggalMulai = $tanggalMulai;
         $this->tanggalAkhir = $tanggalAkhir;
         $this->cari = $cari;
-
+        $this->cariStatus = true;
         $this->resetPage();
     }
-
+    #[On('cariStatus')]
+    public function stop()
+    {
+        // $this->dispatch('loadingStop')->to(LoadingStatus::class);
+        $this->cariStatus = false;
+    }
     public function render()
     {
 
@@ -71,6 +79,7 @@ class IkNonRumahTangga extends Component
         }
         // Paginate the results
         $data = $query->orderBy('created_at', 'desc')->paginate(10);
+        $this->dispatch('stopLoading')->self();
         return view('livewire.ik-non-rumah-tangga.ik-non-rumah-tangga', [
             'datas' => $data,
         ]);

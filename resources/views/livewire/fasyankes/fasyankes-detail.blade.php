@@ -45,13 +45,13 @@
                         placeholder="Kode Fasyankes" disabled />
                 </div>
 
-                <div>
+                {{-- <div>
                     <label for="provinsi"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
                     <input type="text" value="{{ ucwords(strtolower($details->province->name)) }}"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                         placeholder="Kode Fasyankes" disabled />
-                </div>
+                </div> --}}
 
                 <div>
                     <label for="kabupaten"
@@ -78,13 +78,13 @@
                         placeholder="Kode Fasyankes" disabled />
                 </div>
 
-                <div>
+                {{-- <div>
                     <label for="sr"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
                     <input type="text" value="{{ $details->sr }}"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                         placeholder="Kode Fasyankes" disabled />
-                </div>
+                </div> --}}
 
                 <div>
                     <label for="ssr"

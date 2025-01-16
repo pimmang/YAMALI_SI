@@ -49,14 +49,14 @@
                     </select>
                 </div>
 
-                <div>
+                {{-- <div>
                     <label for="provinsi"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
                     <select id="provinsi" name="provinsi"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                         <option value = '73'>Sulawesi Selatan</option>
                     </select>
-                </div>
+                </div> --}}
 
                 <div>
                     <label for="kabupaten"
@@ -95,14 +95,14 @@
                         placeholder="Alamat" required />
                 </div>
 
-                <div>
+                {{-- <div>
                     <label for="sr"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
                     <select id="sr" name="sr"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                         <option value="Sulawesi Selatan">Sulawesi Selatan</option>
                     </select>
-                </div>
+                </div> --}}
 
                 <div>
                     <label for="ssr"
@@ -110,9 +110,16 @@
                     <select id="ssr" name="ssr"
                         class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                         <option selected>Pilih</option>
-                        @foreach ($ssrs as $ssr)
-                            <option value="{{ $ssr->id }}">{{ $ssr->nama }}</option>
-                        @endforeach
+                        @if (Auth::user()->hasRole('sr'))
+                            <option value='' selected>Pilih</option>
+                            @foreach ($ssrs as $ssr)
+                                <option value="{{ $ssr->id }}">{{ $ssr->nama }}
+                                </option>
+                            @endforeach
+                        @elseif(Auth::user()->hasRole('ssr'))
+                            <option value="{{ Auth::user()->ssr->id }}">
+                                {{ Auth::user()->ssr->nama }}</option>
+                        @endif
                     </select>
                 </div>
 

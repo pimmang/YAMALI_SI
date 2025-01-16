@@ -5,9 +5,9 @@
     <div class="bg-white w-full h-full rounded-xl z-20 overflow-clip">
         <div class="bg-white w-full h-full ">
             <div class="flex justify-between items-top relative">
-                <div class="w-full bg-orange-50 p-6 absolute top-0 right-0 left-0">
+                <div class="w-full bg-orange-50 p-4 absolute top-0 right-0 left-0 flex justify-between items-center">
                     <p class="uppercase font-semibold text-sm text-gray-700">Form tambah kontak</p>
-                    <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                    <i class="text-lg ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
                         wire:click='close'></i>
                 </div>
                 {{-- <div class="flex items-top gap-5 pe-10">
@@ -25,8 +25,8 @@
                 </div>
             </div> --}}
             </div>
-            <div class="h-full p-4 pt-14 pb-5 overflow-hidden">
-                <div class="overflow-y-scroll flex-grow h-full pt-16 ">
+            <div class="h-full  pt-14 pb-5 overflow-hidden">
+                <div class="overflow-y-scroll flex-grow h-full p-4">
                     <form action="/tambah-kontak/{{ $idIndex }}" method="POST" class="p-2">
                         @csrf
                         <input type="hidden" name="typeIk" id="status" value={{ $status }}>
@@ -42,7 +42,8 @@
                                 <label for="nikKontak"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK Kontak
                                 </label>
-                                <input type="number" pattern="[1-9]*" id="nikKontak" name="nikKontak"
+                                <input type="text" pattern="\d*" maxlength="16" minlength="16" id="nikKontak"
+                                    name="nikKontak"
                                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                                     placeholder="Nik Kontak" required />
                             </div>
@@ -521,7 +522,7 @@
                                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                             </div>
 
-                            <div>
+                            <div class="col-span-2 ">
                                 <label for="keterangan"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
                                 <textarea id="keterangan" rows="4" name="keterangan"

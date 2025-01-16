@@ -108,131 +108,138 @@
     </div> --}}
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6 ">
-        <table class="w-full text-sm text-left  rtl:text-right text-gray-500 dark:text-gray-400">
+        @if ($kontaks->count() == 0)
+            <div class="flex h-full w-full p-9 items-center justify-center flex-col text-red-600">
+                <i class="ph ph-x-circle  text-5xl"></i>
+                <p class="text-sm">Maaf, data tidak tersedia</p>
+            </div>
+        @else
+            <table class="w-full text-sm text-left  rtl:text-right text-gray-500 dark:text-gray-400">
 
-            <thead
-                class="uppercase text-xs text-white  bg-orange-500 dark:bg-gray-700 dark:text-gray-400 whitespace-nowrap">
-                <tr>
+                <thead
+                    class="uppercase text-xs text-white  bg-orange-500 dark:bg-gray-700 dark:text-gray-400 whitespace-nowrap">
+                    <tr>
 
-                    <th scope="col" class="px-6 py-3">
-                        Nama
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Nik
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Tgl Lahir
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Kelamin
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Alamat
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        SSR
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Batuk
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Demam Meriang
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Sesak Nafas
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Keringat Malam
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Diabetes Melitus
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        > 60 Thn
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Ibu Hamil
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Perokok
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Berobat Tidak Tuntas
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Nama Index | NIK
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($kontaks as $kontak)
-                    <tr class="odd:bg-white  even:bg-orange-50 border-b capitalize">
-
-                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap uppercase">
-                            {{ $kontak->nama }}
-                        </td>
-                        <td scope="row" class="px-6 py-4  whitespace-nowrap ">
-                            {{ $kontak->nik_kontak }}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {{ $kontak->tgl_lahir }}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {{ $kontak->jenis_kelamin }}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {{ $kontak->alamat }}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            @if ($kontak->iKRumahTangga)
-                                {{ $kontak->iKRumahTangga->index->ssr->nama }}
-                            @else
-                                {{ $kontak->iKNRumahTangga->index->ssr->nama }}
-                            @endif
-                        </td>
-
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {!! $kontak->batuk == 1 ? '&#10003;' : '-' !!}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {!! $kontak->demam_meriang == 1 ? '&#10003;' : '-' !!}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {!! $kontak->sesak_napas == 1 ? '&#10003;' : '-' !!}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {!! $kontak->keringat_malam == 1 ? '&#10003;' : '-' !!}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {!! $kontak->dm == 1 ? '&#10003;' : '-' !!}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {!! $kontak->lansia_60_thn == 1 ? '&#10003;' : '-' !!}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {!! $kontak->ibu_hamil == 1 ? '&#10003;' : '-' !!}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {!! $kontak->perokok == 1 ? '&#10003;' : '-' !!}
-                        </td>
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap ">
-                            {!! $kontak->berobat_tidak_tuntas == 1 ? '&#10003;' : '-' !!}
-                        </td>
-                        <td scope="row" class="px-6 py-4  whitespace-nowrap ">
-                            <p>
-                                @if ($kontak->iKRumahTangga)
-                                    {{ $kontak->iKRumahTangga->index->nama_pasien . ' | ' . $kontak->iKRumahTangga->index->nik_index }}
-                                @else
-                                    {{ $kontak->iKNRumahTangga->index->nama_pasien . ' | ' . $kontak->iKNRumahTangga->index->nik_index }}
-                                @endif
-
-                            </p>
-                        </td>
-
+                        <th scope="col" class="px-6 py-3">
+                            Nama
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Nik
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Tgl Lahir
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Kelamin
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Alamat
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            SSR
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Batuk
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Demam Meriang
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Sesak Nafas
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Keringat Malam
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Diabetes Melitus
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            > 60 Thn
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Ibu Hamil
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Perokok
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Berobat Tidak Tuntas
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Nama Index | NIK
+                        </th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($kontaks as $kontak)
+                        <tr class="odd:bg-white  even:bg-orange-50 border-b capitalize">
+
+                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap uppercase">
+                                {{ $kontak->nama }}
+                            </td>
+                            <td scope="row" class="px-6 py-4  whitespace-nowrap ">
+                                {{ $kontak->nik_kontak }}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {{ $kontak->tgl_lahir }}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {{ $kontak->jenis_kelamin }}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {{ $kontak->alamat }}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                @if ($kontak->iKRumahTangga)
+                                    {{ $kontak->iKRumahTangga->index->ssr->nama }}
+                                @else
+                                    {{ $kontak->iKNRumahTangga->index->ssr->nama }}
+                                @endif
+                            </td>
+
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {!! $kontak->batuk == 1 ? '&#10003;' : '-' !!}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {!! $kontak->demam_meriang == 1 ? '&#10003;' : '-' !!}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {!! $kontak->sesak_napas == 1 ? '&#10003;' : '-' !!}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {!! $kontak->keringat_malam == 1 ? '&#10003;' : '-' !!}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {!! $kontak->dm == 1 ? '&#10003;' : '-' !!}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {!! $kontak->lansia_60_thn == 1 ? '&#10003;' : '-' !!}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {!! $kontak->ibu_hamil == 1 ? '&#10003;' : '-' !!}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {!! $kontak->perokok == 1 ? '&#10003;' : '-' !!}
+                            </td>
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap ">
+                                {!! $kontak->berobat_tidak_tuntas == 1 ? '&#10003;' : '-' !!}
+                            </td>
+                            <td scope="row" class="px-6 py-4  whitespace-nowrap ">
+                                <p>
+                                    @if ($kontak->iKRumahTangga)
+                                        {{ $kontak->iKRumahTangga->index->nama_pasien . ' | ' . $kontak->iKRumahTangga->index->nik_index }}
+                                    @else
+                                        {{ $kontak->iKNRumahTangga->index->nama_pasien . ' | ' . $kontak->iKNRumahTangga->index->nik_index }}
+                                    @endif
+
+                                </p>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     </div>
     <div class="container my-6">
         {{ $kontaks->links() }}

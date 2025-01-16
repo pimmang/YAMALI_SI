@@ -56,11 +56,12 @@
 
         <div class="bg-white w-4/12 rounded-xl overflow-hidden z-20 flex-grow">
             <div class="bg-white w-full  overflow-y-auto">
-                <div class="flex justify-between items-top bg-orange-100 p-4">
+                <div class="flex justify-between items-top bg-orange-100 p-4 items-center">
                     <h1 class="font-medium text-gray-700 uppercase ">Detail Investigasi Kontak</h1>
+                    <i class="text-lg  ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                        wire:click='close'></i>
                 </div>
-                <form action="/edit-ikrt/{{ $details->id }}" method="post"
-                    class="grid gap-4 md:grid-cols-1 p-4">
+                <form action="/edit-ikrt/{{ $details->id }}" method="post" class="grid gap-4 md:grid-cols-1 p-4">
                     @csrf
                     <div>
                         <label for="kegiatan IK"
@@ -77,7 +78,7 @@
                     <div>
                         <label for="fasyankes"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fasyankes</label>
-                        <select id="fasyankes" name="fasyankes" 
+                        <select id="fasyankes" name="fasyankes"
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                             <option value='' selected>Pilih</option>
                             @foreach ($fasyankes as $fasyankes)

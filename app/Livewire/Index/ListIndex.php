@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Index;
 
+use App\Livewire\Component\LoadingStatus;
 use App\Livewire\Component\ToastHapus;
 use App\Models\Index;
 use Illuminate\Support\Facades\Auth;
@@ -109,13 +110,14 @@ class ListIndex extends Component
         $this->tanggalMulai = $tanggalMulai;
         $this->tanggalAkhir = $tanggalAkhir;
         $this->cari = $cari;
-
+        $this->dispatch('loading')->to(LoadingStatus::class);
         $this->resetPage();
     }
     public function render()
     {
         // Check if a query exists; if not, default to all data with ordering
         // Build the query in render based on the filter parameters
+  
         $query = Index::query();
         if ($this->tanggalMulai && $this->tanggalAkhir) {
             $query->whereBetween('created_at', [$this->tanggalMulai, $this->tanggalAkhir]);
@@ -133,6 +135,7 @@ class ListIndex extends Component
         }
         // Paginate the results
         $data = $query->orderBy('created_at', 'desc')->paginate(10);
+        $this->dispatch('loadingStop')->to(LoadingStatus::class);
         return view('livewire.index.list-index', [
             'datas' => $data,
         ]);

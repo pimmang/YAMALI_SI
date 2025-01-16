@@ -101,7 +101,8 @@
                     @endif
                 </div>
 
-                <input type="number" pattern="[1-9]*" id="nikIndex" name="nikIndex" wire:model.blur="nik"
+                <input type="text" pattern="\d*" maxlength="16" minlength="16" id="nikIndex" name="nikIndex"
+                    wire:model.blur="nik" maxlength="16"
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                     placeholder="NIK Index" required />
             </div>
@@ -161,23 +162,10 @@
                     placeholder="Alamat..." required />
             </div>
 
-            <div>
-                <label for="fasyankes"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">fasyankes</label>
-                <select id="fasyankes" name="fasyankes" required
-                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                    <option value="" selected>Pilih</option>
-                    @if ($fasyankes)
-                        @foreach ($fasyankes as $fasyan)
-                            <option value='{{ $fasyan->id }}'>{{ ucwords(strtolower($fasyan->nama_fasyankes)) }}
-                            </option>
-                        @endforeach
-                    @endif
-                </select>
-            </div>
+
             <div>
                 <label for="ssr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SSR</label>
-                <select id="ssr" name="ssr"
+                <select id="ssr" name="ssr" wire:model.blur='ssrPilihan'
                     class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                     @if (Auth::user()->hasRole('sr'))
                         <option value='' selected>Pilih</option>
@@ -190,7 +178,20 @@
                 </select>
             </div>
 
-
+            <div>
+                <label for="fasyankes"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fasyankes</label>
+                <select id="fasyankes" name="fasyankes" required
+                    class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                    <option value="" selected>Pilih</option>
+                    @if ($fasyankes)
+                        @foreach ($fasyankes as $fasyan)
+                            <option value='{{ $fasyan->id }}'>{{ ucwords(strtolower($fasyan->nama_fasyankes)) }}
+                            </option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
             {{-- <div>
                 <label for="sr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SR</label>
                 <select id="sr" name="sr"

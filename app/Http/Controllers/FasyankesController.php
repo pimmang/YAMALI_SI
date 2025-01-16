@@ -42,11 +42,11 @@ class FasyankesController extends Controller
         $fasyankes->nama_fasyankes = $request->namaFasyankes;
         $fasyankes->jenis = $request->jenis;
         $fasyankes->pmdt = $request->pmdt;
-        $fasyankes->province_id = $request->provinsi;
+        // $fasyankes->province_id = $request->provinsi;
         $fasyankes->regency_id = $request->kabupaten;
         $fasyankes->district_id = $request->kecamatan ;
         $fasyankes->alamat = $request->alamat;
-        $fasyankes->sr = $request->sr;
+        // $fasyankes->sr = $request->sr;
         $fasyankes->ssr_id = $request->ssr;
         $fasyankes->save();
         session()->flash('fasyankes', 'Data fasyankes berhasil ditambahkan');
@@ -80,11 +80,11 @@ class FasyankesController extends Controller
         $fasyankes->nama_fasyankes = $request->namaFasyankes;
         $fasyankes->jenis = $request->jenis;
         $fasyankes->pmdt = $request->pmdt;
-        $fasyankes->province_id = $request->provinsi;
+        // $fasyankes->province_id = $request->provinsi;
         $fasyankes->regency_id = $request->kabupaten;
         $fasyankes->district_id = $request->kecamatan ;
         $fasyankes->alamat = $request->alamat;
-        $fasyankes->sr = $request->sr;
+        // $fasyankes->sr = $request->sr;
         $fasyankes->ssr_id = $request->ssr;
         $fasyankes->update();
         session()->flash('fasyankes', 'Data fasyankes berhasil diperbarui');

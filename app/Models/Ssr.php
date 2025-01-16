@@ -34,7 +34,7 @@ class Ssr extends Model
     }
     public function fasyankes(): HasMany
     {
-        return $this->hasMany(fasyankes::class);
+        return $this->hasMany(Fasyankes::class);
     }
     public function kontak(): HasMany
     {

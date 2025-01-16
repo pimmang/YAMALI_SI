@@ -2,6 +2,7 @@
 
 namespace App\Livewire\TbSo\Terduga;
 
+use App\Livewire\Component\LoadingStatus;
 use App\Models\Kontak as ModelsKontak;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -18,6 +19,7 @@ class CariTerduga extends Component
     }
     public function render()
     {
+        $this->dispatch('loading')->to(LoadingStatus::class);
         $query = ModelsKontak::query();
         if (Auth::user()->hasRole('ssr')) {
             $query->where(function ($query) {
@@ -32,7 +34,7 @@ class CariTerduga extends Component
                 });
             });
         }
-        
+
         if (strlen($this->cari) > 3) {
             $query->where(function ($query) {
                 $query->where('nik_kontak', 'like', '%' . $this->cari . '%')
@@ -41,11 +43,13 @@ class CariTerduga extends Component
 
 
             $terduga = $query->get();
+            $this->dispatch('loadingStop')->to(LoadingStatus::class);
             $this->hasil = true;
         } else {
             $terduga = null;
             $this->hasil = false;
         }
+
         return view('livewire.tb-so.terduga.cari-terduga', [
             "terdugas" => $terduga,
         ]);

@@ -64,9 +64,9 @@
         </div>
         <div class="w-9/12  gap-4 h-full  overflow-y-scroll">
             <div class="bg-white rounded-lg overflow-hidden !h-fit mb-4">
-                <div class="w-full bg-orange-50 p-4 flex-none mb-3">
+                <div class="w-full bg-orange-50 p-4 flex-none mb-3 flex justify-between items-center">
                     <p class="uppercase font-semibold text-sm text-gray-700">Data Riwayat Pemantauan</p>
-                    <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                    <i class="text-lg  ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
                         wire:click='close'></i>
                 </div>
                 <div class="p-4">

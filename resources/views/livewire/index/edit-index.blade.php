@@ -3,7 +3,7 @@
 
     </div>
     <div class="bg-white w-full h-full rounded-xl  overflow-hidden z-20">
-        <div class="w-full bg-orange-100 ">
+        <div class="w-full bg-orange-100 flex justify-between items-center  ">
             <p class="uppercase font-semibold text-gray-700 p-4">Edit Index</p>
             <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
                 wire:click='close'></i>
@@ -108,7 +108,7 @@
                                 <p class="text-xs text-red-500">{{ $message }}</p>
                             @endif
                         </div>
-                        <input type="number" pattern="[1-9]*" id="nikIndex" name="nikIndex"
+                        <input type="text" pattern="\d*" maxlength="16" minlength="16"  id="nikIndex" name="nikIndex" maxlength="16"
                             value="{{ $details->nik_index }}" wire:model.blur="nik"
                             class="bg-white border !border-orange-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-orange-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                             placeholder="NIK Index" required />

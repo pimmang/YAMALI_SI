@@ -2,6 +2,7 @@
 
 namespace App\Livewire\TbSo\Ternotifikasi;
 
+use App\Livewire\Component\LoadingStatus;
 use App\Livewire\Component\ToastHapus;
 use App\Models\Kontak;
 use App\Models\Terduga;
@@ -93,11 +94,16 @@ class Ternotifikasi extends Component
         $this->tanggalMulai = $tanggalMulai;
         $this->tanggalAkhir = $tanggalAkhir;
         $this->cari = $cari;
-
         $this->resetPage();
+        $this->dispatch('loading')->to(LoadingStatus::class);
     }
     public function render()
     {
+
+        // dd('ya');
+
+
+
         $query = ModelsTernotifikasi::query();
         if ($this->tanggalMulai && $this->tanggalAkhir) {
             $query->whereBetween('created_at', [$this->tanggalMulai, $this->tanggalAkhir]);
@@ -117,7 +123,6 @@ class Ternotifikasi extends Component
                 });
             }
         }
-
         if (Auth::user()->hasRole('ssr')) {
             $query->whereHas('terduga', function ($query) {
                 $query->whereHas('kontak', function ($query) {
@@ -135,7 +140,10 @@ class Ternotifikasi extends Component
         }
 
         $data = $query->orderBy('created_at', 'desc')->paginate(10);
-        // $data = ModelsTernotifikasi::orderBy('created_at', 'desc')->paginate(10);
+       
+            $this->dispatch('loadingStop')->to(LoadingStatus::class);
+        
+
         return view('livewire.tb-so.ternotifikasi.ternotifikasi', [
             'datas' => $data,
         ]);

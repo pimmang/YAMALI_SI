@@ -15,67 +15,68 @@
 
     <div class="absolute overflow-x-auto top-16 left-0 w-full shadow bg-white rounded-lg overflow-hidden">
         @if ($hasil)
-            @if ($terdugas->count() > 0)
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-orange-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3  whitespace-nowrap">
-                                Nama Terduga
-                            </th>
-                            <th scope="col" class="px-6 py-3  whitespace-nowrap">
-                                NIK Terduga
-                            </th>
-                            <th scope="col" class="px-6 py-3  whitespace-nowrap">
-                                Kecamatan, Kabupaten
-                            </th>
-                            <th scope="col" class="px-6 py-3  whitespace-nowrap">
-                                Nomor Telepon
-                            </th>
-                            <th scope="col" class="px-6 py-3  whitespace-nowrap">
-                                SSR
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($terdugas as $terduga)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-orange-50 cursor-pointer"
-                                wire:click='pilihData({{ $terduga->id }})'>
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white uppercase">
-                                    {{ $terduga->nama }}
+            <livewire:component.loading-status>
+                @if ($terdugas->count() > 0)
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-orange-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3  whitespace-nowrap">
+                                    Nama Terduga
                                 </th>
-                                <td class="px-6 py-4  whitespace-nowrap">
-                                    {{ $terduga->nik_kontak }}
-                                </td>
-                                @if ($terduga->i_k_rumah_tangga_id)
-                                    <td class="px-6 py-4  whitespace-nowrap">
-                                        {{ ucwords(strtolower($terduga->iKRumahTangga->index->district->name . ', ' . $terduga->iKRumahTangga->index->regency->name )) }}
-                                    </td>
-                                @else
-                                    <td class="px-6 py-4  whitespace-nowrap">
-                                        {{ ucwords(strtolower($terduga->iKNRumahTangga->district->name . ', ' . $terduga->iKNRumahTangga->regency->name )) }}
-                                    </td>
-                                @endif
-
-                                <td class="px-6 py-4  whitespace-nowrap">
-                                    {{ $terduga->no_telepon }}
-                                </td>
-                                @if ($terduga->i_k_rumah_tangga_id)
-                                    <td class="px-6 py-4  whitespace-nowrap">
-                                        {{ $terduga->iKRumahTangga->index->ssr->nama  }}
-                                    </td>
-                                @else
-                                    <td class="px-6 py-4  whitespace-nowrap">
-                                        {{ $terduga->iKNRumahTangga->index->ssr->nama  }}
-                                    </td>
-                                @endif
+                                <th scope="col" class="px-6 py-3  whitespace-nowrap">
+                                    NIK Terduga
+                                </th>
+                                <th scope="col" class="px-6 py-3  whitespace-nowrap">
+                                    Kecamatan, Kabupaten
+                                </th>
+                                <th scope="col" class="px-6 py-3  whitespace-nowrap">
+                                    Nomor Telepon
+                                </th>
+                                <th scope="col" class="px-6 py-3  whitespace-nowrap">
+                                    SSR
+                                </th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            @else
-                <p class="w-full p-10 text-center text-red-500">Maaf, data tidak ditemukan</p>
-            @endif
+                        </thead>
+                        <tbody>
+                            @foreach ($terdugas as $terduga)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-orange-50 cursor-pointer"
+                                    wire:click='pilihData({{ $terduga->id }})'>
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white uppercase">
+                                        {{ $terduga->nama }}
+                                    </th>
+                                    <td class="px-6 py-4  whitespace-nowrap">
+                                        {{ $terduga->nik_kontak }}
+                                    </td>
+                                    @if ($terduga->i_k_rumah_tangga_id)
+                                        <td class="px-6 py-4  whitespace-nowrap">
+                                            {{ ucwords(strtolower($terduga->iKRumahTangga->index->district->name . ', ' . $terduga->iKRumahTangga->index->regency->name)) }}
+                                        </td>
+                                    @else
+                                        <td class="px-6 py-4  whitespace-nowrap">
+                                            {{ ucwords(strtolower($terduga->iKNRumahTangga->district->name . ', ' . $terduga->iKNRumahTangga->regency->name)) }}
+                                        </td>
+                                    @endif
+
+                                    <td class="px-6 py-4  whitespace-nowrap">
+                                        {{ $terduga->no_telepon }}
+                                    </td>
+                                    @if ($terduga->i_k_rumah_tangga_id)
+                                        <td class="px-6 py-4  whitespace-nowrap">
+                                            {{ $terduga->iKRumahTangga->index->ssr->nama }}
+                                        </td>
+                                    @else
+                                        <td class="px-6 py-4  whitespace-nowrap">
+                                            {{ $terduga->iKNRumahTangga->index->ssr->nama }}
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p class="w-full p-10 text-center text-red-500">Maaf, data tidak ditemukan</p>
+                @endif
 
         @endif
     </div>

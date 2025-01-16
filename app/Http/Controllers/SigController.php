@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Index;
 use App\Models\Kontak;
 use App\Models\Ssr;
 use App\Models\Ternotifikasi;
@@ -13,7 +14,12 @@ class SigController extends Controller
 {
     public function index()
     {
-
+        if (Index::get()->isEmpty()) {
+            $kosong = true;
+            $status = 'sig';
+            return view('sig', compact('kosong', 'status'));
+        }
+        $kosong = false;
 
         if (Auth::user()->hasRole("ssr")) {
             $ssr = Ssr::where('nama', Auth::user()->name)->first();
@@ -25,6 +31,8 @@ class SigController extends Controller
             $tahun = "semua";
         }
         $status = 'sig';
+
+
 
         $ternotifikasi = Kontak::whereHas('terduga', function ($query) {
             $query->whereHas('ternotifikasi');
@@ -51,12 +59,17 @@ class SigController extends Controller
         // $ternotifikasi = $kontak->toJson();
 
 
-        return view('sig', compact('status', 'ternotifikasi', 'ssrPilihan', 'tahun'));
+        return view('sig', compact('status', 'kosong', 'ternotifikasi', 'ssrPilihan', 'tahun'));
     }
 
     public function filter(Request $request)
     {
-
+        if (Index::get()->isEmpty()) {
+            $kosong = true;
+            $status = 'sig';
+            return view('sig', compact('kosong', 'status'));
+        }
+        $kosong = false;
         // dd($request);
         $status = 'sig';
         if ($request->query('ssr') != 'semua') {
@@ -98,6 +111,6 @@ class SigController extends Controller
         // $ternotifikasi = $kontak->toJson();
 
 
-        return view('sig', compact('status', 'ternotifikasi', 'ssrPilihan', 'tahun', 'tahunTerlama'));
+        return view('sig', compact('kosong', 'status', 'ternotifikasi', 'ssrPilihan', 'tahun', 'tahunTerlama'));
     }
 }

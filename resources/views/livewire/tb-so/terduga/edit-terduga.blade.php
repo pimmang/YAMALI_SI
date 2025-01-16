@@ -48,9 +48,9 @@
 
         <form action="/edit-terduga/{{ $dataTerduga->id }}" method="POST" class="h-full overflow-y-auto flex-grow">
             <div class="bg-white rounded-lg overflow-hidden shadow ">
-                <div class="w-full bg-orange-50 p-4">
+                <div class="w-full bg-orange-50 p-4 flex justify-between items-center">
                     <p class="uppercase font-semibold text-sm text-gray-700">Form Terduga</p>
-                    <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                    <i class="text-lg  ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
                         wire:click='close'></i>
                 </div>
                 @csrf

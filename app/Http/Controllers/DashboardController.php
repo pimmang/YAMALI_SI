@@ -29,6 +29,13 @@ class DashboardController extends Controller
             ]);
             return redirect($url);
         }
+
+        if (Index::get()->isEmpty()) {
+            $kosong = true;
+            $status = 'dashboard';
+            return view('dashboard', compact('kosong', 'status'));
+        }
+        $kosong = false;
         $ssrPilihan = 'semua';
         $tahun = 'semua';
         $status = 'dashboard';
@@ -72,16 +79,16 @@ class DashboardController extends Controller
         $ssrs = Ssr::get();
         $namaFasyankes = [];
         $jumlahRawat = [];
-        $namaKader = [];
-        // kinerja kader
-        $jumlahDirujukKader = [];
-        $jumlahPositifKader = [];
-        // $jumlahDiperiksaKader = [];
-        $jumlahSembuhKader = [];
+        // $namaKader = [];
+        // // kinerja kader
+        // $jumlahDirujukKader = [];
+        // $jumlahPositifKader = [];
+        // // $jumlahDiperiksaKader = [];
+        // $jumlahSembuhKader = [];
 
         foreach ($ssrs as $ssr) {
             $namaFasyankes[] = $ssr->nama;
-            $namaKader[] = $ssr->nama;
+            // $namaKader[] = $ssr->nama;
 
             $jumlahRawat[] = Kontak::where(function ($query) use ($ssr) {
                 $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
@@ -96,52 +103,52 @@ class DashboardController extends Controller
                     });
             })->where('terduga', 1)->count();
 
-            $jumlahDirujukKader[] = Kontak::where(function ($query) use ($ssr) {
-                $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
-                    $query->whereHas('index', function ($query) use ($ssr) {
-                        $query->where('ssr_id', $ssr->id);
-                    });
-                })
-                    ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
-                        $query->whereHas('index', function ($query) use ($ssr) {
-                            $query->where('ssr_id', $ssr->id);
-                        });
-                    });
-            })->where('rujukan', 1)->count();
+            // $jumlahDirujukKader[] = Kontak::where(function ($query) use ($ssr) {
+            //     $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
+            //         $query->whereHas('index', function ($query) use ($ssr) {
+            //             $query->where('ssr_id', $ssr->id);
+            //         });
+            //     })
+            //         ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
+            //             $query->whereHas('index', function ($query) use ($ssr) {
+            //                 $query->where('ssr_id', $ssr->id);
+            //             });
+            //         });
+            // })->where('rujukan', 1)->count();
 
-            $jumlahPositifKader[] = Kontak::where(function ($query) use ($ssr) {
-                $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
-                    $query->whereHas('index', function ($query) use ($ssr) {
-                        $query->where('ssr_id', $ssr->id);
-                    });
-                })
-                    ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
-                        $query->whereHas('index', function ($query) use ($ssr) {
-                            $query->where('ssr_id', $ssr->id);
-                        });
-                    });
-            })->whereHas('terduga', function ($query) {
-                $query->whereHas('ternotifikasi');
-            })->count();
+            //     $jumlahPositifKader[] = Kontak::where(function ($query) use ($ssr) {
+            //         $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
+            //             $query->whereHas('index', function ($query) use ($ssr) {
+            //                 $query->where('ssr_id', $ssr->id);
+            //             });
+            //         })
+            //             ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
+            //                 $query->whereHas('index', function ($query) use ($ssr) {
+            //                     $query->where('ssr_id', $ssr->id);
+            //                 });
+            //             });
+            //     })->whereHas('terduga', function ($query) {
+            //         $query->whereHas('ternotifikasi');
+            //     })->count();
 
-            $jumlahSembuhKader[] = Kontak::where(function ($query) use ($ssr) {
-                $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
-                    $query->whereHas('index', function ($query) use ($ssr) {
-                        $query->where('ssr_id', $ssr->id);
-                    });
-                })
-                    ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
-                        $query->whereHas('index', function ($query) use ($ssr) {
-                            $query->where('ssr_id', $ssr->id);
-                        });
-                    });
-            })->whereHas('terduga', function ($query) {
-                $query->whereHas('ternotifikasi', function ($query) {
-                    $query->whereHas('hasilPengobatan', function ($query) {
-                        $query->where('hasil_pengobatan', 'Sembuh');
-                    });
-                });
-            })->count();
+            //     $jumlahSembuhKader[] = Kontak::where(function ($query) use ($ssr) {
+            //         $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
+            //             $query->whereHas('index', function ($query) use ($ssr) {
+            //                 $query->where('ssr_id', $ssr->id);
+            //             });
+            //         })
+            //             ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
+            //                 $query->whereHas('index', function ($query) use ($ssr) {
+            //                     $query->where('ssr_id', $ssr->id);
+            //                 });
+            //             });
+            //     })->whereHas('terduga', function ($query) {
+            //         $query->whereHas('ternotifikasi', function ($query) {
+            //             $query->whereHas('hasilPengobatan', function ($query) {
+            //                 $query->where('hasil_pengobatan', 'Sembuh');
+            //             });
+            //         });
+            //     })->count();
         }
 
         // $jumlahDiperiksaKader = $jumlahRawat;
@@ -174,7 +181,7 @@ class DashboardController extends Controller
             })->count();
         }
 
-        return view('dashboard', compact('status', 'tahun', 'jumlahFasyankes', 'temuanPositif', 'temuanNegatif', 'temuanBergejala', 'jumlahIndex', 'jumlahIkrt', 'jumlahIknrt', 'jumlahBelumIk', 'jumlahDirujukKader', 'jumlahPositifKader', 'jumlahSembuhKader', 'namaKader', 'namaFasyankes', 'jumlahRawat', 'ssrPilihan', 'jumlahTerduga', 'jumlahNegatif', 'jumlahPositif', 'jumlahDiperiksaLaki', 'jumlahDiperiksaPerempuan', 'jumlahBergejala', 'jumlahDikunjungi', 'jumlahDirujuk', 'jumlahKader', 'jumlahSembuh', 'jumlahMeninggal', 'jumlahPindah', 'jumlahGagal', 'jumlahLengkap', 'jumlahBelumMulai', 'jumlahProses'));
+        return view('dashboard', compact('status', 'kosong', 'tahun', 'jumlahFasyankes', 'temuanPositif', 'temuanNegatif', 'temuanBergejala', 'jumlahIndex', 'jumlahIkrt', 'jumlahIknrt', 'jumlahBelumIk',  'namaFasyankes', 'jumlahRawat', 'ssrPilihan', 'jumlahTerduga', 'jumlahNegatif', 'jumlahPositif', 'jumlahDiperiksaLaki', 'jumlahDiperiksaPerempuan', 'jumlahBergejala', 'jumlahDikunjungi', 'jumlahDirujuk', 'jumlahKader', 'jumlahSembuh', 'jumlahMeninggal', 'jumlahPindah', 'jumlahGagal', 'jumlahLengkap', 'jumlahBelumMulai', 'jumlahProses'));
     }
 
     /**
@@ -189,6 +196,13 @@ class DashboardController extends Controller
                 abort(403, 'Unauthorized action.');
             }
         }
+
+        if (Index::get()->isEmpty()) {
+            $kosong = true;
+            $status = 'dashboard';
+            return view('dashboard', compact('kosong', 'status'));
+        }
+        $kosong = false;
 
         if ($request->query('ssr') != 'semua') {
             $ssr = Ssr::where('nama', $request->query('ssr'))->first();
@@ -517,19 +531,19 @@ class DashboardController extends Controller
         $namaFasyankes = [];
         $jumlahRawat = [];
 
-        $namaKader = [];
+        // $namaKader = [];
 
-        $jumlahDirujukKader = [];
-        $jumlahPositifKader = [];
-        // $jumlahDiperiksaKader = [];
-        $jumlahSembuhKader = [];
+        // $jumlahDirujukKader = [];
+        // $jumlahPositifKader = [];
+        // // $jumlahDiperiksaKader = [];
+        // $jumlahSembuhKader = [];
 
         if ($ssrPilihan == 'semua') {
             // kinerja fasyankes
             $ssrs = Ssr::get();
             foreach ($ssrs as $ssr) {
                 $namaFasyankes[] = $ssr->nama;
-                $namaKader[] = $ssr->nama;
+                // $namaKader[] = $ssr->nama;
 
                 $jumlahRawat[] = Kontak::where(function ($query) use ($ssr) {
                     $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
@@ -546,58 +560,58 @@ class DashboardController extends Controller
                     $query->whereYear('created_at', $tahun);
                 })->count();
 
-                $jumlahDirujukKader[] = Kontak::where(function ($query) use ($ssr) {
-                    $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
-                        $query->whereHas('index', function ($query) use ($ssr) {
-                            $query->where('ssr_id', $ssr->id);
-                        });
-                    })
-                        ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
-                            $query->whereHas('index', function ($query) use ($ssr) {
-                                $query->where('ssr_id', $ssr->id);
-                            });
-                        });
-                })->where('rujukan', 1)->when($tahun != 'semua', function ($query) use ($tahun) {
-                    $query->whereYear('created_at', $tahun);
-                })->count();
+                // $jumlahDirujukKader[] = Kontak::where(function ($query) use ($ssr) {
+                //     $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
+                //         $query->whereHas('index', function ($query) use ($ssr) {
+                //             $query->where('ssr_id', $ssr->id);
+                //         });
+                //     })
+                //         ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
+                //             $query->whereHas('index', function ($query) use ($ssr) {
+                //                 $query->where('ssr_id', $ssr->id);
+                //             });
+                //         });
+                // })->where('rujukan', 1)->when($tahun != 'semua', function ($query) use ($tahun) {
+                //     $query->whereYear('created_at', $tahun);
+                // })->count();
 
-                $jumlahPositifKader[] = Kontak::where(function ($query) use ($ssr) {
-                    $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
-                        $query->whereHas('index', function ($query) use ($ssr) {
-                            $query->where('ssr_id', $ssr->id);
-                        });
-                    })
-                        ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
-                            $query->whereHas('index', function ($query) use ($ssr) {
-                                $query->where('ssr_id', $ssr->id);
-                            });
-                        });
-                })->whereHas('terduga', function ($query) {
-                    $query->whereHas('ternotifikasi');
-                })->when($tahun != 'semua', function ($query) use ($tahun) {
-                    $query->whereYear('created_at', $tahun);
-                })->count();
+                // $jumlahPositifKader[] = Kontak::where(function ($query) use ($ssr) {
+                //     $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
+                //         $query->whereHas('index', function ($query) use ($ssr) {
+                //             $query->where('ssr_id', $ssr->id);
+                //         });
+                //     })
+                //         ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
+                //             $query->whereHas('index', function ($query) use ($ssr) {
+                //                 $query->where('ssr_id', $ssr->id);
+                //             });
+                //         });
+                // })->whereHas('terduga', function ($query) {
+                //     $query->whereHas('ternotifikasi');
+                // })->when($tahun != 'semua', function ($query) use ($tahun) {
+                //     $query->whereYear('created_at', $tahun);
+                // })->count();
 
-                $jumlahSembuhKader[] = Kontak::where(function ($query) use ($ssr) {
-                    $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
-                        $query->whereHas('index', function ($query) use ($ssr) {
-                            $query->where('ssr_id', $ssr->id);
-                        });
-                    })
-                        ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
-                            $query->whereHas('index', function ($query) use ($ssr) {
-                                $query->where('ssr_id', $ssr->id);
-                            });
-                        });
-                })->whereHas('terduga', function ($query) {
-                    $query->whereHas('ternotifikasi', function ($query) {
-                        $query->whereHas('hasilPengobatan', function ($query) {
-                            $query->where('hasil_pengobatan', 'Sembuh');
-                        });
-                    });
-                })->when($tahun != 'semua', function ($query) use ($tahun) {
-                    $query->whereYear('created_at', $tahun);
-                })->count();
+                // $jumlahSembuhKader[] = Kontak::where(function ($query) use ($ssr) {
+                //     $query->whereHas('iKRumahTangga', function ($query) use ($ssr) {
+                //         $query->whereHas('index', function ($query) use ($ssr) {
+                //             $query->where('ssr_id', $ssr->id);
+                //         });
+                //     })
+                //         ->orWhereHas('iKNRumahTangga', function ($query) use ($ssr) {
+                //             $query->whereHas('index', function ($query) use ($ssr) {
+                //                 $query->where('ssr_id', $ssr->id);
+                //             });
+                //         });
+                // })->whereHas('terduga', function ($query) {
+                //     $query->whereHas('ternotifikasi', function ($query) {
+                //         $query->whereHas('hasilPengobatan', function ($query) {
+                //             $query->where('hasil_pengobatan', 'Sembuh');
+                //         });
+                //     });
+                // })->when($tahun != 'semua', function ($query) use ($tahun) {
+                //     $query->whereYear('created_at', $tahun);
+                // })->count();
             }
             // $jumlahDiperiksaKader = $jumlahRawat;
         } else {
@@ -625,78 +639,78 @@ class DashboardController extends Controller
                 $query->where('ssr_id', $ssrPilihan);
             })->get();
 
-            foreach ($kaders as $kader) {
-                $namaKader[] = $kader->nama;
+            // foreach ($kaders as $kader) {
+            //     $namaKader[] = $kader->nama;
 
-                $jumlahDirujukKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
-                    $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
-                        $query->whereHas('index', function ($query) use ($ssrPilihan) {
-                            $query->where('ssr_id', $ssrPilihan);
-                        })->where('kader_id', $kader->id);
-                    })
-                        ->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan, $kader) {
-                            $query->whereHas('index', function ($query) use ($ssrPilihan) {
-                                $query->where('ssr_id', $ssrPilihan);
-                            })->where('kader_id', $kader->id);
-                        });
-                })->where('rujukan', 1)
-                    ->when($tahun != 'semua', function ($query) use ($tahun) {
-                        $query->whereYear('created_at', $tahun);
-                    })->count();
-                $jumlahPositifKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
-                    $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
-                        $query->whereHas('index', function ($query) use ($ssrPilihan) {
-                            $query->where('ssr_id', $ssrPilihan);
-                        })->where('kader_id', $kader->id);
-                    })
-                        ->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan, $kader) {
-                            $query->whereHas('index', function ($query) use ($ssrPilihan) {
-                                $query->where('ssr_id', $ssrPilihan);
-                            })->where('kader_id', $kader->id);
-                        });
-                })->whereHas('terduga', function ($query) {
-                    $query->whereHas('ternotifikasi');
-                })->when($tahun != 'semua', function ($query) use ($tahun) {
-                    $query->whereYear('created_at', $tahun);
-                })->count();
+            //     $jumlahDirujukKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
+            //         $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
+            //             $query->whereHas('index', function ($query) use ($ssrPilihan) {
+            //                 $query->where('ssr_id', $ssrPilihan);
+            //             })->where('kader_id', $kader->id);
+            //         })
+            //             ->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan, $kader) {
+            //                 $query->whereHas('index', function ($query) use ($ssrPilihan) {
+            //                     $query->where('ssr_id', $ssrPilihan);
+            //                 })->where('kader_id', $kader->id);
+            //             });
+            //     })->where('rujukan', 1)
+            //         ->when($tahun != 'semua', function ($query) use ($tahun) {
+            //             $query->whereYear('created_at', $tahun);
+            //         })->count();
+            //     $jumlahPositifKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
+            //         $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
+            //             $query->whereHas('index', function ($query) use ($ssrPilihan) {
+            //                 $query->where('ssr_id', $ssrPilihan);
+            //             })->where('kader_id', $kader->id);
+            //         })
+            //             ->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan, $kader) {
+            //                 $query->whereHas('index', function ($query) use ($ssrPilihan) {
+            //                     $query->where('ssr_id', $ssrPilihan);
+            //                 })->where('kader_id', $kader->id);
+            //             });
+            //     })->whereHas('terduga', function ($query) {
+            //         $query->whereHas('ternotifikasi');
+            //     })->when($tahun != 'semua', function ($query) use ($tahun) {
+            //         $query->whereYear('created_at', $tahun);
+            //     })->count();
 
-                // $jumlahDiperiksaKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
-                //     $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
-                //         $query->whereHas('index', function ($query) use ($ssrPilihan) {
-                //             $query->where('ssr_id', $ssrPilihan);
-                //         })->where('kader_id', $kader->id);
-                //     })
-                //         ->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan, $kader) {
-                //             $query->whereHas('index', function ($query) use ($ssrPilihan) {
-                //                 $query->where('ssr_id', $ssrPilihan);
-                //             })->where('kader_id', $kader->id);
-                //         });
-                // })->where('terduga', 1)
-                //     ->when($tahun != 'semua', function ($query) use ($tahun) {
-                //         $query->whereYear('created_at', $tahun);
-                //     })->count();
+            //     // $jumlahDiperiksaKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
+            //     //     $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
+            //     //         $query->whereHas('index', function ($query) use ($ssrPilihan) {
+            //     //             $query->where('ssr_id', $ssrPilihan);
+            //     //         })->where('kader_id', $kader->id);
+            //     //     })
+            //     //         ->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan, $kader) {
+            //     //             $query->whereHas('index', function ($query) use ($ssrPilihan) {
+            //     //                 $query->where('ssr_id', $ssrPilihan);
+            //     //             })->where('kader_id', $kader->id);
+            //     //         });
+            //     // })->where('terduga', 1)
+            //     //     ->when($tahun != 'semua', function ($query) use ($tahun) {
+            //     //         $query->whereYear('created_at', $tahun);
+            //     //     })->count();
 
-                $jumlahSembuhKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
-                    $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
-                        $query->whereHas('index', function ($query) use ($ssrPilihan) {
-                            $query->where('ssr_id', $ssrPilihan);
-                        })->where('kader_id', $kader->id);
-                    })
-                        ->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan, $kader) {
-                            $query->whereHas('index', function ($query) use ($ssrPilihan) {
-                                $query->where('ssr_id', $ssrPilihan);
-                            })->where('kader_id', $kader->id);
-                        });
-                })->whereHas('terduga', function ($query) {
-                    $query->whereHas('ternotifikasi', function ($query) {
-                        $query->whereHas('hasilPengobatan', function ($query) {
-                            $query->where('hasil_pengobatan', 'Sembuh');
-                        });
-                    });
-                })->when($tahun != 'semua', function ($query) use ($tahun) {
-                    $query->whereYear('created_at', $tahun);
-                })->count();
-            }
+            //     $jumlahSembuhKader[] = Kontak::where(function ($query) use ($ssrPilihan, $kader) {
+            //         $query->whereHas('iKRumahTangga', function ($query) use ($ssrPilihan, $kader) {
+            //             $query->whereHas('index', function ($query) use ($ssrPilihan) {
+            //                 $query->where('ssr_id', $ssrPilihan);
+            //             })->where('kader_id', $kader->id);
+            //         })
+            //             ->orWhereHas('iKNRumahTangga', function ($query) use ($ssrPilihan, $kader) {
+            //                 $query->whereHas('index', function ($query) use ($ssrPilihan) {
+            //                     $query->where('ssr_id', $ssrPilihan);
+            //                 })->where('kader_id', $kader->id);
+            //             });
+            //     })->whereHas('terduga', function ($query) {
+            //         $query->whereHas('ternotifikasi', function ($query) {
+            //             $query->whereHas('hasilPengobatan', function ($query) {
+            //                 $query->where('hasil_pengobatan', 'Sembuh');
+            //             });
+            //         });
+            //     })->when($tahun != 'semua', function ($query) use ($tahun) {
+            //         $query->whereYear('created_at', $tahun);
+            //     })->count();
+            // }
         }
 
 
@@ -802,7 +816,7 @@ class DashboardController extends Controller
             })->count();
         }
 
-        return view('dashboard', compact('status', 'tahun', 'jumlahFasyankes', 'temuanPositif', 'temuanNegatif', 'temuanBergejala', 'jumlahIndex', 'jumlahIkrt', 'jumlahIknrt', 'jumlahBelumIk', 'jumlahDirujukKader', 'jumlahPositifKader', 'jumlahSembuhKader',  'namaKader', 'namaFasyankes', 'jumlahRawat', 'ssrPilihan', 'jumlahTerduga', 'jumlahNegatif', 'jumlahPositif', 'jumlahDiperiksaLaki', 'jumlahDiperiksaPerempuan', 'jumlahBergejala', 'jumlahDikunjungi', 'jumlahDirujuk', 'jumlahKader', 'jumlahSembuh', 'jumlahMeninggal', 'jumlahPindah', 'jumlahGagal', 'jumlahLengkap', 'jumlahBelumMulai', 'jumlahProses'));
+        return view('dashboard', compact('status', 'kosong', 'tahun', 'jumlahFasyankes', 'temuanPositif', 'temuanNegatif', 'temuanBergejala', 'jumlahIndex', 'jumlahIkrt', 'jumlahIknrt', 'jumlahBelumIk', 'namaFasyankes', 'jumlahRawat', 'ssrPilihan', 'jumlahTerduga', 'jumlahNegatif', 'jumlahPositif', 'jumlahDiperiksaLaki', 'jumlahDiperiksaPerempuan', 'jumlahBergejala', 'jumlahDikunjungi', 'jumlahDirujuk', 'jumlahKader', 'jumlahSembuh', 'jumlahMeninggal', 'jumlahPindah', 'jumlahGagal', 'jumlahLengkap', 'jumlahBelumMulai', 'jumlahProses'));
     }
 
     /**

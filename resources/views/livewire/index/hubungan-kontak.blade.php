@@ -4,10 +4,10 @@
     </div>
     <div class="bg-white w-full h-full rounded-xl z-20">
         <div class="bg-white rounded-xl overflow-hidden h-full">
-            <div class="w-full bg-orange-100">
+            <div class="w-full bg-orange-100 flex justify-between items-center ">
                 <p class="uppercase font-semibold text-gray-700 p-4">Grafik Hubungan Kontak Pasien TBC</p>
                 <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
-                wire:click='close'></i>
+                    wire:click='close'></i>
             </div>
             <div id="container" class="w-full h-full"></div>
         </div>
@@ -20,7 +20,7 @@
                 nodes,
                 links
             }) => {
-            //   console.log(nodes);
+                //   console.log(nodes);
                 setTimeout(() => {
                     // console.log(nodes);
                     const container = d3.select("#container");

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\IkRumahTangga;
 
+use App\Livewire\Component\LoadingStatus;
 use App\Models\IKRumahTangga as IkrumahTanggaModels;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -48,6 +49,7 @@ class IkRumahTangga extends Component
     public $tanggalMulai;
     public $tanggalAkhir;
     public $cari;
+    public $cariStatus = false;
     #[On('filter')]
     public function filter($tanggalMulai, $tanggalAkhir, $cari)
     {
@@ -55,8 +57,17 @@ class IkRumahTangga extends Component
         $this->tanggalMulai = $tanggalMulai;
         $this->tanggalAkhir = $tanggalAkhir;
         $this->cari = $cari;
-
+        $this->cariStatus = true;
         $this->resetPage();
+    }
+
+
+
+    #[On('cariStatus')]
+    public function stop()
+    {
+        // $this->dispatch('loadingStop')->to(LoadingStatus::class);
+        $this->cariStatus = false;
     }
 
     public function render()
@@ -76,7 +87,6 @@ class IkRumahTangga extends Component
                 });
             }
         }
-
         if (Auth::user()->hasRole('ssr')) {
             $query->whereHas('index', function ($query) {
                 $query->where('ssr_id', Auth::user()->ssr->id);
@@ -84,7 +94,10 @@ class IkRumahTangga extends Component
         }
         // Paginate the results
         $data = $query->orderBy('created_at', 'desc')->paginate(10);
-
+        if ($this->cari) {
+            $this->dispatch('stopLoading')->self();
+        }
+        $this->dispatch('stopLoading')->self();
         return view('livewire.ik-rumah-tangga.ik-rumah-tangga', [
             'datas' => $data,
         ]);

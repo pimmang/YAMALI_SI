@@ -55,9 +55,10 @@
         </div>
 
         <div class="bg-white rounded-lg w-full overflow-hidden">
-            <div class="bg-orange-100 p-4 px-6 text-sm font-semibold uppercase text-gray-700">
+            <div
+                class="bg-orange-100 p-4 px-6 text-sm font-semibold uppercase text-gray-700 flex justify-between items-center">
                 <p>Detail IK Non Rumah Tangga</p>
-                <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                <i class="text-lg  ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
                     wire:click='close'></i>
             </div>
             <form action="/edit-iknrt/{{ $details->id }}" method="POST" class="bg-white rounded-lg p-6">

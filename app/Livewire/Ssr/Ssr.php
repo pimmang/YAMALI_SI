@@ -26,13 +26,13 @@ class Ssr extends Component
         }
 
         if ($value == 1) {
-            ModelsSsr::create([
+            ModelsSsr::updateOrInsert([
                 'nama' => $ssr->name,
                 'user_id' => $ssr->id,
             ]);
         } else {
             $ssr = ModelsSsr::where('user_id', $ssr->id)->first();
-            if ($ssr) {
+            if ($ssr->fasyankes->count() == 0 || $ssr->kaders->count() == 0 || $ssr->index->count() == 0) {
                 $ssr->delete();
             }
         }

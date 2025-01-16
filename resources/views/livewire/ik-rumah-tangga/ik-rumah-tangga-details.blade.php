@@ -56,9 +56,9 @@
 
         <div class="bg-white w-4/12 rounded-xl overflow-hidden z-20 flex-grow">
             <div class="bg-white w-full  overflow-y-auto">
-                <div class="flex justify-between items-top bg-orange-100 p-4">
+                <div class="flex justify-between items-top bg-orange-100 p-4 items-center ">
                     <h1 class="font-medium text-gray-700 uppercase ">Detail Investigasi Kontak</h1>
-                    <i class="text-lg p-4 ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
+                    <i class="text-lg  ph-bold cursor-pointer transition-all ph-x text-gray-700 active:scale-90"
                         wire:click='close'></i>
                 </div>
                 <div class="grid gap-4 md:grid-cols-1 p-4">
